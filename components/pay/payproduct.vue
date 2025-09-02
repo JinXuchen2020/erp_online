@@ -1,0 +1,291 @@
+<template>
+				
+					<view v-else class="myCard">
+						<view class="cardTopName">关联单号：{{item.F_LinkBill}}({{item.F_Tag}}) </view>
+						<view class="myCard3">
+							
+							<view class="infoBox">
+								<view class="cardRow">
+									<view>发生日期：</view>
+									<view>{{item.F_Date}}</view>
+								</view>
+								<view class="cardRow">
+									<view>单据金额：</view>
+									<view><text class="redColor">{{item.F_BillMoney}}</text></view>
+								</view>
+								<view class="cardRow">
+									<view>已收金额：</view>
+									<view><text class="redColor">￥{{item.F_HasMoney}}</text></view>
+								</view>
+								<view class="cardRow">
+									<view>未收金额：</view>
+									<view><text class="redColor">￥{{item.F_NoMoney}}</text>元</view>
+								</view>
+								<view class="cardRow">
+									<view>本次付款：</view>
+									<view><text class="redColor">￥{{item.F_ThisMoney}}</text>元</view>
+								</view>
+								<view class="cardRow">
+									<view>本次扣款：</view>
+									<view><text class="redColor">￥{{item.F_DisMoney}}</text>元</view>
+								</view>
+								<view class="cardRow">
+									<view>本次税额：</view>
+									<view><text class="redColor">￥{{item.F_Tax}}</text>元</view>
+								</view>
+								<view class="cardRow">
+									<view>税价合计：</view>
+									<view><text class="redColor">￥{{item.F_Total}}</text>元</view>
+								</view>
+								<view class="cardRow">
+									<view>特别备注：</view>
+									<view>{{item.bz}}</view>
+								</view>								
+							</view>
+							
+						</view>
+						
+						<view class="rowBtn">
+							<u-button type="primary" :plain="true" class="cpBtn" size="mini" @click="searchShow = true">修改付款
+							</u-button>
+							
+							<u-button type="error" :plain="true" class="cpBtn" size="mini"
+								@click="deleteCpFun(item, index)">
+								删除</u-button>
+						</view>
+						<!--搜索弹窗-->
+								<u-popup v-model="searchShow" mode="center" width="666rpx" border-radius="14" :closeable="false">
+									<view class="searchBox">
+										<view class="searchTitle">输入付款金额</view>
+										<u-field  v-model="searchValue1"  :label="searchLabel1" :placeholder="searchPh1"
+											clear-size="40"></u-field>	
+										<u-field  v-model="searchValue2"  :label="searchLabel2" :placeholder="searchPh2"
+											clear-size="40"></u-field>	
+										<view class="searchBtnRow">
+											<u-button type="warning" class="searchBtn" :ripple="true" ripple-bg-color="#909399" :plain="true" size="medium" @click="searchShow = false">取消</u-button>
+											<u-button type="primary" class="searchBtn" :ripple="true" ripple-bg-color="#909399" :plain="true" size="medium" @click="updateItemFun">确认</u-button>
+										</view>
+									</view>
+								</u-popup>
+					</view>
+
+</template>
+
+<script>
+	import {
+		clientApi
+	} from '../../utils/api.js'
+	export default {
+		props: {
+			item: {
+				type: Object,
+				default: () => {}
+			},
+			index: {
+				type: Number,
+				default: 0
+			},
+			searchLabel1: '',
+			searchLabel2: '',
+			searchPh1:'',
+			searchPh2:'',
+			
+		},
+		data() {
+			return {
+				searchShow: false,
+				searchValue1:this.item.countt,
+				searchValue2:this.item.price,
+			}
+		},
+		methods: {
+			
+			// 搜索处理函数
+			updateItemFun: function() {
+				this.searchShow = false;
+				
+				this.item.F_Money=this.searchValue1;
+				this.item.F_DisMoney=this.searchValue2;
+				this.item.account=+this.searchValue1- +this.searchValue2
+				setTimeout(()=>{uni.$emit("updateItemFun1")},23)
+				
+			},
+			// setCpFun(){
+			// 	//this.$refs.popup.open()
+			// },
+			// gotoDetailFun: function() {
+			// 	uni.$gjInfo = this.item;
+			// 	uni.navigateTo({
+			// 		url: '/pages/crm/genJin/detail?index=' + this.index
+			// 	})
+			// },
+			// 删除产品
+			deleteCpFun: function(item, index) {
+				var that=this;
+				uni.showModal({
+					title: '提示',
+					content: '是否确认删除单据：' + item.F_LinkBill,
+					success(rrr) {
+						if (rrr.confirm) {
+							uni.showLoading({
+								title: '删除中...'
+							})							
+							let params={
+									F_LinkBill:item.F_LinkBill,
+									F_BillID:item.F_BillID,
+								}
+							let reqData = {
+								action: 'delpaydetailById',
+								params: JSON.stringify(params)
+							}
+							console.log('发送指令：'+reqData.action+'传递参数：'+reqData.params)
+							clientApi(reqData)
+								.then(res => {
+									uni.showToast({
+										title: '删除成功!',
+										icon: 'none',
+										duration: 1000
+									})
+									uni.$emit('delpaydetailById', {
+										index: that.index
+									})
+									
+								})
+						}
+					}
+				})
+			},
+		}
+	}
+</script>
+
+<style>
+	
+	page {
+		background-color: #F8F8F8;
+	}
+	
+	.rowBtn {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		margin: 26rpx 16rpx 16rpx 0;
+		justify-content: space-between;
+	}
+	
+	.cpBtn {
+		margin: 0 0 0 26rpx;
+		font-size: 15px !important;
+		height: 60rpx !important;
+		line-height: 60rpx !important;
+	}
+	
+	.gdCz {
+		width: 60rpx;
+		height: 60rpx;
+		padding: 6rpx 12rpx;
+	}
+	
+	.myCard2 {
+		width: 698rpx;
+		padding: 26rpx;
+		margin: 32rpx 26rpx;
+		box-sizing: border-box;
+		border-radius: 16rpx;
+		box-shadow: #d8d8d8 0px 0px 16rpx;
+		position: relative;
+		background-color: #FFFFFF;
+		display: flex;
+	}
+	
+	.cardTopName1 {
+		font-size: 16px;
+		margin-bottom: 8rpx;
+		color: #000000;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		font-weight: bold;
+		padding-bottom: 8rpx;
+	}
+	
+	.cardRow1 {
+		display: flex;
+		align-items: center;
+		font-size: 16px;
+		margin-bottom: 8rpx;
+	}
+	
+	.cardRow1>view:first-child {
+		width: 176rpx;
+		color: #ADADAD;
+	}
+	
+	.cardRow1>view:last-child {
+		color: #000000;
+	}
+	
+	.leftImg {
+		width: 160rpx;
+		height: 160rpx;
+		margin-right: 26rpx;
+		border-radius: 26rpx;
+		overflow: hidden;
+		border: 1rpx solid #DDDDDD;
+	}
+	
+	.rightView {
+		width: 460rpx;
+	}
+	
+	.xlKcClass {
+		font-size: 14px;
+		color: #888888;
+		margin-bottom: 8rpx;
+	}
+	
+	.xlKcClass>text {
+		margin-right: 26rpx;
+	}
+	.itemPhotoBox{
+		width:200rpx;
+		height: 200rpx;
+		/* border:1px solid #000000; */
+	}
+	
+	.myCard3{
+		display: flex;
+		flex-direction: row;
+	}
+	.infoBox{
+		padding-left:20rpx;
+	}
+	.searchBox {
+		padding: 16rpx 26rpx;
+	}
+	
+	.searchTitle {
+		width: 100%;
+		border-bottom: 1rpx solid #DDDDDD;
+		font-size: 16px;
+		font-weight: bold;
+		text-align: center;
+		padding-bottom: 16rpx;
+	}
+	
+	.searchBtnRow {
+		margin: 26rpx 0 16rpx 0;
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+	}
+	
+	.searchBtn {
+		width: 200rpx;
+		height: 66rpx;
+	}
+	
+</style>
+

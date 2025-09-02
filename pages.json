@@ -1,0 +1,2015 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "镕浩软件APP",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		}, {
+			"path": "pages/mine/mine",
+			"style": {
+				"navigationBarTitleText": "我的",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		}, {
+			"path": "pages/crm/crm",
+			"style": {
+				"navigationBarTitleText": "工作中心",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		}, {
+			"path": "pages/backlog/backlog",
+			"style": {
+				"navigationBarTitleText": "待办数据",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		}, {
+			"path": "pages/crm/selPrinter",
+			"style": {
+				"navigationBarTitleText": "选择打印机",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		},{
+			"path": "pages/regLogin/login",
+			"style": {
+				"navigationBarTitleText": "登录",
+				"navigationStyle": "custom",
+				"navigationBarTextStyle": "black",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "uview-ui/components/u-avatar-cropper/u-avatar-cropper",
+			"style": {
+				"navigationBarTitleText": "头像裁剪",
+				"navigationBarBackgroundColor": "#000000"
+			}
+		}	
+        ,{
+            "path" : "pages/regLogin/setPassword",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "修改密码",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
+	"subPackages": [{
+			"root": "chanpin",
+			"pages": [{
+					"path": "view/chanpin",
+					"style": {
+						"navigationBarTitleText": "产品资料",
+						"navigationBarBackgroundColor": "#007AFF",
+						"navigationBarTextStyle": "white",
+						"enablePullDownRefresh": false
+					}
+				},
+				{
+					"path": "view/addCp",
+					"style": {
+						"navigationBarTitleText": "新建产品",
+						"navigationBarBackgroundColor": "#007AFF",
+						"navigationBarTextStyle": "white",
+						"enablePullDownRefresh": false
+					}
+				},{
+					"path": "view/editCp",
+					"style": {
+						"navigationBarTitleText": "修改产品",
+						"navigationBarBackgroundColor": "#007AFF",
+						"navigationBarTextStyle": "white",
+						"enablePullDownRefresh": false
+					}
+				},
+				{
+					"path": "view/classify",
+					"style": {
+						"navigationBarTitleText": "产品分类",
+						"enablePullDownRefresh": false,
+						"navigationBarBackgroundColor": "#007AFF",
+						"navigationBarTextStyle": "white"
+					}
+				}, {
+					"path": "view/shop",
+					"style": {
+						"navigationBarTitleText": "商城",
+						"enablePullDownRefresh": false,
+						"navigationBarBackgroundColor": "#007AFF",
+						"navigationBarTextStyle": "white"
+					}
+				}, {
+					"path": "view/cpDetail",
+					"style": {
+						"navigationBarTitleText": "产品详情",
+						"enablePullDownRefresh": false,
+						"navigationBarBackgroundColor": "#007AFF",
+						"navigationBarTextStyle": "white",
+						"navigationStyle": "custom"
+					}
+				}, {
+					"path": "view/searchAdmin",
+					"style": {
+						"navigationBarTitleText": "搜索",
+						"enablePullDownRefresh": false,
+						"navigationBarBackgroundColor": "#007AFF",
+						"navigationBarTextStyle": "white"
+					}
+				}, {
+					"path": "view/search",
+					"style": {
+						"navigationBarTitleText": "搜索",
+						"enablePullDownRefresh": false,
+						"navigationBarBackgroundColor": "#007AFF",
+						"navigationBarTextStyle": "white"
+					}
+				}
+			]
+		},
+		{
+				"root": "crm",
+				"pages": [//客户管理
+		{
+			"path": "client/client",
+			"style": {
+				"navigationBarTitleText": "客户管理",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+
+		}, {
+			"path": "client/clientdetail",
+			"style": {
+				"navigationBarTitleText": "客户详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+
+		}, {
+			"path": "client/addclient",
+			"style": {
+				"navigationBarTitleText": "新增客户",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+
+		},  
+		//供应商管理
+		{
+			"path": "supplier/supplier",
+			"style": {
+				"navigationBarTitleText": "供方管理",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+
+		}, {
+			"path": "supplier/supplierdetail",
+			"style": {
+				"navigationBarTitleText": "供方详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+
+		}, {
+			"path": "supplier/addsupplier",
+			"style": {
+				"navigationBarTitleText": "新增供方",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+
+		}, 
+		//员工档案
+		{
+			"path": "employee/employee",
+			"style": {
+				"navigationBarTitleText": "员工档案",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "employee/employeedetail",
+			"style": {
+				"navigationBarTitleText": "员工详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "employee/addemployee",
+			"style": {
+				"navigationBarTitleText": "新增员工",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		},  
+		//银行初始
+		{
+			"path": "bank/bank",
+			"style": {
+				"navigationBarTitleText": "银行初始",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "bank/addbank",
+			"style": {
+				"navigationBarTitleText": "新增账户",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, 
+		 //销售PI
+		 {
+		 	"path": "PI/PI",
+		 	"style": {
+		 		"navigationBarTitleText": "客户PI",
+		 		"navigationBarBackgroundColor": "#007AFF",
+		 		"navigationBarTextStyle": "white",
+		 		"enablePullDownRefresh": false
+		 	}
+		 
+		 }, {
+		 	"path": "PI/PIDetail",
+		 	"style": {
+		 		"navigationBarTitleText": "PI详情",
+		 		"enablePullDownRefresh": false,
+		 		"navigationBarBackgroundColor": "#007AFF",
+		 		"navigationBarTextStyle": "white"
+		 	}
+		 
+		 }, {
+		 	"path": "PI/PIselClient",
+		 	"style": {
+		 		"navigationBarTitleText": "选择客户",
+		 		"navigationBarBackgroundColor": "#007AFF",
+		 		"navigationBarTextStyle": "white",
+		 		"enablePullDownRefresh": false
+		 	}
+		 
+		 }, {
+		 	"path": "PI/PIselProduct",
+		 	"style": {
+		 		"navigationBarTitleText": "选择产品",
+		 		"navigationBarBackgroundColor": "#007AFF",
+		 		"navigationBarTextStyle": "white",
+		 		"enablePullDownRefresh": false
+		 	}
+		 
+		 }, {
+		 	"path": "PI/PIselPrintfile",
+		 	"style": {
+		 		"navigationBarTitleText": "选择打印样式",
+		 		"navigationBarBackgroundColor": "#007AFF",
+		 		"navigationBarTextStyle": "white",
+		 		"enablePullDownRefresh": false
+		 	}
+		 
+		 },
+		 //现货销售
+		{
+			"path": "xhxs/xhxs",
+			"style": {
+				"navigationBarTitleText": "现货销售",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "xhxs/xhxsDetail",
+			"style": {
+				"navigationBarTitleText": "发货详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+
+		}, {
+			"path": "xhxs/xhxsselClient",
+			"style": {
+				"navigationBarTitleText": "选择客户",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "xhxs/xhxsselProduct",
+			"style": {
+				"navigationBarTitleText": "选择产品",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "xhxs/xhxsselPrintfile",
+			"style": {
+				"navigationBarTitleText": "选择打印样式",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+
+		},
+		//销售订单
+		{
+			"path": "salesorder/salesorder",
+			"style": {
+				"navigationBarTitleText": "销售订单",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "salesorder/salesorderDetail",
+			"style": {
+				"navigationBarTitleText": "订单详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+
+		}, {
+			"path": "salesorder/salesorderselClient",
+			"style": {
+				"navigationBarTitleText": "选择客户",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "salesorder/salesorderselProduct",
+			"style": {
+				"navigationBarTitleText": "选择产品",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "salesorder/salesorderselPayment",
+			"style": {
+				"navigationBarTitleText": "选择付款方式",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "salesorder/salesorderselPrintfile",
+			"style": {
+				"navigationBarTitleText": "选择打印样式",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+
+		},
+		//销售发货
+		{
+			"path": "delivergds/delivergds",
+			"style": {
+				"navigationBarTitleText": "销售发货",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "delivergds/delivergdsDetail",
+			"style": {
+				"navigationBarTitleText": "发货详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "delivergds/delivergdsselClient",
+			"style": {
+				"navigationBarTitleText": "选择客户",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "delivergds/delivergdsselProduct",
+			"style": {
+				"navigationBarTitleText": "选择产品",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "delivergds/delivergdsselPayment",
+			"style": {
+				"navigationBarTitleText": "选择付款方式",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "delivergds/delivergdsselPrintfile",
+			"style": {
+				"navigationBarTitleText": "选择打印样式",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		},
+		//销售退货
+		{
+			"path": "salesreturn/salesreturn",
+			"style": {
+				"navigationBarTitleText": "销售退货",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "salesreturn/salesreturnDetail",
+			"style": {
+				"navigationBarTitleText": "退货详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "salesreturn/salesreturnselClient",
+			"style": {
+				"navigationBarTitleText": "选择客户",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "salesreturn/salesreturnselProduct",
+			"style": {
+				"navigationBarTitleText": "选择产品",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "salesreturn/salesreturnselPayment",
+			"style": {
+				"navigationBarTitleText": "选择付款方式",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "salesreturn/salesreturnselPrintfile",
+			"style": {
+				"navigationBarTitleText": "选择打印样式",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		},
+		
+		//采购订单
+		{
+			"path": "purorder/purorder",
+			"style": {
+				"navigationBarTitleText": "量产采购",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "purorder/purorderDetail",
+			"style": {
+				"navigationBarTitleText": "订单详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+
+		}, {
+			"path": "purorder/purorderselSupplier",
+			"style": {
+				"navigationBarTitleText": "选择供方",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "purorder/purorderselProduct",
+			"style": {
+				"navigationBarTitleText": "选择产品",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "purorder/purorderselPrintfile",
+			"style": {
+				"navigationBarTitleText": "选择打印样式",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+
+		},
+		//样品采购
+		{
+			"path": "ypcg/ypcg",
+			"style": {
+				"navigationBarTitleText": "样品采购",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "ypcg/ypcgDetail",
+			"style": {
+				"navigationBarTitleText": "订单详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "ypcg/ypcgselSupplier",
+			"style": {
+				"navigationBarTitleText": "选择供方",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "ypcg/ypcgselProduct",
+			"style": {
+				"navigationBarTitleText": "选择产品",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "ypcg/ypcgselPrintfile",
+			"style": {
+				"navigationBarTitleText": "选择打印样式",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		},
+		//采购质检
+		{
+			"path": "cgzj/cgzj",
+			"style": {
+				"navigationBarTitleText": "量产质检",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "cgzj/cgzjDetail",
+			"style": {
+				"navigationBarTitleText": "质检详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "cgzj/cgzjselSupplier",
+			"style": {
+				"navigationBarTitleText": "选择供方",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "cgzj/cgzjselProduct",
+			"style": {
+				"navigationBarTitleText": "选择产品",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "cgzj/cgzjselPrintfile",
+			"style": {
+				"navigationBarTitleText": "选择打印样式",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		},{
+			"path": "cgzj/cgzjProductImage",
+			"style": {
+				"navigationBarTitleText": "产品检验",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		},{
+			"path": "cgzj/cgzjYhPreview",
+			"style": {
+				"navigationBarTitleText": "检验报告",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		},
+		{
+			"path" : "cgzj/pdf",
+			"style" : 
+			{
+				"navigationBarTitleText" : "报表预览",
+				"navigationBarBackgroundColor": "#007AFF",
+				"enablePullDownRefresh": false,
+				"navigationBarTextStyle": "white"
+			}
+		},
+		//样品质检
+		{
+			"path": "ypzj/ypzj",
+			"style": {
+				"navigationBarTitleText": "样品质检",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "ypzj/ypzjDetail",
+			"style": {
+				"navigationBarTitleText": "质检详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "ypzj/ypzjselSupplier",
+			"style": {
+				"navigationBarTitleText": "选择供方",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "ypzj/ypzjselProduct",
+			"style": {
+				"navigationBarTitleText": "选择产品",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "ypzj/ypzjselPrintfile",
+			"style": {
+				"navigationBarTitleText": "选择打印样式",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		},
+		//采购收货
+		{
+			"path": "cgsh/cgsh",
+			"style": {
+				"navigationBarTitleText": "采购收货",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "cgsh/cgshDetail",
+			"style": {
+				"navigationBarTitleText": "收货详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "cgsh/cgshselSupplier",
+			"style": {
+				"navigationBarTitleText": "选择供方",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "cgsh/cgshselProduct",
+			"style": {
+				"navigationBarTitleText": "选择产品",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "cgsh/cgshselPrintfile",
+			"style": {
+				"navigationBarTitleText": "选择打印样式",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		},
+		//现货采购
+		{
+			"path": "xhcg/xhcg",
+			"style": {
+				"navigationBarTitleText": "现货采购",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "xhcg/xhcgDetail",
+			"style": {
+				"navigationBarTitleText": "采购详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "xhcg/xhcgselSupplier",
+			"style": {
+				"navigationBarTitleText": "选择供方",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "xhcg/xhcgselProduct",
+			"style": {
+				"navigationBarTitleText": "选择产品",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "xhcg/xhcgselPrintfile",
+			"style": {
+				"navigationBarTitleText": "选择打印样式",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		},
+		//采购退货
+		{
+			"path": "cgth/cgth",
+			"style": {
+				"navigationBarTitleText": "采购退货",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "cgth/cgthDetail",
+			"style": {
+				"navigationBarTitleText": "退货详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "cgth/cgthselSupplier",
+			"style": {
+				"navigationBarTitleText": "选择供方",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "cgth/cgthselProduct",
+			"style": {
+				"navigationBarTitleText": "选择产品",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "cgth/cgthselPrintfile",
+			"style": {
+				"navigationBarTitleText": "选择打印样式",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		},		
+		//仓库盘点
+		{
+			"path": "inventory/inventory",
+			"style": {
+				"navigationBarTitleText": "仓库盘点",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "inventory/inventoryDetail",
+			"style": {
+				"navigationBarTitleText": "盘点详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "inventory/inventoryselProduct",
+			"style": {
+				"navigationBarTitleText": "选择产品",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "inventory/inventoryselPrintfile",
+			"style": {
+				"navigationBarTitleText": "选择打印样式",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "inventory/inventoryselCkmc",
+			"style": {
+				"navigationBarTitleText": "选择仓库",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		},//物资入库
+		{
+			"path": "warehs/warehs",
+			"style": {
+				"navigationBarTitleText": "物资入库",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "warehs/warehsDetail",
+			"style": {
+				"navigationBarTitleText": "入库详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "warehs/warehsselProduct",
+			"style": {
+				"navigationBarTitleText": "选择产品",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "warehs/warehsselPrintfile",
+			"style": {
+				"navigationBarTitleText": "选择打印样式",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "warehs/warehsselCkmc",
+			"style": {
+				"navigationBarTitleText": "选择仓库",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		},//物资出库
+		{
+			"path": "outbound/outbound",
+			"style": {
+				"navigationBarTitleText": "物资出库",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "outbound/outboundDetail",
+			"style": {
+				"navigationBarTitleText": "出库详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "outbound/outboundselProduct",
+			"style": {
+				"navigationBarTitleText": "选择产品",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "outbound/outboundselPrintfile",
+			"style": {
+				"navigationBarTitleText": "选择打印样式",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "outbound/outboundselCkmc",
+			"style": {
+				"navigationBarTitleText": "选择仓库",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		},//仓库调拨
+		{
+			"path": "allocation/allocation",
+			"style": {
+				"navigationBarTitleText": "仓库调拨",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "allocation/allocationDetail",
+			"style": {
+				"navigationBarTitleText": "出库详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "allocation/allocationselProduct",
+			"style": {
+				"navigationBarTitleText": "选择产品",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "allocation/allocationselPrintfile",
+			"style": {
+				"navigationBarTitleText": "选择打印样式",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "allocation/allocationselCkmc",
+			"style": {
+				"navigationBarTitleText": "选择仓库",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "allocation/allocationselCkmc1",
+			"style": {
+				"navigationBarTitleText": "选择仓库",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, //库存查看
+		{
+			"path": "merchandise/merchandise",
+			"style": {
+				"navigationBarTitleText": "库存查看",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		},{
+			"path": "merchandise/merchandiseDetail",
+			"style": {
+				"navigationBarTitleText": "产品详情",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		},
+		//销售收款
+		{
+			"path": "accept/accept",
+			"style": {
+				"navigationBarTitleText": "销售收款",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "accept/acceptDetail",
+			"style": {
+				"navigationBarTitleText": "收款详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "accept/acceptselClient",
+			"style": {
+				"navigationBarTitleText": "选择客户",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "accept/acceptselProduct",
+			"style": {
+				"navigationBarTitleText": "选择发货单",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "accept/acceptselBank",
+			"style": {
+				"navigationBarTitleText": "选择收款账户",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "accept/acceptselPrintfile",
+			"style": {
+				"navigationBarTitleText": "选择打印样式",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		},//采购付款
+		{
+			"path": "pay/pay",
+			"style": {
+				"navigationBarTitleText": "采购付款",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "pay/payDetail",
+			"style": {
+				"navigationBarTitleText": "付款详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "pay/payselClient",
+			"style": {
+				"navigationBarTitleText": "选择供方",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "pay/payselProduct",
+			"style": {
+				"navigationBarTitleText": "选择收货单",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "pay/payselBank",
+			"style": {
+				"navigationBarTitleText": "选择付款账户",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "pay/payselPrintfile",
+			"style": {
+				"navigationBarTitleText": "选择打印样式",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		},
+		//费用支付
+		{
+			"path": "fybx/fybx",
+			"style": {
+				"navigationBarTitleText": "费用报销",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "fybx/fybxDetail",
+			"style": {
+				"navigationBarTitleText": "报销详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "fybx/fybxselClient",
+			"style": {
+				"navigationBarTitleText": "选择供方",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "fybx/fybxselDykh",
+			"style": {
+				"navigationBarTitleText": "选择客户",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "fybx/fybxselYsid",
+			"style": {
+				"navigationBarTitleText": "选择单据",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "fybx/fybxselBank",
+			"style": {
+				"navigationBarTitleText": "选择付款账户",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "fybx/fybxselPrintfile",
+			"style": {
+				"navigationBarTitleText": "选择打印样式",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		},
+		//物料清单
+		{
+			"path": "bom/bom",
+			"style": {
+				"navigationBarTitleText": "物料清单",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "bom/bomDetail",
+			"style": {
+				"navigationBarTitleText": "清单详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "bom/bomselProduct",
+			"style": {
+				"navigationBarTitleText": "选择材料",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "bom/bomselPcode",
+			"style": {
+				"navigationBarTitleText": "选择成品",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "bom/bomselPrintfile",
+			"style": {
+				"navigationBarTitleText": "选择打印样式",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		},
+		//生产计划
+		{
+			"path": "prdplan/prdplan",
+			"style": {
+				"navigationBarTitleText": "生产计划",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "prdplan/prdplanDetail",
+			"style": {
+				"navigationBarTitleText": "计划详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "prdplan/prdplanselProduct",
+			"style": {
+				"navigationBarTitleText": "选择成品",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "prdplan/prdplanselBm",
+			"style": {
+				"navigationBarTitleText": "选择生产部门",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "prdplan/prdplanselPrintfile",
+			"style": {
+				"navigationBarTitleText": "选择打印样式",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		},//生产领料
+		{
+			"path": "prdmr/prdmr",
+			"style": {
+				"navigationBarTitleText": "生产工单",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "prdmr/prdmrDetail",
+			"style": {
+				"navigationBarTitleText": "工单详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "prdmr/prdmrselProduct",
+			"style": {
+				"navigationBarTitleText": "选择成品",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "prdmr/prdmrselBm",
+			"style": {
+				"navigationBarTitleText": "选择生产部门",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "prdmr/prdmrselPrintfile",
+			"style": {
+				"navigationBarTitleText": "选择打印样式",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		},//生产任务
+		{
+			"path": "prdtask/prdtask",
+			"style": {
+				"navigationBarTitleText": "生产任务",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "prdtask/prdtaskDetail",
+			"style": {
+				"navigationBarTitleText": "任务详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "prdtask/prdtaskselProduct",
+			"style": {
+				"navigationBarTitleText": "选择成品",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "prdtask/prdtaskselBm",
+			"style": {
+				"navigationBarTitleText": "选择生产部门",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "prdtask/prdtaskselPrintfile",
+			"style": {
+				"navigationBarTitleText": "选择打印样式",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		},//完工登记
+		{
+			"path": "prdfin/prdfin",
+			"style": {
+				"navigationBarTitleText": "完工登记",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "prdfin/prdfinDetail",
+			"style": {
+				"navigationBarTitleText": "任务详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "prdfin/prdfinselProduct",
+			"style": {
+				"navigationBarTitleText": "选择成品",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "prdfin/prdfinselBm",
+			"style": {
+				"navigationBarTitleText": "选择生产部门",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "prdfin/prdfinselPrintfile",
+			"style": {
+				"navigationBarTitleText": "选择打印样式",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		},//生产入库
+		{
+			"path": "prdwh/prdwh",
+			"style": {
+				"navigationBarTitleText": "成品入库",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "prdwh/prdwhDetail",
+			"style": {
+				"navigationBarTitleText": "入库详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "prdwh/prdwhselProduct",
+			"style": {
+				"navigationBarTitleText": "选择成品",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "prdwh/prdwhselBm",
+			"style": {
+				"navigationBarTitleText": "选择生产部门",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "prdwh/prdwhselPrintfile",
+			"style": {
+				"navigationBarTitleText": "选择打印样式",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		},
+		//委外订单
+		{
+			"path": "subcontract/subcontract",
+			"style": {
+				"navigationBarTitleText": "委外下单",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "subcontract/subcontractDetail",
+			"style": {
+				"navigationBarTitleText": "委外详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "subcontract/subcontractselProduct",
+			"style": {
+				"navigationBarTitleText": "选择成品",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "subcontract/subcontractselBm",
+			"style": {
+				"navigationBarTitleText": "选择生产部门",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "subcontract/subcontractselPrintfile",
+			"style": {
+				"navigationBarTitleText": "选择打印样式",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		},//委外收货
+		{
+			"path": "otswh/otswh",
+			"style": {
+				"navigationBarTitleText": "委外进仓",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "otswh/otswhDetail",
+			"style": {
+				"navigationBarTitleText": "进仓详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "otswh/otswhselProduct",
+			"style": {
+				"navigationBarTitleText": "选择成品",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "otswh/otswhselBm",
+			"style": {
+				"navigationBarTitleText": "选择委外厂商",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "otswh/otswhselCkmc",
+			"style": {
+				"navigationBarTitleText": "选择仓库",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "otswh/otswhselPrintfile",
+			"style": {
+				"navigationBarTitleText": "选择打印样式",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		},//委外退货
+		{
+			"path": "otsrt/otsrt",
+			"style": {
+				"navigationBarTitleText": "委外退货",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "otsrt/otsrtDetail",
+			"style": {
+				"navigationBarTitleText": "退货详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "otsrt/otsrtselProduct",
+			"style": {
+				"navigationBarTitleText": "选择成品",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "otsrt/otsrtselBm",
+			"style": {
+				"navigationBarTitleText": "选择委外厂商",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "otsrt/otsrtselCkmc",
+			"style": {
+				"navigationBarTitleText": "选择仓库",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "otsrt/otsrtselPrintfile",
+			"style": {
+				"navigationBarTitleText": "选择打印样式",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		},//委外退料
+		{
+			"path": "otsrm/otsrm",
+			"style": {
+				"navigationBarTitleText": "委外退料",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "otsrm/otsrmDetail",
+			"style": {
+				"navigationBarTitleText": "退料详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "otsrm/otsrmselCkmc",
+			"style": {
+				"navigationBarTitleText": "选择仓库",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "otsrm/otsrmselProduct",
+			"style": {
+				"navigationBarTitleText": "选择材料",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "otsrm/otsrmselBm",
+			"style": {
+				"navigationBarTitleText": "选择委外厂商",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "otsrm/otsrmselPrintfile",
+			"style": {
+				"navigationBarTitleText": "选择打印样式",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		},
+		//银行日记账
+		{
+			"path": "journal/journal",
+			"style": {
+				"navigationBarTitleText": "银行日记账",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "journal/journalDetail",
+			"style": {
+				"navigationBarTitleText": "日记账详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "journal/addjournal",
+			"style": {
+				"navigationBarTitleText": "新增日记账",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		}, {
+			"path": "journal/journalselPrintfile",
+			"style": {
+				"navigationBarTitleText": "选择打印样式",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
+		
+		},
+		//应收款账簿
+		{
+			"path": "receivables/receivables",
+			"style": {
+				"navigationBarTitleText": "应收款账簿",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "receivables/receivablesdetail",
+			"style": {
+				"navigationBarTitleText": "应收详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		},
+		//应付款账簿
+		{
+			"path": "payable/payable",
+			"style": {
+				"navigationBarTitleText": "应付款账簿",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "payable/payabledetail",
+			"style": {
+				"navigationBarTitleText": "应付详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		},
+		//客户销售报表
+		{
+			"path": "clientsreport/clientsreport",
+			"style": {
+				"navigationBarTitleText": "客户销售报表",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "clientsreport/clientsreportdetail",
+			"style": {
+				"navigationBarTitleText": "报表详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		},
+		//客户出货报表
+		{
+			"path": "clientdreport/clientdreport",
+			"style": {
+				"navigationBarTitleText": "客户出货报表",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "clientdreport/clientdreportdetail",
+			"style": {
+				"navigationBarTitleText": "报表详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		},
+		//产品销售报表
+		{
+			"path": "prdsreport/prdsreport",
+			"style": {
+				"navigationBarTitleText": "产品销售报表",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "prdsreport/prdsreportdetail",
+			"style": {
+				"navigationBarTitleText": "报表详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		},
+		//产品发货报表
+		{
+			"path": "prddreport/prddreport",
+			"style": {
+				"navigationBarTitleText": "产品发货报表",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "prddreport/prddreportdetail",
+			"style": {
+				"navigationBarTitleText": "报表详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		},
+		//供应商采购报表
+		{
+			"path": "supsreport/supsreport",
+			"style": {
+				"navigationBarTitleText": "供应商采购报表",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "supsreport/supsreportdetail",
+			"style": {
+				"navigationBarTitleText": "报表详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		},
+		//产品采购报表
+		{
+			"path": "prdpreport/prdpreport",
+			"style": {
+				"navigationBarTitleText": "产品采购报表",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "prdpreport/prdpreportdetail",
+			"style": {
+				"navigationBarTitleText": "报表详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		},
+		//供应商收货报表
+		{
+			"path": "supdreport/supdreport",
+			"style": {
+				"navigationBarTitleText": "供应商收货报表",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "supdreport/supdreportdetail",
+			"style": {
+				"navigationBarTitleText": "报表详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		},
+		//产品收货报表
+		{
+			"path": "prdrreport/prdrreport",
+			"style": {
+				"navigationBarTitleText": "产品收货报表",
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}, {
+			"path": "prdrreport/prdrreportdetail",
+			"style": {
+				"navigationBarTitleText": "报表详情",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#007AFF",
+				"navigationBarTextStyle": "white"
+			}
+		
+		}
+				]
+			}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "镕浩CRM",
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#F8F8F8"
+	},
+	"permission": {
+		"scope.userLocation": {
+			"desc": "你的位置信息将用于小程序位置接口的效果展示" // 高速公路行驶持续后台定位
+		}
+	},
+	"tabBar": {
+		"color": "#8a8a8a",
+		"selectedColor": "#007AFF",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"fontSize": "13",
+		"list": [{
+				"pagePath": "pages/index/index",
+				"iconPath": "static/tabbar/index.png",
+				"selectedIconPath": "static/tabbar/indexA.png",
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/backlog/backlog",
+				"iconPath": "static/tabbar/backlog.png",
+				"selectedIconPath": "static/tabbar/backlogA.png",
+				"text": "待办数据"
+			},
+			 {
+			 	"pagePath": "pages/crm/crm",
+			 	"iconPath": "static/tabbar/guanli.png",
+			 	"selectedIconPath": "static/tabbar/guanliA.png",
+			 	"text": "工作中心"
+			 },
+			{
+				"pagePath": "pages/mine/mine",
+				"iconPath": "static/tabbar/mine.png",
+				"selectedIconPath": "static/tabbar/mineA.png",
+				"text": "我的"
+			}
+		]
+	},
+	"easycom": {
+		// 下载安装的方式需要前面的"@/"，npm安装的方式无需"@/"
+		// 下载安装方式
+		"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
+	}
+}
