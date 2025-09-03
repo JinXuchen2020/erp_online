@@ -60,12 +60,18 @@
 							<u-button type="primary" :plain="true" class="cpBtn" size="mini" @click="searchShow = true">修改数量
 							</u-button>
 							
-							<u-button type="primary" :plain="true" class="cpBtn" size="mini" @click="gotoYanHuoFun">上传图片
-							</u-button>
-							
 							<u-button type="error" :plain="true" class="cpBtn" size="mini"
 								@click="deleteCpFun(item, index)">
 								删除</u-button>
+						</view>
+						<view class="rowBtn">							
+							<u-button type="primary" :plain="true" class="cpBtn" size="mini" @click="gotoYanHuoFun">上传图片
+							</u-button>
+							
+							<u-button v-if='item.F_BillID' type="primary" :plain="true" class="cpBtn"
+								size="mini" @click="previewYhReportFun">
+								查看报告
+							</u-button>
 						</view>
 						<!--搜索弹窗-->
 								<u-popup v-model="searchShow" mode="center" width="666rpx" border-radius="14" :closeable="false">
@@ -86,8 +92,9 @@
 </template>
 
 <script>
+	let that = ''
 	import {
-		clientApi
+		clientApi, testrightApi
 	} from '../../utils/api.js'
 	export default {
 		props: {
@@ -114,6 +121,13 @@
 				searchShow: false,
 				searchValue1:this.item.countt,
 				searchValue2:this.item.price,
+				reportName: '质检报告',
+				newBill: false,
+				editBill: false,
+				printBill: false,
+				delBill: false,
+				checkBill: false,
+				uncheckBill: false,
 			}
 		},
 		methods: {
@@ -135,7 +149,42 @@
 				uni.navigateTo({
 					url: '/crm/cgzj/cgzjProductImage?cpIndex=' + this.index
 				})
-			},
+			},			
+			previewYhReportFun: function() {
+				that = this
+				let reqObj = {
+					model: 'frmPurQc',
+					usercode: uni.$userInfo.F_ID
+				}
+				let reqData = {
+					action: 'testRightByModel',
+					params: JSON.stringify(reqObj)
+				}
+				console.log('发送指令：' + reqData.action + '传递参数：' + reqData.params)
+				testrightApi(reqData)
+					.then(res => {
+						let showTitle = res.data.tag
+						that.newBill = res.data.newBill
+						that.editBill = res.data.editBill
+						that.delBill = res.data.delBill
+						that.printBill = res.data.printBill
+						that.checkBill = res.data.checkBill
+						console.log('获得打印权限：' + this.printBill)
+						if (this.printBill == true) {
+							uni.$cgzjProduct = this.item;
+							uni.$cgzjInfo = this.cgzjInfo;
+							uni.navigateTo({
+								url: './cgzjYhPreview?reportName=' + this.reportName
+							})
+						} else {
+							uni.showModal({
+								title: '提示',
+								content: '你没有打印权限',
+								showCancel: false
+							})				
+						}				
+					})
+			},	
 			// setCpFun(){
 			// 	//this.$refs.popup.open()
 			// },

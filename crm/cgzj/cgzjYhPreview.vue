@@ -286,9 +286,9 @@
 		onLoad(e) {
 			that = this;
 			that.cgzjdetail = uni.$cgzjInfo;
+			that.cpdetail = uni.$cgzjProduct;
 			that.reportName = e.reportName;
-			console.log(that.cgzjdetail);
-			that.getCgzjdetailFun();
+			that.getCptpdetail(that.cpdetail.f_guid);
 			
 			// #ifdef MP-WEIXIN
 			uni.showShareMenu({
@@ -300,7 +300,7 @@
 		onShareAppMessage(res) {			
 			return {
 				title: '您好，这是订单：' + that.cgzjdetail.F_BillID + '的产品检验报告，请查看！',
-				path: '/crm/cgzj/pdf?reportName=' + this.reportName + '&F_BillID=' + that.cgzjdetail.F_BillID + '&usercode=' + uni.$userInfo.F_ID + '&printer=' + uni.$userInfo.F_Printer
+				path: '/crm/cgzj/pdf?reportName=' + this.reportName + '&F_BillID=' + that.cgzjdetail.F_BillID + '&usercode=' + uni.$userInfo.F_ID + '&printer=' + uni.$userInfo.F_Printer + '&f_guid=' + that.cpdetail.f_guid
 			}
 		},
 		methods: {
@@ -361,7 +361,7 @@
 				// #endif
 				
 				// #ifndef MP-WEIXIN
-				let url = '/crm/cgzj/pdf?reportName=' + this.reportName + '&isShare=' + that.isShare + '&F_BillID=' + that.cpdetail.F_BillID + '&usercode=' + uni.$userInfo.F_ID + '&printer=' + uni.$userInfo.F_Printer
+				let url = '/crm/cgzj/pdf?reportName=' + this.reportName + '&isShare=' + that.isShare + '&F_BillID=' + that.cpdetail.F_BillID + '&usercode=' + uni.$userInfo.F_ID + '&printer=' + uni.$userInfo.F_Printer + '&f_guid=' + that.cpdetail.f_guid
 				uni.navigateTo({
 					url: url
 				})
@@ -374,6 +374,7 @@
 					modelname: 'frmPurQc',
 					filename: this.reportName,
 					printer: uni.$userInfo.F_Printer,
+					f_guid: that.cpdetail.f_guid,
 				}
 				let reqData = {
 					action: 'previewreport',

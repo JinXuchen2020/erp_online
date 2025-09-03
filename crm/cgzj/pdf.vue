@@ -17,7 +17,8 @@
 				F_BillID: '',
 				usercode: '',
 				printer: '',
-				isShare: ''
+				isShare: '',
+				guid:''
 			}
 		},
 		onLoad(e){
@@ -26,6 +27,7 @@
 			this.printer = e.printer;
 			this.reportName = e.reportName;
 			this.isShare = e.isShare;
+			this.guid = e.f_guid;
 			this.selectPrintfile();
 			// #ifdef MP-WEIXIN
 			uni.showShareMenu({
@@ -40,7 +42,7 @@
 			}
 			return {
 				title: '您好，这是订单：' + this.F_BillID + '的产品检验报告，请查看！',
-				path: '/crm/cgzj/pdf?reportName=' + this.reportName + '&F_BillID=' + this.F_BillID + '&usercode=' + this.usercode + '&printer=' + this.printer
+				path: '/crm/cgzj/pdf?reportName=' + this.reportName + '&F_BillID=' + this.F_BillID + '&usercode=' + this.usercode + '&printer=' + this.printer+ '&f_guid=' + this.guid
 			}
 		},
 		methods: {
@@ -51,6 +53,7 @@
 					modelname: 'frmPurQc',
 					filename: this.reportName,
 					printer: this.printer,
+					f_guid: this.guid
 				}
 				let reqData = {
 					action: 'previewreport',

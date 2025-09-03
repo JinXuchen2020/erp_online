@@ -747,13 +747,55 @@
 				}, 1000)
 			},
 			updateYhResult: function(e) {
-				that.wxlist = e.wxlist;
-				that.xjlist = e.xjlist;
-				that.fjlist = e.fjlist;
-				that.bqlist = e.bqlist;
-				that.gnlist = e.gnlist;
-				that.dqlist = e.dqlist;
-				that.ztlist = e.ztlist;
+				if (that.wxlist){
+					let others = that.wxlist.filter(c => c.F_Code != uni.$cgzjProduct.f_guid);
+					that.wxlist = [...others, ...e.wxlist]
+				}
+				else {
+					that.wxlist = e.wxlist;
+				}
+				if (that.xjlist){
+					let others = that.xjlist.filter(c => c.F_Code != uni.$cgzjProduct.f_guid);
+					that.xjlist = [...others, ...e.xjlist]
+				}
+				else {
+					that.xjlist = e.xjlist;
+				}
+				if (that.bqlist){
+					let others = that.bqlist.filter(c => c.F_Code != uni.$cgzjProduct.f_guid);
+					that.bqlist = [...others, ...e.bqlist]
+				}
+				else {
+					that.bqlist = e.bqlist;
+				}
+				if (that.gnlist){
+					let others = that.gnlist.filter(c => c.F_Code != uni.$cgzjProduct.f_guid);
+					that.gnlist = [...others, ...e.gnlist]
+				}
+				else {
+					that.gnlist = e.gnlist;
+				}
+				if (that.dqlist){
+					let others = that.dqlist.filter(c => c.F_Code != uni.$cgzjProduct.f_guid);
+					that.dqlist = [...others, ...e.dqlist]
+				}
+				else {
+					that.dqlist = e.dqlist;
+				}
+				if (that.ztlist){
+					let others = that.ztlist.filter(c => c.F_Code != uni.$cgzjProduct.f_guid);
+					that.ztlist = [...others, ...e.ztlist]
+				}
+				else {
+					that.ztlist = e.ztlist;
+				}
+				if (that.fjlist){
+					let others = that.fjlist.filter(c => c.F_Code != uni.$cgzjProduct.f_guid);
+					that.fjlist = [...others, ...e.fjlist]
+				}
+				else {
+					that.fjlist = e.fjlist;
+				}
 				that.khInfo = uni.$cgzjInfo;
 				that.tabList[0].arr.splice(e.cpIndex, 1, uni.$cgzjProduct);
 				// that.saveorderFun();

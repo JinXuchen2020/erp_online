@@ -448,13 +448,13 @@
 						that.gnlist = res.data.gnlist;
 						that.dqlist = res.data.dqlist;
 						that.ztlist = res.data.ztlist;
-						that.wxShowlist = JSON.parse(JSON.stringify(res.data.wxlist));
-						that.xjShowlist = JSON.parse(JSON.stringify(res.data.xjlist));
-						that.fjShowlist = JSON.parse(JSON.stringify(res.data.fjlist));
-						that.bqShowlist = JSON.parse(JSON.stringify(res.data.bqlist));
-						that.gnShowlist = JSON.parse(JSON.stringify(res.data.gnlist));
-						that.dqShowlist = JSON.parse(JSON.stringify(res.data.dqlist));
-						that.ztShowlist = JSON.parse(JSON.stringify(res.data.ztlist));
+						that.wxShowlist = JSON.parse(JSON.stringify(res.data.wxlist.filter(c=>!c.delete)));
+						that.xjShowlist = JSON.parse(JSON.stringify(res.data.xjlist.filter(c=>!c.delete)));
+						that.fjShowlist = JSON.parse(JSON.stringify(res.data.fjlist.filter(c=>!c.delete)));
+						that.bqShowlist = JSON.parse(JSON.stringify(res.data.bqlist.filter(c=>!c.delete)));
+						that.gnShowlist = JSON.parse(JSON.stringify(res.data.gnlist.filter(c=>!c.delete)));
+						that.dqShowlist = JSON.parse(JSON.stringify(res.data.dqlist.filter(c=>!c.delete)));
+						that.ztShowlist = JSON.parse(JSON.stringify(res.data.ztlist.filter(c=>!c.delete)));
 					})
 			},
 			wxUpSus(data) {
@@ -642,31 +642,44 @@
 				})
 			},
 			wxRemoveFun: function(e) {
-				let arr = that.wxlist.splice(e, 1);
+				that.wxlist[e].delete = true;
+				let arr = that.wxlist[e];
 				that.deleteFun(arr)
 			},
 			fjRemoveFun: function(e) {
-				let arr = that.fjlist.splice(e, 1);
+				that.fjlist[e].delete = true;
+				let arr = that.fjlist[e];
+				// let arr = that.fjlist.splice(e, 1);
 				that.deleteFun(arr)
 			},
 			ztRemoveFun: function(e) {
-				let arr = that.ztlist.splice(e, 1);
+				that.ztlist[e].delete = true;
+				let arr = that.ztlist[e];
+				// let arr = that.ztlist.splice(e, 1);
 				that.deleteFun(arr)
 			},
 			gnRemoveFun: function(e) {
-				let arr = that.gnlist.splice(e, 1);
+				that.gnlist[e].delete = true;
+				let arr = that.gnlist[e];
+				// let arr = that.gnlist.splice(e, 1);
 				that.deleteFun(arr)
 			},
 			xjRemoveFun: function(e) {
-				let arr = that.xjlist.splice(e, 1);
+				that.xjlist[e].delete = true;
+				let arr = that.xjlist[e];
+				// let arr = that.xjlist.splice(e, 1);
 				that.deleteFun(arr)
 			},
 			dqRemoveFun: function(e) {
-				let arr = that.dqlist.splice(e, 1);
+				that.dqlist[e].delete = true;
+				let arr = that.dqlist[e];
+				// let arr = that.dqlist.splice(e, 1);
 				that.deleteFun(arr)
 			},
 			bqRemoveFun: function(e) {
-				let arr = that.bqlist.splice(e, 1);
+				that.bqlist[e].delete = true;
+				let arr = that.bqlist[e];
+				// let arr = that.bqlist.splice(e, 1);
 				that.deleteFun(arr)
 			},
 			// 删除文件云函数
@@ -686,6 +699,7 @@
 			},
 			confirmYhFun: function() {
 				uni.$cgzjInfo = that.cgzjInfo;
+				uni.$cgzjProduct = that.detail;
 				uni.$emit('updateYhResult', {
 					wxlist: that.wxlist,
 					fjlist: that.fjlist,

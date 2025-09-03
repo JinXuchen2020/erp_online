@@ -11,10 +11,10 @@
 						<text>{{item.F_BillID || ''}}</text>
 					</view>
 				</view>	
-			    <view v-if="item.clientcode">
+			    <!-- <view v-if="item.clientcode">
 			    	<text class="colorGray">供方编号：</text>
 			    	<text>{{item.clientcode}}</text>
-			    </view>
+			    </view> -->
 				<view v-if="item.actdate">
 					<text class="colorGray">检验日期：</text>
 					<text>{{actdate}}</text>
@@ -23,14 +23,14 @@
 					<text class="colorGray">供方地址：</text>
 					<text>{{item.address}}</text>
 				</view>
-				<view v-if="item.tel">
+				<!-- <view v-if="item.tel">
 					<text class="colorGray">供方电话：</text>
 					<text>{{item.tel}}</text>
 				</view>
 				<view v-if="item.fax">
 					<text class="colorGray">供方传真：</text>
 					<text>{{item.fax}}</text>
-				</view>
+				</view> -->
 				<view v-if="item.contactman">
 					<text class="colorGray">联系人：</text>
 					<text>{{item.contactman}}</text>
@@ -39,11 +39,11 @@
 					<text class="colorGray">对应客户：</text>
 					<text>{{item.dykh}}</text>
 				</view>
-				<view v-if="item.PO">
+				<!-- <view v-if="item.PO">
 					<text class="colorGray">客户PO：</text>
 					<text>{{item.PO}}</text>
-				</view>
-				<view v-if="item.kgyb">
+				</view> -->
+				<!-- <view v-if="item.kgyb">
 					<text class="colorGray">保留样板、色板：</text>
 					<u-checkbox v-model="item.kgyb"/>
 				</view>
@@ -54,19 +54,19 @@
 				<view v-if="item.kfsjt">
 					<text class="colorGray">采购订单：</text>
 					<u-checkbox v-model="item.kfsjt"/>
-				</view>
-				<view v-if="item.ybbz">
+				</view> -->
+				<!-- <view v-if="item.ybbz">
 					<text class="colorGray">一般性质量教程：</text>
 					<u-checkbox v-model="item.ybbz"/>
-				</view>
-				<view v-if="item.kfyq">
+				</view> -->
+				<!-- <view v-if="item.kfyq">
 					<text class="colorGray">客户特别要求文件、特别制具：</text>
 					<u-checkbox v-model="item.kfyq"/>
-				</view>				
-				<view v-if="item.bz">
+				</view> -->				
+				<!-- <view v-if="item.bz">
 					<text class="colorGray">其他说明：</text>
 					<text>{{item.bz}}</text>
-				</view>				
+				</view> -->				
 			</view>
 			<view class="rowBtn">
 				<u-button v-if='(pagetype === "订单详情")&&(isCheck !== true)' type="primary" :plain="true" class="cpBtn"
@@ -89,12 +89,6 @@
 					@click="deleteCgzjFun(item, index)">
 					删除</u-button>
 			</view>	
-			<view class="rowBtn">
-				<u-button v-if='(pagetype === "订单详情")&&(item.F_BillID)' type="warning" :plain="true" class="cpBtn"
-					size="mini" @click="previewYhReportFun">
-					查看报告
-				</u-button>
-			</view>
 		</view>
 	</view>
 </template>
@@ -335,39 +329,7 @@
 				uni.navigateTo({
 					url: './cgzjDetail?index=' + this.index
 				})
-			},
-			previewYhReportFun: function() {
-				let reqObj = {
-					model: 'frmPurQc',
-					usercode: uni.$userInfo.F_ID
-				}
-				let reqData = {
-					action: 'testRightByModel',
-					params: JSON.stringify(reqObj)
-				}
-				console.log('发送指令：' + reqData.action + '传递参数：' + reqData.params)
-				testrightApi(reqData)
-					.then(res => {
-						let showTitle = res.data.tag
-						that.newBill = res.data.newBill
-						that.editBill = res.data.editBill
-						that.delBill = res.data.delBill
-						that.printBill = res.data.printBill
-						that.checkBill = res.data.checkBill
-						console.log('获得打印权限：' + this.printBill)
-						if (this.printBill == true) {								
-							uni.navigateTo({
-								url: './cgzjselPrintfile?type=preview'
-							})
-						} else {
-							uni.showModal({
-								title: '提示',
-								content: '你没有打印权限',
-								showCancel: false
-							})				
-						}				
-					})
-			},			
+			},		
 			bindsDateChange: function(e) {
 				var that = this
 				let data = e.detail.value;
