@@ -296,11 +296,6 @@
 				menus: ['shareAppMessage', 'shareTimeline']
 			});
 			// #endif
-			
-			uni.$on("selectPrintfile1", this.selectPrintfile)
-		},
-		onBackPress(e) {
-			uni.$off("selectPrintfile1", this.selectPrintfile)
 		},
 		onShareAppMessage(res) {			
 			return {
@@ -361,14 +356,69 @@
 				})
 			},
 			printReport() {
+				// #ifdef MP-WEIXIN
+				that.selectPrintfile();
+				// #endif
+				
+				// #ifndef MP-WEIXIN
 				let url = '/crm/cgzj/pdf?reportName=' + this.reportName + '&isShare=' + that.isShare + '&F_BillID=' + that.cpdetail.F_BillID + '&usercode=' + uni.$userInfo.F_ID + '&printer=' + uni.$userInfo.F_Printer
 				uni.navigateTo({
 					url: url
 				})
+				// #endif
 			},
-			shareReport() {
-				
-			}
+			selectPrintfile() {
+				let params = {
+					F_BillID: that.cpdetail.F_BillID,
+					usercode: uni.$userInfo.F_ID,
+					modelname: 'frmPurQc',
+					filename: this.reportName,
+					printer: uni.$userInfo.F_Printer,
+				}
+				let reqData = {
+					action: 'previewreport',
+					params: JSON.stringify(params)
+				}
+				uni.showLoading({
+					title: '生成中...',
+					mask: true,
+					icon:'none'
+				})
+				console.log('发送指令：'+reqData.action+'传递参数：'+reqData.params)
+				cgzjApi(reqData)
+					.then(res => {
+						let showTitle = res.data.tag
+						uni.showModal({
+							title: '提示',
+							content: showTitle,
+							showCancel: false,
+						})
+						
+						wx.downloadFile({
+						  url: siteURL + '/pdf/' + res.data.filename,
+						  success: function (res) {
+						    // 拿到临时文件路径
+						    const tempFilePath = res.tempFilePath;
+						    // 使用 openDocument 打开
+						    wx.openDocument({
+						      filePath: tempFilePath,
+						      fileType: 'pdf',
+						      success: function (res) {
+						        console.log('文档打开成功');
+						      },
+						      fail: function (err) {
+						        console.error('打开文档失败', err);
+						        wx.showToast({ title: '打开失败', icon: 'none' });
+						      }
+						    });
+						  },
+						  fail: function (err) {
+						    console.error('下载文件失败', err);
+						    wx.showToast({ title: '下载失败', icon: 'none' });
+						  }
+						});
+					})
+			},
 		}
 	}
 </script>
