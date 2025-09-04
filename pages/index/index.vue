@@ -279,7 +279,7 @@
 								index: 1
 							})
 						}
-						that.setMenuList(res.data)
+						// that.setMenuList(res.data)
 					})
 			},
 		}

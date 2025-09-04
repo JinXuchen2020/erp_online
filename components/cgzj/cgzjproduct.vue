@@ -4,9 +4,9 @@
 						<view class="cardTopName">产品编号：{{item.itemcode}} </view>
 						<view class="myCard3">
 							<view class="itemPhotoBox">
-								<image :src="item.url" mode="widthFix"class="itemPhotoBox"></image>
+								<image :src="item.url" class="itemPhotoBox"></image>
 							</view>
-							<view class="infoBox">
+							<view class="itemInfoBox">
 								<view class="cardRow" v-if="item.spec">
 									<view>工厂型号：</view>
 									<view>{{item.spec}}</view>
@@ -335,8 +335,10 @@
 		display: flex;
 		flex-direction: row;
 	}
-	.infoBox{
+	.itemInfoBox{
 		padding-left:20rpx;
+		display: flex;
+		flex-direction: column;
 	}
 	.searchBox {
 		padding: 16rpx 26rpx;

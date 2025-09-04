@@ -103,26 +103,42 @@
 				crmMyAppUserApi(reqData)
 					.then(res => {	
 						console.log('系统登录返回的状态值：'+res.data.code)
-						if(res.data.code==0)
+						if(res.data.code==0) 
 						{
-							
-						uni.setStorageSync('uni_id_token', res.data.uni_id_token)
-						uni.setStorageSync('uni_id_token_expired', res.data.tokenExpired)						
-						uni.setStorageSync('uni_id', res.data.id)
-						uni.setStorageSync('nickname', res.data.nickname)
-						uni.setStorageSync('zhiwei', res.data.zhiwei)					
-						uni.setStorageSync('userInfo', res.data.userInfo[0]);
-						uni.setStorageSync('userRoles', res.data.userRoles[0]);
-						uni.showToast({
-							title: '登录成功!',
-							icon: 'none',
-							duration: 1688,
-						})
-						setTimeout(() => {
-							uni.reLaunch({
-								url: '../index/index'
+							// #ifdef MP-WEIXIN
+							const canWenxinLogin = res.data.userInfo[0].F_Weixin;
+							if(!canWenxinLogin) {
+								uni.showToast({
+									title: '该账号没有小程序权限，请重新登录',
+									icon: 'none',
+									duration: 1688,
+								})
+								setTimeout(() => {
+									uni.reLaunch({
+										url: '/pages/regLogin/login',
+									})
+								}, 1000)
+								
+								return;
+							}
+							// #endif
+							uni.setStorageSync('uni_id_token', res.data.uni_id_token)
+							uni.setStorageSync('uni_id_token_expired', res.data.tokenExpired)						
+							uni.setStorageSync('uni_id', res.data.id)
+							uni.setStorageSync('nickname', res.data.nickname)
+							uni.setStorageSync('zhiwei', res.data.zhiwei)					
+							uni.setStorageSync('userInfo', res.data.userInfo[0]);
+							uni.setStorageSync('userRoles', res.data.userRoles[0]);
+							uni.showToast({
+								title: '登录成功!',
+								icon: 'none',
+								duration: 1688,
 							})
-						}, 888)
+							setTimeout(() => {
+								uni.reLaunch({
+									url: '../index/index'
+								})
+							}, 888)
 						}
 						else
 						{
