@@ -59,44 +59,48 @@
 						<u-icon class="ml26" name="arrow-right" size="40" color="#888888"></u-icon>
 					</view>
 				</view>
-				<view class="flex-white-plr26 ptb10 bdb_f5">
-					<view>
-						<text class="mr26">保留样板、色板
-						</text>
-						<u-checkbox v-model="khInfo.kgyb"/>
-					</view>
-				</view>
-				<view class="flex-white-plr26 ptb10 bdb_f5">
-					<view>
-						<text class="mr26">首样检验报告
-						</text>
-						<u-checkbox v-model="khInfo.kfqrt"/>
-					</view>
-				</view>
-				<view class="flex-white-plr26 ptb10 bdb_f5">
-					<view>
-						<text class="mr26">采购订单
-						</text>
-						<u-checkbox v-model="khInfo.kfsjt"/>
-					</view>
-				</view>
-				<view class="flex-white-plr26 ptb10 bdb_f5">
-					<view>
-						<text class="mr26">一般性质量教程
-						</text>
-						<u-checkbox v-model="khInfo.ybbz"/>
-					</view>
-				</view>
-				<view class="flex-white-plr26 ptb10 bdb_f5">
-					<view>
-						<text class="mr26">客户特别要求文件、特别制具
-						</text>
-						<u-checkbox v-model="khInfo.kfyq"/>
-					</view>
-				</view>
 				
 				<u-field v-model="khInfo.PO" :label="'客户PO'" :placeholder="'请输入客户PO'" clear-size="40"></u-field>
+				<uni-group title="检验依据">
+					<view class="flex-white-plr26 ptb10 bdb_f5">
+						<view>
+							<text class="mr26">保留样板、色板
+							</text>
+							<u-checkbox v-model="khInfo.kgyb"/>
+						</view>
+					</view>
+					<view class="flex-white-plr26 ptb10 bdb_f5">
+						<view>
+							<text class="mr26">首样检验报告
+							</text>
+							<u-checkbox v-model="khInfo.kfqrt"/>
+						</view>
+					</view>
+					<view class="flex-white-plr26 ptb10 bdb_f5">
+						<view>
+							<text class="mr26">采购订单
+							</text>
+							<u-checkbox v-model="khInfo.kfsjt"/>
+						</view>
+					</view>
+					<view class="flex-white-plr26 ptb10 bdb_f5">
+						<view>
+							<text class="mr26">一般性质量教程
+							</text>
+							<u-checkbox v-model="khInfo.ybbz"/>
+						</view>
+					</view>
+					<view class="flex-white-plr26 ptb10 bdb_f5">
+						<view>
+							<text class="mr26">客户特别要求文件、特别制具
+							</text>
+							<u-checkbox v-model="khInfo.kfyq"/>
+						</view>
+					</view>
+				</uni-group>
+				
 				<u-field v-model="khInfo.bz" :label="'检验备注'" :placeholder="'请输入检验备注'" clear-size="40"></u-field>
+				<u-field v-model="khInfo.shbz" :label="'审核批注'" type="textarea" placeholder="请输入审核批注" clear-size="40"></u-field>
 				<view class="searchBtnRow">
 					<u-button type="warning" class="searchBtn" :ripple="true" ripple-bg-color="#909399"
 						:plain="true" size="medium" @click="searchShow = false">取消</u-button>
@@ -122,6 +126,7 @@
 	} from '@/utils/date.js'
 	import cgzjCard from '@/components/cgzj/cgzj.vue'
 	import cgzjproduct from '@/components/cgzj/cgzjproduct.vue'
+	import uniGroup from '@/components/uni-group/uni-group.vue'
 	import getMore from '@/components/getMore/getMore.vue'
 	import {
 		callWithErrorHandling
@@ -130,7 +135,8 @@
 		components: {
 			cgzjCard,
 			cgzjproduct,
-			getMore
+			getMore,
+			uniGroup
 		},
 		data() {
 			return {
@@ -174,7 +180,7 @@
 			console.log(options);
 			that = this;
 			
-			that.cardIndex = options.index;			
+			that.cardIndex = parseInt(options.index);			
 			if (that.cardIndex == -1) {
 				let dArr = getDayFun()
 				dArr[1] -= 1;
@@ -190,6 +196,7 @@
 					account: 0,
 					bz: '',
 					hl: '',
+					shbz:''
 				};
 				that.actdate=this.$u.timeFormat(this.khInfo.actdate, 'yyyy-mm-dd hh:MM:ss'),
 				that.enddate=this.$u.timeFormat(this.khInfo.enddate, 'yyyy-mm-dd hh:MM:ss'),
@@ -740,6 +747,7 @@
 			},
 			cxPGetDataFun: function(e) {
 				// uni.$emit('cxGetDataFun');
+				uni.$off('saveorderFun', that.saveorderFun)
 				setTimeout(() => {
 					uni.navigateTo({
 						url: './cgzj'
@@ -881,6 +889,8 @@
 										title: showTitle,
 										icon: 'none'
 									})
+									
+									that.isSaving = false;
 									
 									if(e) {
 										that.cxPGetDataFun();

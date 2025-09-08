@@ -159,9 +159,7 @@
 				uncheckBill: false,
 				printer: '',
 				isCheck:this.item.sh,
-				rmb: this.item.rmb
-				
-				
+				rmb: this.item.rmb,
 			}
 		},
 		watch:{
@@ -318,7 +316,7 @@
 					}
 			},
 			// 保存订单函数
-			saveorderFun: function(e) {				
+			saveorderFun: function(e) {
 				uni.$emit('saveorderFun', true);
 			},
 			gotoDetailFun: function() {

@@ -42,7 +42,7 @@
 								</view>
 								<view class="cardRow1">
 									<view>不良原因：</view>
-									<view>{{item.Remark}}</view>
+									<view>{{item.Remark || ''}}</view>
 								</view>
 								<view class="cardRow1">
 									<view>采购数量：</view>
@@ -121,7 +121,7 @@
 				searchShow: false,
 				searchValue1:this.item.countt,
 				searchValue2:this.item.price,
-				reportName: '质检报告',
+				reportName: '质检报告(带图)',
 				newBill: false,
 				editBill: false,
 				printBill: false,

@@ -7,96 +7,44 @@
 		<view class="myCard">
 			<view class="cardTopName">产品编号：{{detail.itemcode}}</view>
 			<view class="cardRow1" v-if="detail.spec">
-				<view>工厂型号：</view>
-				<view>{{detail.spec}}</view>
-			</view>
-			<view class="cardRow1" v-if="detail.name">
-				<view>产品名称：</view>
-				<view>{{detail.name}}</view>
-			</view>
+				<view>产品描述：</view>
+				<view>{{detail.itemname}}</view>
+			</view>	
 			<view class="cardRow1" v-if="detail.color">
 				<view>产品颜色：</view>
 				<view>{{detail.color}}</view>
 			</view>
-			<view class="cardRow" v-if="detail.total">
-				<view>零售面价：</view>
-				<view><text class="redColor">￥{{detail.total}}</text>/{{detail.unit}}</view>
+			<view class="cardRow1">
+				<view>外箱尺寸：</view>
+				<view>{{detail.wxc}}cm*{{detail.wxk}}cm*{{detail.wxg}}cm</view>
 			</view>
-			<view class="cardRow" v-if="detail.pfj">
-				<view>批发售价：</view>
-				<view><text class="redColor">￥{{detail.pfj}}</text>/{{detail.unit}}</view>
+			<view class="cardRow">
+				<view>每箱净重：</view>
+				<view>{{detail.mxjz}}kg</view>
 			</view>							
-			<view class="cardRow" v-if="detail.price">
-				<view>核定成本：</view>
-				<view><text class="redColor">￥{{detail.price}}</text>/{{detail.unit}}</view>
-			</view>
-			<view class="cardRow" v-if="detail.cgcb">
-				<view>采购成本：</view>
-				<view><text class="redColor">￥{{detail.cgcb}}</text>/{{detail.unit}}</view>
+			<view class="cardRow">
+				<view>每箱毛重：</view>
+				<view>{{detail.mxmz}}kg</view>
 			</view>
 			<view class="cardRow1" v-if="detail.bz">
 				<view>备注：</view>
 				<view>{{detail.bz}}</view>
 			</view>
-			<view class="cardRow" v-if="detail.ssrq">
-				<view>上市日期：</view>
-				<view>{{detail.ssrq}}</view>
-			</view>
-			<view class="cardRow" v-if="detail.zmsc">
-				<view>市场保护：</view>
-				<view>{{detail.zmsc}}</view>
-			</view>
-			<view class="cardRow" v-if="detail.zmsj">
-				<view>保护时间：</view>
-				<view>{{detail.zmsj}}</view>
-			</view>
-			<view class="cardRow" v-if="detail.F_Sczq">
-				<view>生产周期：</view>
-				<view>{{detail.F_Sczq}}</view>
-			</view>
-			<view class="cardRow" v-if="detail.flName">
-				<view>产品类别：</view>
-				<view>{{detail.flName}}</view>
-			</view>
-			<view class="cardRow1" v-if="detail.gfmc">
-				<view>供方名称：</view>
-				<view>{{detail.gfmc}}</view>
-			</view>
-			<view class="cardRow1" v-if="detail.F_Taxrate">
-				<view>业务税率：</view>
-				<view>{{detail.F_Taxrate}}</view>
-			</view>
-			<view class="cardRow1" v-if="detail.F_Total">
-				<view>价税合计：</view>
-				<view>{{detail.F_Total}}</view>
-			</view>
-			<view class="cardRow1" v-if="detail.F_FPTaxrate">
-				<view>发票税率：</view>
-				<view>{{detail.F_FPTaxrate}}</view>
-			</view>
-			<view class="cardRow1" v-if="detail.cwcb">
-				<view>税票成本：</view>
-				<view>{{detail.cwcb}}</view>
-			</view>
-			<view class="cardRow1" v-if="detail.Long">
-				<view>外箱尺寸：</view>
-				<view>{{detail.Long}}*{{detail.width}}*{{detail.height}}={{detail.wxtj}}</view>
-			</view>
-			<view class="cardRow" v-if="detail.mxjz">
-				<view>每箱净重：</view>
-				<view>{{detail.mxjz}}</view>
-			</view>							
-			<view class="cardRow" v-if="detail.mz">
-				<view>每箱毛重：</view>
-				<view>{{detail.mz}}</view>
-			</view>
-			<view class="cardRow" v-if="detail.bzjs">
-				<view>包装基数：</view>
-				<view>{{detail.bzjs}}</view>
-			</view>			
 		</view>
 		<view class="xiangqing">
 			— 检查项目 —
+		</view>
+		<view class="myCard">
+			<view class="cardTopName">检验结果</view>
+			<view class="table">
+				<view @click="pickerSelectFun()" class="flex-white-plr26 ptb20 bdb_f5">
+					<text class="mr26">检验结果</text>
+					<view  :class="detail.F_Result ? '' : 'cBlack'">
+						{{detail.F_Result ? detail.F_Result : '请选择'}}
+						<u-icon class="ml26" name="arrow-right" size="40" color="#888888"></u-icon>
+					</view>
+				</view>
+			</view>
 		</view>
 		<view class="myCard">
 			<view class="cardTopName">包装检查</view>
@@ -343,6 +291,7 @@
 			<button @click="crop">确定上传</button>
 			<bt-cropper ref="cropper" :quality="0.5" fileType="jpg" :init-position="initPosition" :imageSrc="uploadImg"></bt-cropper>
 		</u-popup>
+		<u-select v-model="selectShow" :list="selectList" @confirm="selectConfirmFun"></u-select>
 	</view>
 </template>
 
@@ -409,7 +358,25 @@
 					// width: 400,
 					// height: 400
 				},
-				uploadIndex: ''
+				uploadIndex: '',
+				selectShow: false,
+				selectList:[
+					{
+						value: 'Acceptable',
+						id: 'Acceptable',
+						label: 'Acceptable'
+					},
+					{
+						value: 'Rejective',
+						id: 'Rejective',
+						label: 'Rejective'
+					},
+					{
+						value: 'Pending',
+						id: 'Pending',
+						label: 'Pending'
+					}
+				]
 			}
 		},
 		onLoad(e) {
@@ -422,6 +389,12 @@
 			}
 		},
 		methods: {
+			selectConfirmFun: function(e) {
+				that.detail.F_Result = e[0].label;
+			},
+			pickerSelectFun: function() {
+				that.selectShow = true;
+			},
 			// 预览图片
 			previewImageFun: function(str, list) {
 				uni.previewImage({
@@ -861,7 +834,7 @@
 	
 	.cardRow1>view:last-child {
 		color: #000000;
-		width: 266rpx;
+		/* width: 266rpx; */
 	}
 	
 	.container {

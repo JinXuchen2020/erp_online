@@ -14,16 +14,16 @@
 							<image :src="item.url" mode="widthFix" class="itemPhotoBox"></image>
 						</view>
 						<view class="infoBox">
-							<view class="cardRow1" v-if="item.cgdh">
+							<view class="cardRow1" v-if="item.F_BillID">
 								<view>采购单号：</view>
-								<view>{{item.cgdh}}</view>
+								<view>{{item.F_BillID}}</view>
 							</view>
 							<view class="cardRow1" v-if="item.dyxs">
 								<view>销售单号：</view>
 								<view>{{item.dyxs}}</view>
 							</view>
 							<view class="cardRow1" v-if="item.spec">
-								<view>工厂型号：</view>
+								<view>产品型号：</view>
 								<view>{{item.spec}}</view>
 							</view>
 							<view class="cardRow1" v-if="item.name">
@@ -35,7 +35,7 @@
 								<view>{{item.color}}</view>
 							</view>
 							<view class="cardRow" v-if="item.countt">
-								<view>订货数量：</view>
+								<view>采购数量：</view>
 								<view><text class="redColor">{{item.countt}}</text>/{{item.unit}}</view>
 							</view>
 							<view class="cardRow" v-if="item.count1">
@@ -43,7 +43,7 @@
 								<view><text class="redColor">{{item.count1}}</text>/{{item.unit}}</view>
 							</view>
 							<view class="cardRow" v-if="item.count2">
-								<view>差额数量：</view>
+								<view>未检数量：</view>
 								<view><text class="redColor">{{item.count2}}</text>/{{item.unit}}</view>
 							</view>
 							<view class="cardRow" v-if="item.actdate">
@@ -71,7 +71,7 @@
 					</view>
 
 					<view class="rowBtn">
-						<u-button type="primary" :plain="true" class="cpBtn" size="mini" @click="selectItem(index)">选择产品
+						<u-button type="primary" :plain="true" class="cpBtn" size="mini" @click="selectItem(index)">制作报告
 						</u-button>
 						<view class="counttcss" v-if="item.cgsl">
 							检验数量：
@@ -95,7 +95,7 @@
 				<u-field v-model="blsl" :label="'不良数量'" :placeholder="'请输入不良数量'" clear-size="40"></u-field>
 				<u-field v-model="Remark" :label="'不良原因'" :placeholder="'请输入不良原因'" clear-size="40"></u-field>
 				<!-- <view class="searchTitle">输入单价</view> -->
-				<u-field v-model="price" :label="'下单单价'" :placeholder="'请输入下单单价'" clear-size="40"></u-field>
+				<!-- <u-field v-model="price" :label="'下单单价'" :placeholder="'请输入下单单价'" clear-size="40"></u-field> -->
 				<view class="searchBtnRow">
 
 					<u-button type="warning" class="searchBtn" :ripple="true" ripple-bg-color="#909399" :plain="true"

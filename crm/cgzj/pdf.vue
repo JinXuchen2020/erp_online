@@ -73,33 +73,34 @@
 							content: showTitle,
 							showCancel: false,
 						})
-						
-						// #ifdef MP-WEIXIN
-						wx.downloadFile({
-						  url: siteURL + '/pdf/' + res.data.filename,
-						  success: function (res) {
-						    // 拿到临时文件路径
-						    const tempFilePath = res.tempFilePath;
-						    // 使用 openDocument 打开
-						    wx.openDocument({
-						      filePath: tempFilePath,
-						      fileType: 'pdf',
-						      success: function (res) {
-						        console.log('文档打开成功');
-						      },
-						      fail: function (err) {
-						        console.error('打开文档失败', err);
-						        wx.showToast({ title: '打开失败', icon: 'none' });
-						      }
-						    });
-						  },
-						  fail: function (err) {
-						    console.error('下载文件失败', err);
-						    wx.showToast({ title: '下载失败', icon: 'none' });
-						  }
-						});
-						// #endif
-						this.url = siteURL + '/pdf/' + res.data.filename;
+						if (res.data.code == 0) {
+							// #ifdef MP-WEIXIN
+							wx.downloadFile({
+							  url: siteURL + '/pdf/' + res.data.filename,
+							  success: function (res) {
+								// 拿到临时文件路径
+								const tempFilePath = res.tempFilePath;
+								// 使用 openDocument 打开
+								wx.openDocument({
+								  filePath: tempFilePath,
+								  fileType: 'pdf',
+								  success: function (res) {
+									console.log('文档打开成功');
+								  },
+								  fail: function (err) {
+									console.error('打开文档失败', err);
+									wx.showToast({ title: '打开失败', icon: 'none' });
+								  }
+								});
+							  },
+							  fail: function (err) {
+								console.error('下载文件失败', err);
+								wx.showToast({ title: '下载失败', icon: 'none' });
+							  }
+							});
+							// #endif
+							this.url = siteURL + '/pdf/' + res.data.filename;
+						}
 					})
 			},
 		}

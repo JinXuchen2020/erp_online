@@ -22,7 +22,7 @@
 					</view>
 					<view class="table-row">
 						<view class="table-cell table-header">客户单号</view>
-						<view class="table-cell">{{cpdetail.po}}</view>
+						<view class="table-cell">{{cpdetail.po || ''}}</view>
 					</view>
 					<view class="table-row">
 						<view class="table-cell table-header">产品型号</view>
@@ -35,6 +35,10 @@
 					<view class="table-row">
 						<view class="table-cell table-header">抽检数量</view>
 						<view class="table-cell">{{cpdetail.countt}}</view>
+					</view>
+					<view class="table-row">
+						<view class="table-cell table-header">检验结果</view>
+						<view class="table-cell">{{cpdetail.F_Result}}</view>
 					</view>
 				</view>			
 			</view>
@@ -394,30 +398,31 @@
 							content: showTitle,
 							showCancel: false,
 						})
-						
-						wx.downloadFile({
-						  url: siteURL + '/pdf/' + res.data.filename,
-						  success: function (res) {
-						    // 拿到临时文件路径
-						    const tempFilePath = res.tempFilePath;
-						    // 使用 openDocument 打开
-						    wx.openDocument({
-						      filePath: tempFilePath,
-						      fileType: 'pdf',
-						      success: function (res) {
-						        console.log('文档打开成功');
-						      },
-						      fail: function (err) {
-						        console.error('打开文档失败', err);
-						        wx.showToast({ title: '打开失败', icon: 'none' });
-						      }
-						    });
-						  },
-						  fail: function (err) {
-						    console.error('下载文件失败', err);
-						    wx.showToast({ title: '下载失败', icon: 'none' });
-						  }
-						});
+						if (res.data.code == 0) {
+							wx.downloadFile({
+							  url: siteURL + '/pdf/' + res.data.filename,
+							  success: function (res) {
+							    // 拿到临时文件路径
+							    const tempFilePath = res.tempFilePath;
+							    // 使用 openDocument 打开
+							    wx.openDocument({
+							      filePath: tempFilePath,
+							      fileType: 'pdf',
+							      success: function (res) {
+							        console.log('文档打开成功');
+							      },
+							      fail: function (err) {
+							        console.error('打开文档失败', err);
+							        wx.showToast({ title: '打开失败', icon: 'none' });
+							      }
+							    });
+							  },
+							  fail: function (err) {
+							    console.error('下载文件失败', err);
+							    wx.showToast({ title: '下载失败', icon: 'none' });
+							  }
+							});
+						}
 					})
 			},
 		}
