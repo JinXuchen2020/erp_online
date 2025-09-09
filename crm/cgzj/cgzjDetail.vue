@@ -201,22 +201,27 @@
 				that.actdate=this.$u.timeFormat(this.khInfo.actdate, 'yyyy-mm-dd hh:MM:ss'),
 				that.enddate=this.$u.timeFormat(this.khInfo.enddate, 'yyyy-mm-dd hh:MM:ss'),
 				uni.$cgzjInfo = {};
+				
+				
+				uni.setNavigationBarTitle({
+					title: '量产质检'
+				})
 			} else {
 				that.khInfo = uni.$cgzjInfo;
 				that.khInfo.actdate = new Date(that.khInfo.actdate).getTime();
 				that.khInfo.enddate = new Date(that.khInfo.enddate).getTime();
 				that.actdate=this.$u.timeFormat(that.khInfo.actdate, 'yyyy-mm-dd hh:MM:ss');
-				that.enddate=this.$u.timeFormat(that.khInfo.enddate, 'yyyy-mm-dd hh:MM:ss');
+				that.enddate=this.$u.timeFormat(that.khInfo.enddate, 'yyyy-mm-dd hh:MM:ss');				
+				
+				uni.setNavigationBarTitle({
+					title: '报告详情'
+				})
 			}
 			console.log(uni.$cgzjInfo)
 
 			if (uni.$cgzjInfo) {
 				that.djje = uni.$cgzjInfo.account;
 			}
-
-			uni.setNavigationBarTitle({
-				title: '质检详情'
-			})
 
 			uni.$on('delcgzjdetailById', that.delcgzjdetailById)
 			uni.$on('updateItemFun1', that.updateItemFun)

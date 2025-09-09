@@ -1,8 +1,7 @@
 <template>
 	<view>
 		<view class="card">
-			<view class="topRow1">
-
+			<view class="topRow1" @click="gotoDetailFun">
 				<view class="infoBox">
 					<view class="name">
 						<text>{{item.clientname || '制作报告'}}</text>
@@ -81,7 +80,7 @@
 				<u-button v-if='item.F_BillID' type="warning" :plain="true" class="cpBtn" size="mini" @click="cpsxjFun(item, index)">
 					{{isCheck === true ? '反审' : '审核报告'}}
 				</u-button>
-				<u-button v-if='(pagetype !== "订单详情")' :disabled='isCheck === true' type="primary" :plain="true" class="cpBtn" size="mini" @click="gotoDetailFun">
+				<u-button v-if='(pagetype !== "订单详情")' :disabled='isCheck === true' type="primary" class="cpBtn" size="mini" @click="gotoDetailFun">
 					{{'编辑报告'}}
 				</u-button>
 				<u-button v-if='(pagetype === "订单详情")&&(item.F_BillID)' type="warning" :plain="true" class="cpBtn"
@@ -797,6 +796,10 @@
 			color: red;
 			font-weight: 800;
 
+		}
+		
+		.disabled {
+			
 		}
 	}
 </style>
