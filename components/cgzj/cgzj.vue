@@ -1,11 +1,11 @@
 <template>
 	<view>
 		<view class="card">
-			<view class="topRow1" @click="gotoDetailFun">
+			<view class="topRow1">
 
 				<view class="infoBox">
 					<view class="name">
-						<text>{{item.clientname || '暂无'}}</text>
+						<text>{{item.clientname || '制作报告'}}</text>
 					</view>
 					<view type="warning" class="bill">
 						<text>{{item.F_BillID || ''}}</text>
@@ -78,8 +78,11 @@
 				<u-button v-if='(pagetype === "订单详情")&&(isCheck !== true)' type="primary" :plain="true" class="cpBtn"
 					size="mini" @click="saveorderFun">{{item.F_BillID ? '保存编辑' : '保存'}}
 				</u-button>
-				<u-button type="warning" :plain="true" class="cpBtn" size="mini" @click="cpsxjFun(item, index)">
-					{{isCheck === true ? '反审' : '审核'}}					
+				<u-button v-if='item.F_BillID' type="warning" :plain="true" class="cpBtn" size="mini" @click="cpsxjFun(item, index)">
+					{{isCheck === true ? '反审' : '审核报告'}}
+				</u-button>
+				<u-button v-if='(pagetype !== "订单详情")' :disabled='isCheck === true' type="primary" :plain="true" class="cpBtn" size="mini" @click="gotoDetailFun">
+					{{'编辑报告'}}
 				</u-button>
 				<u-button v-if='(pagetype === "订单详情")&&(item.F_BillID)' type="warning" :plain="true" class="cpBtn"
 					size="mini" @click="selprintfileFun">

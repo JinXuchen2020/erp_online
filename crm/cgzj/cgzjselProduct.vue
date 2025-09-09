@@ -36,15 +36,15 @@
 							</view>
 							<view class="cardRow" v-if="item.countt">
 								<view>采购数量：</view>
-								<view><text class="redColor">{{item.countt}}</text>/{{item.unit}}</view>
+								<view><text class="redColor">{{item.countt}}</text>{{item.unit}}</view>
 							</view>
 							<view class="cardRow" v-if="item.count1">
 								<view>发货数量：</view>
-								<view><text class="redColor">{{item.count1}}</text>/{{item.unit}}</view>
+								<view><text class="redColor">{{item.count1}}</text>{{item.unit}}</view>
 							</view>
 							<view class="cardRow" v-if="item.count2">
 								<view>未检数量：</view>
-								<view><text class="redColor">{{item.count2}}</text>/{{item.unit}}</view>
+								<view><text class="redColor">{{item.count2}}</text>{{item.unit}}</view>
 							</view>
 							<view class="cardRow" v-if="item.actdate">
 								<view>下单日期：</view>

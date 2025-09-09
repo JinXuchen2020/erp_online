@@ -604,7 +604,7 @@
 		}, {
 			"path": "cgzj/cgzjDetail",
 			"style": {
-				"navigationBarTitleText": "质检详情",
+				"navigationBarTitleText": "报告详情",
 				"enablePullDownRefresh": false,
 				"navigationBarBackgroundColor": "#007AFF",
 				"navigationBarTextStyle": "white"
