@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="xiangqing">
-			— 产品详情 —
+			— 报告详情 —
 		</view>
 		<!-- <u-swiper v-if="detail_lbt && detail_lbt.length > 0" :list="detail_lbt" name="url" :effect3d="true" height="320" class="swiperClass" @click="swiperClickFun"></u-swiper> -->
 		<view class="myCard">

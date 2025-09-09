@@ -19,18 +19,26 @@
 									<view>五金颜色：</view>
 									<view>{{item.color}}</view>
 								</view>
+								<view class="cardRow1">
+									<view>采购数量：</view>
+									<view>{{item.wjsl}}</view>
+								</view>
+								<view class="cardRow1">
+									<view>未检数量：</view>
+									<view>{{item.cgsl}}</view>
+								</view>
 								<view class="cardRow" v-if="item.countt">
 									<view>检验数量：</view>
 									<view><text class="redColor">{{item.countt}}</text>{{item.unit}}</view>
 								</view>
-								<view class="cardRow" v-if="item.price">
+								<!-- <view class="cardRow" v-if="item.price">
 									<view>采购单价：</view>
 									<view><text class="redColor">￥{{item.price}}</text>/{{item.unit}}</view>
 								</view>
 								<view class="cardRow" v-if="item.account">
 									<view>总金额：</view>
 									<view><text class="redColor">￥{{item.account}}</text>元</view>
-								</view>							
+								</view>	 -->						
 								
 								<view class="cardRow" v-if="item.count1">
 									<view>可出数量：</view>
@@ -43,14 +51,6 @@
 								<view class="cardRow1">
 									<view>不良原因：</view>
 									<view>{{item.Remark || ''}}</view>
-								</view>
-								<view class="cardRow1">
-									<view>采购数量：</view>
-									<view>{{item.wjsl}}</view>
-								</view>
-								<view class="cardRow1">
-									<view>未检数量：</view>
-									<view>{{item.cgsl}}</view>
 								</view>
 							</view>
 							
@@ -65,7 +65,7 @@
 								删除</u-button>
 						</view>
 						<view class="rowBtn">							
-							<u-button type="primary" :plain="true" class="cpBtn" size="mini" @click="gotoYanHuoFun">上传图片
+							<u-button type="primary" :plain="true" class="cpBtn" size="mini" @click="gotoYanHuoFun">{{item.F_BillID ?'修改图片' : '上传图片'}}
 							</u-button>
 							
 							<u-button v-if='item.F_BillID' type="primary" :plain="true" class="cpBtn"

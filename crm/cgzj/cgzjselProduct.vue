@@ -71,7 +71,7 @@
 					</view>
 
 					<view class="rowBtn">
-						<u-button type="primary" :plain="true" class="cpBtn" size="mini" @click="selectItem(index)">制作报告
+						<u-button type="primary" :plain="true" class="cpBtn" size="mini" @click="selectItem(index)">选入产品
 						</u-button>
 						<view class="counttcss" v-if="item.cgsl">
 							检验数量：

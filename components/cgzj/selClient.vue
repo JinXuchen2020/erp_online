@@ -6,7 +6,7 @@
 					<text>{{item.name || '暂无'}}</text>
 					<view class="rowBtn">
 						<u-button  type="primary" :plain="true" class="cpBtn" size="mini"
-							@click="selClientFun(item, index)">选择供方
+							@click="selClientFun(item, index)">选入
 						</u-button>
 						
 					</view>

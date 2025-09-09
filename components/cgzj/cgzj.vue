@@ -70,13 +70,13 @@
 			</view>
 			<view class="rowBtn">
 				<u-button v-if='(pagetype === "订单详情")&&(isCheck !== true)' type="primary" :plain="true" class="cpBtn"
-					size="mini" @click="testrightFun">选供方
+					size="mini" @click="testrightFun">{{item.F_BillID ? '修改供方' : '选供方'}}
 				</u-button>
 				<u-button v-if='(pagetype === "订单详情")&&(isCheck !== true)' type="primary" :plain="true" class="cpBtn"
-					size="mini" @click="selproductFun">选产品
+					size="mini" @click="selproductFun">{{item.F_BillID ? '添加产品' : '选产品'}}
 				</u-button>
 				<u-button v-if='(pagetype === "订单详情")&&(isCheck !== true)' type="primary" :plain="true" class="cpBtn"
-					size="mini" @click="saveorderFun">保存
+					size="mini" @click="saveorderFun">{{item.F_BillID ? '保存编辑' : '保存'}}
 				</u-button>
 				<u-button type="warning" :plain="true" class="cpBtn" size="mini" @click="cpsxjFun(item, index)">
 					{{isCheck === true ? '反审' : '审核'}}					

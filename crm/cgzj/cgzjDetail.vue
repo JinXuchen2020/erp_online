@@ -215,7 +215,7 @@
 			}
 
 			uni.setNavigationBarTitle({
-				title: '订单详情'
+				title: '质检详情'
 			})
 
 			uni.$on('delcgzjdetailById', that.delcgzjdetailById)
