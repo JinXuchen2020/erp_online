@@ -113,26 +113,14 @@
 			// 选择客户
 			selClientFun: function(item, index) {
 				var that = this;
-				uni.showModal({
-					title: '提示',
-					content: '是否确认选择供方：' + that.item.name,
-					success(rrr) {
-						if (rrr.confirm) {							
-							uni.showLoading({
-								title: '赋值中...',
-								duration:1000
-							})
-							// uni.$saleorderselClient = item;
-							uni.$emit("selectClient1",{"item":item})
-			uni.navigateBack()
-							
-							
-							
-						}
-					}
+				uni.showLoading({
+					title: '赋值中...',
+					duration:1000
 				})
+				// uni.$saleorderselClient = item;
+				uni.$emit("selectClient1",{"item":item})
+				uni.navigateBack()
 			},
-						
 		}
 	}
 </script>

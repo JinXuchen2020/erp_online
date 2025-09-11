@@ -78,18 +78,19 @@
 					size="mini" @click="saveorderFun">{{item.F_BillID ? '保存编辑' : '保存'}}
 				</u-button>
 				<u-button v-if='item.F_BillID' type="warning" :plain="true" class="cpBtn" size="mini" @click="cpsxjFun(item, index)">
-					{{isCheck === true ? '反审' : '审核报告'}}
+					{{isCheck === true ? '反审报告' : '审核报告'}}
 				</u-button>
 				<u-button v-if='(pagetype !== "订单详情")' :disabled='isCheck === true' type="primary" class="cpBtn" size="mini" @click="gotoDetailFun">
 					{{'编辑报告'}}
 				</u-button>
+				<u-button type="error" :plain="true" class="cpBtn" size="mini"
+					@click="deleteCgzjFun(item, index)">
+					删除报告</u-button>
+				
 				<u-button v-if='(pagetype === "订单详情")&&(item.F_BillID)' type="warning" :plain="true" class="cpBtn"
 					size="mini" @click="selprintfileFun">
 					打印
 				</u-button>
-				<u-button type="error" :plain="true" class="cpBtn" size="mini"
-					@click="deleteCgzjFun(item, index)">
-					删除</u-button>
 			</view>	
 		</view>
 	</view>
@@ -579,7 +580,7 @@
 						if (delright) {
 							uni.showModal({
 								title: '提示',
-								content: '是否确认删除订单：' + item.F_BillID,
+								content: '确定删除？删除后将不可以恢复！',
 								success(rrr) {
 									if (rrr.confirm) {
 										uni.showLoading({

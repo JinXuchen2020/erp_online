@@ -7,29 +7,29 @@
 								<image :src="item.url" class="itemPhotoBox"></image>
 							</view>
 							<view class="itemInfoBox">
-								<view class="cardRow" v-if="item.spec">
-									<view>工厂型号：</view>
-									<view>{{item.spec}}</view>
+								<view class="cardRow1" v-if="item.spec">
+									<view class='t'>工厂型号：</view>
+									<view class='v'>{{item.spec}}</view>
 								</view>
 								<view class="cardRow1" v-if="item.itemname">
-									<view>产品名称：</view>
-									<view>{{item.itemname}}</view>
+									<view class='t'>产品名称：</view>
+									<view class='v'>{{item.itemname}}</view>
 								</view>
 								<view class="cardRow1" v-if="item.color">
-									<view>五金颜色：</view>
-									<view>{{item.color}}</view>
+									<view class='t'>五金颜色：</view>
+									<view class='v'>{{item.color}}</view>
 								</view>
 								<view class="cardRow1">
-									<view>采购数量：</view>
-									<view>{{item.wjsl}}</view>
+									<view class='t'>采购数量：</view>
+									<view class='v'>{{item.wjsl}}</view>
 								</view>
 								<view class="cardRow1">
-									<view>未检数量：</view>
-									<view>{{item.cgsl}}</view>
+									<view class='t'>未检数量：</view>
+									<view class='v'>{{item.cgsl}}</view>
 								</view>
-								<view class="cardRow" v-if="item.countt">
-									<view>检验数量：</view>
-									<view><text class="redColor">{{item.countt}}</text>{{item.unit}}</view>
+								<view class="cardRow1" v-if="item.countt">
+									<view class='t'>检验数量：</view>
+									<view class='v'><text class="redColor">{{item.countt}}</text></view>
 								</view>
 								<!-- <view class="cardRow" v-if="item.price">
 									<view>采购单价：</view>
@@ -40,24 +40,24 @@
 									<view><text class="redColor">￥{{item.account}}</text>元</view>
 								</view>	 -->						
 								
-								<view class="cardRow" v-if="item.count1">
-									<view>可出数量：</view>
-									<view><text class="redColor">{{item.count1}}</text></view>
+								<view class="cardRow1" v-if="item.count1">
+									<view class='t'>可出数量：</view>
+									<view class='v'><text class="redColor">{{item.count1}}</text></view>
 								</view>
-								<view class="cardRow" v-if="item.count2">
-									<view>不良数量：</view>
-									<view><text class="redColor">{{item.count2}}</text>{{item.unit}}</view>
+								<view class="cardRow1" v-if="item.count2">
+									<view class='t'>不良数量：</view>
+									<view class='v'><text class="redColor">{{item.count2}}</text>{{item.unit}}</view>
 								</view>
 								<view class="cardRow1">
-									<view>不良原因：</view>
-									<view>{{item.Remark || ''}}</view>
+									<view class='t'>不良原因：</view>
+									<view class='v'>{{item.Remark || ''}}</view>
 								</view>
 							</view>
 							
 						</view>
 						
 						<view class="rowBtn">
-							<u-button type="primary" :plain="true" class="cpBtn" size="mini" @click="searchShow = true">修改数量
+							<u-button type="primary" :plain="true" class="cpBtn" size="mini" @click="searchShow = true">输入数量
 							</u-button>
 							
 							<u-button type="error" :plain="true" class="cpBtn" size="mini"
@@ -77,10 +77,10 @@
 								<u-popup v-model="searchShow" mode="center" width="666rpx" border-radius="14" :closeable="false">
 									<view class="searchBox">
 										<view class="searchTitle">输入数量</view>
-										<u-field  v-model="searchValue1"  :label="searchLabel1" :placeholder="searchPh1"
-											clear-size="40"></u-field>	
-										<u-field  v-model="searchValue2"  :label="searchLabel2" :placeholder="searchPh2"
-											clear-size="40"></u-field>	
+										<u-field v-model="item.countt" :label="'检验数量'" :placeholder="'请输入检验数量'" clear-size="40"></u-field>
+										<u-field v-model="item.count1" :label="'可出数量'" :placeholder="'请输入可出数量'" clear-size="40"></u-field>
+										<u-field v-model="item.count2" :label="'不良数量'" :placeholder="'请输入不良数量'" clear-size="40"></u-field>
+										<u-field v-model="item.Remark" :label="'不良原因'" :placeholder="'请输入不良原因'" clear-size="40"></u-field>
 										<view class="searchBtnRow">
 											<u-button type="warning" class="searchBtn" :ripple="true" ripple-bg-color="#909399" :plain="true" size="medium" @click="searchShow = false">取消</u-button>
 											<u-button type="primary" class="searchBtn" :ripple="true" ripple-bg-color="#909399" :plain="true" size="medium" @click="updateItemFun">确认</u-button>
@@ -199,7 +199,7 @@
 				var that=this;
 				uni.showModal({
 					title: '提示',
-					content: '是否确认删除产品：' + item.itemname,
+					content: '是否确认删除产品：' + item.itemcode,
 					success(rrr) {
 						if (rrr.confirm) {
 							uni.showLoading({
@@ -288,20 +288,31 @@
 	
 	.cardRow1 {
 		display: flex;
-		align-items: center;
+		flex-direction: row;
+		/* align-items: center; */
 		font-size: 16px;
 		margin-bottom: 8rpx;
 	}
 	
-	.cardRow1>view:first-child {
+	.cardRow1 .t {
+		width: 176rpx;
+		color: #ADADAD;
+	}
+	
+	.cardRow1 .v {
+		color: #000000;
+		width: calc(100% - 176rpx);
+	}
+	
+	/* .cardRow1>view:first-child {
 		width: 176rpx;
 		color: #ADADAD;
 	}
 	
 	.cardRow1>view:last-child {
 		color: #000000;
-		width: 266rpx;
-	}
+		width: calc(100% - 176rpx);
+	} */
 	
 	.leftImg {
 		width: 160rpx;

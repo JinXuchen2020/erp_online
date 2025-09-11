@@ -1,50 +1,38 @@
 <template>
 	<view>
-		<view class="xiangqing">
+		<!-- <view class="xiangqing">
 			— 报告详情 —
-		</view>
+		</view> -->
 		<!-- <u-swiper v-if="detail_lbt && detail_lbt.length > 0" :list="detail_lbt" name="url" :effect3d="true" height="320" class="swiperClass" @click="swiperClickFun"></u-swiper> -->
 		<view class="myCard">
 			<view class="cardTopName">产品编号：{{detail.itemcode}}</view>
-			<view class="cardRow1" v-if="detail.spec">
-				<view>产品描述：</view>
-				<view>{{detail.itemname}}</view>
+			<view class="cardRow1">
+				<view class='t'>产品描述：</view>
+				<view class='v'>{{detail.itemname}}</view>
 			</view>	
-			<view class="cardRow1" v-if="detail.color">
-				<view>产品颜色：</view>
-				<view>{{detail.color}}</view>
+			<view class="cardRow1">
+				<view class='t'>产品颜色：</view>
+				<view class='v'>{{detail.color}}</view>
 			</view>
 			<view class="cardRow1">
-				<view>外箱尺寸：</view>
-				<view>{{detail.wxc}}cm*{{detail.wxk}}cm*{{detail.wxg}}cm</view>
+				<view class='t'>外箱尺寸：</view>
+				<view class='v'>{{detail.wxc || 0}}cm*{{detail.wxk|| 0}}cm*{{detail.wxg || 0}}cm</view>
 			</view>
-			<view class="cardRow">
-				<view>每箱净重：</view>
-				<view>{{detail.mxjz}}kg</view>
+			<view class="cardRow1">
+				<view class='t'>每箱净重：</view>
+				<view class='v'>{{detail.mxjz || 0}}kg</view>
 			</view>							
-			<view class="cardRow">
-				<view>每箱毛重：</view>
-				<view>{{detail.mxmz}}kg</view>
+			<view class="cardRow1">
+				<view class='t'>每箱毛重：</view>
+				<view class='v'>{{detail.mxmz || 0}}kg</view>
 			</view>
-			<view class="cardRow1" v-if="detail.bz">
-				<view>备注：</view>
-				<view>{{detail.bz}}</view>
+			<view class="cardRow1">
+				<view class='t'>备注：</view>
+				<view class='v'>{{detail.bz}}</view>
 			</view>
 		</view>
 		<view class="xiangqing">
 			— 检查项目 —
-		</view>
-		<view class="myCard">
-			<view class="cardTopName">检验结果</view>
-			<view class="table">
-				<view @click="pickerSelectFun()" class="flex-white-plr26 ptb20 bdb_f5">
-					<text class="mr26">检验结果</text>
-					<view  :class="detail.F_Result ? '' : 'cBlack'">
-						{{detail.F_Result ? detail.F_Result : '请选择'}}
-						<u-icon class="ml26" name="arrow-right" size="40" color="#888888"></u-icon>
-					</view>
-				</view>
-			</view>
 		</view>
 		<view class="myCard">
 			<view class="cardTopName">包装检查</view>
@@ -167,7 +155,7 @@
 				index="1"
 				max-count="4"
 				:auto-upload="true" />
-			<u-field v-model="detail.mwbz" :label="'验货批注'" clear-size="40"></u-field>
+			<u-field v-model="detail.mwbz" :label="'验货批注:'" clear-size="40"></u-field>
 		</view>
 		<view class="myCard">
 			<view style="margin-bottom: 8rpx;">包装内附件</view>
@@ -186,7 +174,7 @@
 				max-count="4"
 				index="2"
 				:auto-upload="true" />
-			<u-field v-model="detail.fjbz" :label="'验货批注'" clear-size="40"></u-field>
+			<u-field v-model="detail.fjbz" :label="'验货批注:'" clear-size="40"></u-field>
 		</view>
 		<view class="myCard">
 			<view style="margin-bottom: 8rpx;">抽检样品总体概况</view>
@@ -205,7 +193,7 @@
 				max-count="4"
 				index="3"
 				:auto-upload="true" />
-			<u-field v-model="detail.ztbz" :label="'验货批注'" clear-size="40"></u-field>
+			<u-field v-model="detail.ztbz" :label="'验货批注:'" clear-size="40"></u-field>
 		</view>
 		<view class="myCard">
 			<view style="margin-bottom: 8rpx;">产品主功能</view>
@@ -224,7 +212,7 @@
 				max-count="4"
 				index="4"
 				:auto-upload="true" />
-			<u-field v-model="detail.gnbz" :label="'验货批注'" clear-size="40"></u-field>
+			<u-field v-model="detail.gnbz" :label="'验货批注:'" clear-size="40"></u-field>
 		</view>
 		<view class="myCard">
 			<view style="margin-bottom: 8rpx;">产品细节</view>
@@ -243,7 +231,7 @@
 				max-count="4"
 				index="5"
 				:auto-upload="true" />
-			<u-field v-model="detail.xjbz" :label="'验货批注'" clear-size="40"></u-field>
+			<u-field v-model="detail.xjbz" :label="'验货批注:'" clear-size="40"></u-field>
 		</view>
 		<view class="myCard">
 			<view style="margin-bottom: 8rpx;">电器部件</view>
@@ -262,7 +250,7 @@
 				max-count="4"
 				index="6"
 				:auto-upload="true" />
-			<u-field v-model="detail.dqbz" :label="'验货批注'" clear-size="40"></u-field>
+			<u-field v-model="detail.dqbz" :label="'验货批注:'" clear-size="40"></u-field>
 		</view>
 		<view class="myCard">
 			<view style="margin-bottom: 8rpx;">产品标签</view>
@@ -281,7 +269,20 @@
 				max-count="4"
 				index="7"
 				:auto-upload="true" />
-			<u-field v-model="detail.bqbz" :label="'验货批注'" clear-size="40"></u-field>
+			<u-field v-model="detail.bqbz" :label="'验货批注:'" clear-size="40"></u-field>
+		</view>
+		
+		<view class="myCard" style="padding-bottom: 100rpx;">
+			<view class="cardTopName">检验结果</view>
+			<view class="table">
+				<view @click="pickerSelectFun()" class="flex-white-plr26 ptb20 bdb_f5">
+					<text class="mr26">检验结果</text>
+					<view  :class="detail.F_Result ? '' : 'cBlack'">
+						{{detail.F_Result ? detail.F_Result : '请选择'}}
+						<u-icon class="ml26" name="arrow-right" size="40" color="#888888"></u-icon>
+					</view>
+				</view>
+			</view>
 		</view>
 		<!--提交按钮-->
 		<view v-if="!pageType" class="submitView">
@@ -822,20 +823,30 @@
 	}
 	.cardRow1 {
 		display: flex;
-		align-items: center;
+		/* align-items: center; */
 		font-size: 16px;
 		margin-bottom: 8rpx;
+		flex-direction: row;
 	}
 	
-	.cardRow1>view:first-child {
+	.cardRow1 .t {
+		width: 176rpx;
+		color: #ADADAD;
+	}
+	
+	.cardRow1 .v {
+		color: #000000;
+		width: calc(100% - 176rpx);
+	}
+	
+	/* .cardRow1>view:first-child {
 		width: 176rpx;
 		color: #ADADAD;
 	}
 	
 	.cardRow1>view:last-child {
 		color: #000000;
-		/* width: 266rpx; */
-	}
+	} */
 	
 	.container {
 		height: 100%;

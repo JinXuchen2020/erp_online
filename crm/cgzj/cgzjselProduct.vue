@@ -6,7 +6,7 @@
 		<scroll-view v-else scroll-y="true" :style="{height: scrollHeight}" @scrolltolower="getChanPinFun"
 			refresher-enabled :refresher-threshold="200" :refresher-triggered="triggered" refresher-background="gray"
 			@refresherrefresh="onRefresh" @refresherrestore="onRestore">
-			<view v-for="(item, index) in list" :key="index" @click="cardClick(item)">
+			<view v-for="(item, index) in list" :key="index"> <!-- @click="cardClick(item)"> -->
 				<view class="myCard">
 					<view class="cardTopName">产品编号：{{item.itemcode}}</view>
 					<view class="myCard3">
@@ -48,11 +48,11 @@
 							</view>
 							<view class="cardRow" v-if="item.actdate">
 								<view>下单日期：</view>
-								<view><text class="redColor">{{item.actdate}}</text></view>
+								<view><text class="redColor">{{item.actdate.split('T')[0]}}</text></view>
 							</view>
 							<view class="cardRow" v-if="item.enddate">
 								<view>交货日期：</view>
-								<view><text class="redColor">{{item.enddate}}</text></view>
+								<view><text class="redColor">{{item.enddate.split('T')[0]}}</text></view>
 							</view>
 							<view class="cardRow" v-if="item.dykh">
 								<view>对应客户：</view>
@@ -77,8 +77,8 @@
 							检验数量：
 							{{item.cgsl}}
 						</view>
-						<u-button type="error" :plain="true" class="cpBtn" size="mini" @click="delcountt(index)">
-							删除</u-button>
+						<!-- <u-button type="error" :plain="true" class="cpBtn" size="mini" @click="delcountt(index)">
+							删除</u-button> -->
 					</view>
 					<!--搜索弹窗-->
 
@@ -106,7 +106,7 @@
 			</view>
 		</uni-popup>
 		<!--底部合计-->
-		<view class="submitView">
+		<!-- <view class="submitView">
 			<view class="cardTopName disFlexJ">
 				<view class="box">
 					合计数量：{{qty}}
@@ -116,7 +116,7 @@
 				</view>
 				<button type="primary" @click="sumbit">提交</button>
 			</view>
-		</view>
+		</view> -->
 	</view>
 </template>
 
@@ -224,13 +224,32 @@ import guid from '../../uview-ui/libs/function/guid';
 			},
 			selectItem(index) {
 				console.log(index);
-				this.cgsl = this.list[index].cgsl
-				this.kcsl = this.list[index].kcsl
-				this.blsl = this.list[index].blsl
-				this.Remark = this.list[index].Remark
-				this.currency = index
-				this.price = this.list[index].price ? this.list[index].price : 0
-				this.$refs.popucountt.open()
+				var item = {}
+				item.Aid = 0
+				item.itemcode = this.list[index].itemcode
+				item.itemname = this.list[index].itemname
+				item.spec = this.list[index].spec
+				item.color = this.list[index].color
+				item.unit = this.list[index].unit
+				item.countt = this.list[index].cgsl
+				item.count1 = this.list[index].kcsl
+				item.count2 = this.list[index].blsl
+				item.Remark = this.list[index].Remark
+				item.price = this.list[index].price
+				item.account = +this.list[index].cgsl * +this.list[index].price
+				item.bz = this.list[index].bz
+				item.url = this.list[index].url
+				item.dyxs = this.list[index].dyxs
+				item.xsddid = this.list[index].F_BillID
+				item.PO = this.list[index].PO
+				item.orderdate=this.list[index].enddate
+				item.xsid=this.list[index].Aid
+				item.wjsl=this.list[index].count2
+				item.cgsl=this.list[index].countt
+				item.f_guid = guid()
+				
+				uni.$emit("itemBind", item)
+				uni.navigateBack()
 			},
 			// 搜索处理函数
 			inputcountFun: function() {

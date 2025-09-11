@@ -32,11 +32,11 @@
 		<addBtn url="./cgzjDetail?index=-1"></addBtn>
 		
 		<!--底部合计-->
-		<view class="submitView">
+		<!-- <view class="submitView">
 			<view class="cardTopName disFlexJ">
 				<text>合计：{{gs}}个单 ￥: {{djje}}元</text>
 			</view>
-		</view>
+		</view> -->
 	</view>
 	
 </template>
@@ -159,7 +159,7 @@
 					jrdf:that.jrdf,
 					yqwf:that.yqwf,
 					pageIndex: that.pageIndex,
-					usercode: that.usercode,									
+					usercode: that.usercode,
 					searchValue: that.searchValue,
 					startDate: that.startDate,
 					endDate: that.endDate,
@@ -213,10 +213,7 @@
 				that.selectCgzjFun();
 			},
 			deleteCgzjFun: function(e) {
-				
-				let arr = that.list;
-				arr.splice(e.index, 1);
-				that.list = arr;
+				that.cxGetDataFun();
 			},
 			addCgzjFun: function(e) {			
 				

@@ -18,11 +18,11 @@
 		
 		
 		<!--底部合计-->
-		<view class="submitView">
+		<!-- <view class="submitView">
 			<view class="cardTopName disFlexJ">
 				<text>客户：{{gs}}个 </text>
 			</view>
-		</view>
+		</view> -->
 	</view>
 	
 </template>

@@ -13,12 +13,12 @@
 						<view class="table-cell">{{cpdetail.clientname}}</view>
 					</view>
 					<view class="table-row">
-						<view class="table-cell table-header">生产订单</view>
+						<view class="table-cell table-header">质检单号</view>
 						<view class="table-cell">{{cpdetail.F_BillID}}</view>
 					</view>
 					<view class="table-row">
-						<view class="table-cell table-header">销售单号</view>
-						<view class="table-cell">{{cpdetail.dyxs}}</view>
+						<view class="table-cell table-header">采购单号</view>
+						<view class="table-cell">{{cpdetail.xsddid}}</view>
 					</view>
 					<view class="table-row">
 						<view class="table-cell table-header">客户单号</view>
@@ -40,10 +40,14 @@
 						<view class="table-cell table-header">检验结果</view>
 						<view class="table-cell">{{cpdetail.F_Result}}</view>
 					</view>
+					<view class="table-row">
+						<view class="table-cell table-header">检验备注</view>
+						<view class="table-cell">{{cpdetail.bz}}</view>
+					</view>
 				</view>			
 			</view>
 			<view class="myCard">
-				<view class="cardTopName">检查项目</view>
+				<view class="cardTopName">包装检查</view>
 				<view class="table">
 					<view class="table-row">
 						<view class="table-cell">
@@ -68,13 +72,18 @@
 						<view class="table-cell">
 							<u-checkbox :value="cgzjdetail.bllmd">保利龙密度测试</u-checkbox>
 						</view>
-					</view>
+					</view>			
+				</view>
+			</view>
+			<view class="myCard">
+				<view class="cardTopName">外观结构</view>
+				<view class="table">
 					<view class="table-row">
 						<view class="table-cell">
-							<u-checkbox :value="cgzjdetail.wxjc">整体组装外形检查</u-checkbox>
-						</view>					
+							<u-checkbox :value="cgzjdetail.zdjc">上落或转动效果检查</u-checkbox>
+						</view>						
 						<view class="table-cell">
-							<u-checkbox :value="cgzjdetail.jjcs">灯座扭矩测试</u-checkbox>
+							<u-checkbox :value="cgzjdetail.gncs">全装配/功能性测试</u-checkbox>
 						</view>
 					</view>
 					<view class="table-row">
@@ -87,15 +96,17 @@
 					</view>
 					<view class="table-row">
 						<view class="table-cell">
-							<u-checkbox :value="cgzjdetail.zdjc">上落或转动效果检查</u-checkbox>
+							<u-checkbox :value="cgzjdetail.wxjc">整体组装外形检查</u-checkbox>
 						</view>
+					</view>			
+				</view>
+			</view>
+			<view class="myCard">
+				<view class="cardTopName">安全检查</view>
+				<view class="table">
+					<view class="table-row">
 						<view class="table-cell">
 							<u-checkbox :value="cgzjdetail.bhcs">内部接线拉力/闭合测试</u-checkbox>
-						</view>
-					</view>
-					<view class="table-row">					
-						<view class="table-cell">
-							<u-checkbox :value="cgzjdetail.gncs">全装配/功能性测试</u-checkbox>
 						</view>
 						<view class="table-cell">
 							<u-checkbox :value="cgzjdetail.llcs">移动式出线拉力测试</u-checkbox>
@@ -128,10 +139,9 @@
 					<view class="table-row">
 						<view class="table-cell">
 							<u-checkbox :value="cgzjdetail.fzcs">负载测试</u-checkbox>
-						</view>
+						</view>					
 						<view class="table-cell">
-							<text class="mr26"></text>
-							<!-- <u-checkbox :value="cpdetail.wdxcs"/> -->
+							<u-checkbox :value="cgzjdetail.jjcs">灯座扭矩测试</u-checkbox>
 						</view>
 					</view>				
 				</view>

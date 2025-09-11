@@ -2,7 +2,7 @@
 	<view class="content">
 		<!-- 此处为了让reload时不自动滚动到顶部，需要设置auto-clean-list-when-reload和auto-scroll-to-top-when-reload为false，即在reload时关闭自动清空数组和自动滚动到顶部 -->
 		<z-paging ref="paging" :auto-clean-list-when-reload="false" :auto-scroll-to-top-when-reload="false"
-			style="height: calc(100% - 55px);" @scrolltolower="scrollToBottomFun">
+			style="height: calc(100%);" @scrolltolower="scrollToBottomFun">
 			<!--订单基本信息-->
 			<cgzjCard :item="khInfo" :isSelect="true" :djje="djje" :itemList="tabList[0].arr" :index="cardIndex"
 				:pagetype="'订单详情'" :product="tabList[0].arr"></cgzjCard>
@@ -577,11 +577,20 @@
 				})
 			},
 			itemBind(e) {
-
-				this.tabList[0].arr = e.itemList
-				this.djje = e.total
-				this.khInfo.account = e.total
-				this.khInfo.rmb = e.total * (this.khInfo.hl || 1)
+				if (this.tabList[0].arr.some(c=>c.itemcode == e.itemcode)) {
+					uni.showModal({
+						title: '提示',
+						content: '该产品已选择, 请添加其他产品！',
+						showCancel: false
+					})
+				}
+				else {
+					e.Aid = this.tabList[0].arr.length;
+					this.tabList[0].arr.push(e);
+				}
+				// this.djje = e.total
+				// this.khInfo.account = e.total
+				// this.khInfo.rmb = e.total * (this.khInfo.hl || 1)
 
 			},
 			selectClient(e) {
