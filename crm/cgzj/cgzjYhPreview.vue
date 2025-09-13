@@ -6,11 +6,11 @@
 				<view class="table">
 					<view class="table-row">
 						<view class="table-cell table-header">客户名称</view>
-						<view class="table-cell">{{cgzjdetail.dykh}}</view>
+						<view class="table-cell">{{cgzjdetail.clientnameE}}</view>
 					</view>
 					<view class="table-row">
 						<view class="table-cell table-header">生产部门</view>
-						<view class="table-cell">{{cpdetail.clientname}}</view>
+						<view class="table-cell">{{cgzjdetail.dykhE}}</view>
 					</view>
 					<view class="table-row">
 						<view class="table-cell table-header">质检单号</view>
@@ -161,7 +161,7 @@
 				</view>
 				<view class="cardRow1">
 					<text class="colorGray">验货批注：</text>
-					<text>{{cpdetail.mwbz}}</text>
+					<text>{{cpdetail.mwbz || ''}}</text>
 				</view>
 			</view>
 			<view class="myCard">
@@ -175,7 +175,7 @@
 				</view>
 				<view class="cardRow1">
 					<text class="colorGray">验货批注：</text>
-					<text>{{cpdetail.fjbz}}</text>
+					<text>{{cpdetail.fjbz || ''}}</text>
 				</view>
 			</view>
 			<view class="myCard">
@@ -189,7 +189,7 @@
 				</view>
 				<view class="cardRow1">
 					<text class="colorGray">验货批注：</text>
-					<text>{{cpdetail.ztbz}}</text>
+					<text>{{cpdetail.ztbz || ''}}</text>
 				</view>
 			</view>
 			<view class="myCard">
@@ -203,7 +203,7 @@
 				</view>
 				<view class="cardRow1">
 					<text class="colorGray">验货批注：</text>
-					<text>{{cpdetail.gnbz}}</text>
+					<text>{{cpdetail.gnbz || ''}}</text>
 				</view>
 			</view>
 			<view class="myCard">
@@ -217,7 +217,7 @@
 				</view>
 				<view class="cardRow1">
 					<text class="colorGray">验货批注：</text>
-					<text>{{cpdetail.xjbz}}</text>
+					<text>{{cpdetail.xjbz || ''}}</text>
 				</view>
 			</view>
 			<view class="myCard">
@@ -231,7 +231,7 @@
 				</view>
 				<view class="cardRow1">
 					<text class="colorGray">验货批注：</text>
-					<text>{{cpdetail.dqbz}}</text>
+					<text>{{cpdetail.dqbz || ''}}</text>
 				</view>
 			</view>
 			<view class="myCard">
@@ -245,19 +245,19 @@
 				</view>
 				<view class="cardRow1">
 					<text class="colorGray">验货批注：</text>
-					<text>{{cpdetail.bqbz}}</text>
+					<text>{{cpdetail.bqbz || ''}}</text>
 				</view>
 			</view>
 		</scroll-view>
 		
 		<!--提交按钮-->
 		<view class="bottomBox">
-			<view class="tabbarItem" @click="printReport">
+			<view class="tabbarItem" @click="printReport(false)">
 				<u-icon class="tabImg" size="40" height="40" name="fingerprint"></u-icon>
 				<view>打印</view>
 			</view>
 			<view class="tabbarItem">
-				<button open-type="share" class="shareBtn">
+				<button class="shareBtn" @click="printReport(true)">
 					<u-icon name="share" color="black" size="40"></u-icon>
 					<view>分享</view>
 				</button>
@@ -369,9 +369,9 @@
 					current: str
 				})
 			},
-			printReport() {
+			printReport(isShare) {
 				// #ifdef MP-WEIXIN
-				that.selectPrintfile();
+				that.selectPrintfile(isShare);
 				// #endif
 				
 				// #ifndef MP-WEIXIN
@@ -381,7 +381,7 @@
 				})
 				// #endif
 			},
-			selectPrintfile() {
+			selectPrintfile(isShare) {
 				let params = {
 					F_BillID: that.cpdetail.F_BillID,
 					usercode: uni.$userInfo.F_ID,
@@ -410,31 +410,74 @@
 						})
 						if (res.data.code == 0) {
 							wx.downloadFile({
-							  url: siteURL + '/pdf/' + res.data.filename,
-							  success: function (res) {
-							    // 拿到临时文件路径
-							    const tempFilePath = res.tempFilePath;
-							    // 使用 openDocument 打开
-							    wx.openDocument({
-							      filePath: tempFilePath,
-							      fileType: 'pdf',
-							      success: function (res) {
-							        console.log('文档打开成功');
-							      },
-							      fail: function (err) {
-							        console.error('打开文档失败', err);
-							        wx.showToast({ title: '打开失败', icon: 'none' });
-							      }
-							    });
-							  },
-							  fail: function (err) {
-							    console.error('下载文件失败', err);
-							    wx.showToast({ title: '下载失败', icon: 'none' });
-							  }
+								url: siteURL + '/pdf/' + res.data.filename,
+								success: function (res) {
+									// 拿到临时文件路径
+									const tempFilePath = res.tempFilePath;
+									// 使用 openDocument 打开
+									if(isShare) {
+										that.sharePDF(tempFilePath);										
+									}
+									else {
+										wx.openDocument({
+											filePath: tempFilePath,
+											fileType: 'pdf',
+											success: function (res) {
+												console.log('文档打开成功');
+											},
+											fail: function (err) {
+												console.error('打开文档失败', err);
+												wx.showToast({ title: '打开失败', icon: 'none' });
+											}
+										});
+									}
+								},
+								fail: function (err) {
+									console.error('下载文件失败', err);
+									wx.showToast({ title: '下载失败', icon: 'none' });
+								}
 							});
 						}
 					})
 			},
+			sharePDF(tempFilePath) {
+				if (wx.canIUse('shareFileMessage')) {
+					wx.shareFileMessage({
+						filePath: tempFilePath,
+						fileName: `${that.cgzjdetail.F_BillID}-产品检验报告.pdf`,
+						success() {
+							console.log('转发成功');
+						},
+						fail(err) {
+							console.error('转发失败', err);
+						}
+					});
+				} else {
+					wx.showToast({
+						title: '当前微信版本不支持直接转发文件, 请手动分享',
+						icon: 'none'
+					});
+					wx.saveFile({
+						tempFilePath: tempFilePath,
+						success(res) {
+							const savedFilePath = res.savedFilePath; // 本地存储路径
+							wx.openDocument({
+								filePath: savedFilePath,
+								fileType: 'pdf',
+								success() {
+									console.log('打开成功，用户可手动分享');
+								},
+								fail(err) {
+									console.error('打开失败', err);
+								}
+							});
+					    }, 
+					    fail(err) {
+							console.error('保存失败', err);
+					    }
+					});
+				}
+			}
 		}
 	}
 </script>

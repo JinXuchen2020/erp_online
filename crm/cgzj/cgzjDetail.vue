@@ -5,7 +5,7 @@
 			style="height: calc(100%);" @scrolltolower="scrollToBottomFun">
 			<!--订单基本信息-->
 			<cgzjCard :item="khInfo" :isSelect="true" :djje="djje" :itemList="tabList[0].arr" :index="cardIndex"
-				:pagetype="'订单详情'" :product="tabList[0].arr"></cgzjCard>
+				:pagetype="'订单详情'" :product="tabList[0].arr" @saveorderFun="saveorderFun"></cgzjCard>
 			<!--tab-->
 			<view class="uTabsView">
 				<u-tabs :list="tabList" :is-scroll="true" duration="0.08" :current="tabIndex" :show-bar="false"
@@ -234,7 +234,6 @@
 			uni.$on("itemBind", that.itemBind)
 			uni.$on('refreshCgzjFun', that.refreshCgzjFun)
 			uni.$on('updateYhResult', that.updateYhResult)
-			uni.$on('saveorderFun', that.saveorderFun)
 			
 			uni.$on("previewPrintfile", this.previewPrintfile)
 			
@@ -261,7 +260,6 @@
 			uni.$off("itemBind", that.itemBind)
 			uni.$off('refreshCgzjFun', that.refreshCgzjFun)
 			uni.$off('updateYhResult', that.updateYhResult)
-			uni.$off('saveorderFun', that.saveorderFun)
 			if (e.from == 'backbutton' && this.cardIndex != -1) {
 				uni.$emit('updateListByIndex', {
 					index: this.cardIndex,
@@ -585,7 +583,7 @@
 					})
 				}
 				else {
-					e.Aid = this.tabList[0].arr.length;
+					e.Aid = this.tabList[0].arr.length + 1;
 					this.tabList[0].arr.push(e);
 				}
 				// this.djje = e.total
@@ -760,8 +758,6 @@
 				]
 			},
 			cxPGetDataFun: function(e) {
-				// uni.$emit('cxGetDataFun');
-				uni.$off('saveorderFun', that.saveorderFun)
 				setTimeout(() => {
 					uni.navigateTo({
 						url: './cgzj'
@@ -866,7 +862,7 @@
 									showCancel: false
 								})
 			
-							}			
+							}
 						}
 						
 						console.log(this.tabList[0].arr);

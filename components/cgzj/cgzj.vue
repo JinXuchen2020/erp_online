@@ -38,10 +38,10 @@
 					<text class="colorGray">对应客户：</text>
 					<text>{{item.dykh}}</text>
 				</view>
-				<!-- <view v-if="item.PO">
-					<text class="colorGray">客户PO：</text>
-					<text>{{item.PO}}</text>
-				</view> -->
+				<view v-if="item.QA">
+					<text class="colorGray">检验人员：</text>
+					<text>{{item.QA}}</text>
+				</view>
 				<!-- <view v-if="item.kgyb">
 					<text class="colorGray">保留样板、色板：</text>
 					<u-checkbox v-model="item.kgyb"/>
@@ -77,11 +77,11 @@
 				<u-button v-if='(pagetype === "订单详情")&&(isCheck !== true)' type="primary" :plain="true" class="cpBtn"
 					size="mini" @click="saveorderFun">{{item.F_BillID ? '保存编辑' : '保存'}}
 				</u-button>
+				<u-button v-if='(pagetype !== "订单详情")' :disabled='isCheck === true' type="primary" class="cpBtn" size="mini" @click="gotoDetailFun">
+					{{'报告详情'}}
+				</u-button>
 				<u-button v-if='item.F_BillID' type="warning" :plain="true" class="cpBtn" size="mini" @click="cpsxjFun(item, index)">
 					{{isCheck === true ? '反审报告' : '审核报告'}}
-				</u-button>
-				<u-button v-if='(pagetype !== "订单详情")' :disabled='isCheck === true' type="primary" class="cpBtn" size="mini" @click="gotoDetailFun">
-					{{'编辑报告'}}
 				</u-button>
 				<u-button type="error" :plain="true" class="cpBtn" size="mini"
 					@click="deleteCgzjFun(item, index)">
@@ -320,7 +320,7 @@
 			},
 			// 保存订单函数
 			saveorderFun: function(e) {
-				uni.$emit('saveorderFun', true);
+				this.$emit('saveorderFun', true);
 			},
 			gotoDetailFun: function() {
 				if (this.isSelect) {
@@ -448,47 +448,101 @@
 								})
 
 							} else {
-								//审核单据
-								uni.showLoading({
-									title: str,
-									mask: true,
-									duration: 2000
-								})
-								let reqObj = {
-									F_BillID: item.F_BillID,
-
-									isSxJ: item.sh
-
+								if(!item.sh) {
+									uni.showModal({
+										title: '提示',
+										content: '审核后将不能再进行编辑修改！',
+										success(rrr) {
+											if (rrr.confirm) {
+												//审核单据
+												uni.showLoading({
+													title: str,
+													mask: true,
+													duration: 2000
+												})
+												let reqObj = {
+													F_BillID: item.F_BillID,
+												
+													isSxJ: item.sh
+												
+												}
+												let reqData = {
+													action: 'checkCgzjById',
+													params: JSON.stringify(reqObj)
+												}
+												console.log('发送指令：' + reqData.action + '传递参数：' + reqData.params)
+												cgzjApi(reqData)
+													.then(res => {
+														let showTitle = res.data.tag
+														that.item.sh = res.data.bResult
+														that.isCheck=res.data.bResult
+														console.log('单据审核开始触发','index:'+this.index)
+														console.log('单据审核开始触发',res.data.rows[0])
+														console.log('isCheck',res.data.bResult)
+														uni.$emit('updateListCheckByIndex', {
+															index: this.index,
+															obj: res.data.rows[0]
+														})
+														uni.$emit('refreshCgzjFun', {
+															index: this.index,
+															obj: res.data.rows[0]
+															})
+														uni.showToast({
+															title: showTitle,
+															icon: 'none',
+															duration: 2000
+														})
+														//that.list.splice(index, 1);
+													})
+												//审核单据完成
+											}
+										}
+									})	
 								}
-								let reqData = {
-									action: 'checkCgzjById',
-									params: JSON.stringify(reqObj)
-								}
-								console.log('发送指令：' + reqData.action + '传递参数：' + reqData.params)
-								cgzjApi(reqData)
-									.then(res => {
-										let showTitle = res.data.tag
-										that.item.sh = res.data.bResult
-										that.isCheck=res.data.bResult
-										console.log('单据审核开始触发','index:'+this.index)
-										console.log('单据审核开始触发',res.data.rows[0])
-										console.log('isCheck',res.data.bResult)
-										uni.$emit('updateListCheckByIndex', {
-											index: this.index,
-											obj: res.data.rows[0]
-										})
-										uni.$emit('refreshCgzjFun', {
-											index: this.index,
-											obj: res.data.rows[0]
-											})
-										uni.showToast({
-											title: showTitle,
-											icon: 'none',
-											duration: 2000
-										})
-										//that.list.splice(index, 1);
+								else {
+									//审核单据
+									uni.showLoading({
+										title: str,
+										mask: true,
+										duration: 2000
 									})
-								//审核单据完成
+									let reqObj = {
+										F_BillID: item.F_BillID,
+									
+										isSxJ: item.sh
+									
+									}
+									let reqData = {
+										action: 'checkCgzjById',
+										params: JSON.stringify(reqObj)
+									}
+									console.log('发送指令：' + reqData.action + '传递参数：' + reqData.params)
+									cgzjApi(reqData)
+										.then(res => {
+											let showTitle = res.data.tag
+											that.item.sh = res.data.bResult
+											that.isCheck=res.data.bResult
+											console.log('单据审核开始触发','index:'+this.index)
+											console.log('单据审核开始触发',res.data.rows[0])
+											console.log('isCheck',res.data.bResult)
+											uni.$emit('updateListCheckByIndex', {
+												index: this.index,
+												obj: res.data.rows[0]
+											})
+											uni.$emit('refreshCgzjFun', {
+												index: this.index,
+												obj: res.data.rows[0]
+												})
+											uni.showToast({
+												title: showTitle,
+												icon: 'none',
+												duration: 2000
+											})
+											//that.list.splice(index, 1);
+										})
+									//审核单据完成
+								}
+															
 							}
 
 						}

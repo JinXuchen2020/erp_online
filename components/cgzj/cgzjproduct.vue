@@ -4,7 +4,7 @@
 						<view class="cardTopName">产品编号：{{item.itemcode}} </view>
 						<view class="myCard3">
 							<view class="itemPhotoBox">
-								<image :src="item.url" class="itemPhotoBox"></image>
+								<image :src="item.url" class="itemPhotoBox" mode="widthFix"></image>
 							</view>
 							<view class="itemInfoBox">
 								<view class="cardRow1" v-if="item.spec">
@@ -46,7 +46,7 @@
 								</view>
 								<view class="cardRow1" v-if="item.count2">
 									<view class='t'>不良数量：</view>
-									<view class='v'><text class="redColor">{{item.count2}}</text>{{item.unit}}</view>
+									<view class='v'><text class="redColor">{{item.count2}}</text></view>
 								</view>
 								<view class="cardRow1">
 									<view class='t'>不良原因：</view>
@@ -57,15 +57,15 @@
 						</view>
 						
 						<view class="rowBtn">
-							<u-button type="primary" :plain="true" class="cpBtn" size="mini" @click="searchShow = true">输入数量
+							<u-button type="primary" :disabled='cgzjInfo.sh === true' class="cpBtn" size="mini" @click="searchShow = true">输入数量
 							</u-button>
 							
-							<u-button type="error" :plain="true" class="cpBtn" size="mini"
+							<u-button type="error" :disabled='cgzjInfo.sh === true'  class="cpBtn" size="mini"
 								@click="deleteCpFun(item, index)">
 								删除</u-button>
 						</view>
 						<view class="rowBtn">							
-							<u-button type="primary" :plain="true" class="cpBtn" size="mini" @click="gotoYanHuoFun">{{item.F_BillID ?'修改图片' : '上传图片'}}
+							<u-button type="primary" :disabled='cgzjInfo.sh === true' class="cpBtn" size="mini" @click="gotoYanHuoFun">{{item.F_BillID ?'修改图片' : '上传图片'}}
 							</u-button>
 							
 							<u-button v-if='item.F_BillID' type="primary" :plain="true" class="cpBtn"
@@ -94,7 +94,7 @@
 <script>
 	let that = ''
 	import {
-		clientApi, testrightApi
+		testrightApi,cgzjApi
 	} from '../../utils/api.js'
 	export default {
 		props: {
@@ -136,9 +136,9 @@
 			updateItemFun: function() {
 				this.searchShow = false;
 				
-				this.item.countt=this.searchValue1;
-				this.item.price=this.searchValue2;
-				this.item.account=+this.searchValue1*this.searchValue2
+				// this.item.countt=this.searchValue1;
+				// this.item.price=this.searchValue2;
+				// this.item.account=+this.searchValue1*this.searchValue2
 				setTimeout(()=>{uni.$emit("updateItemFun1")},23)
 				
 			},
@@ -206,15 +206,14 @@
 								title: '删除中...'
 							})							
 							let params={
-									itemcode:item.itemcode,
-									F_BillID:item.F_BillID,
+									f_guid:item.f_guid,
 								}
 							let reqData = {
 								action: 'delcgzjdetailById',
 								params: JSON.stringify(params)
 							}
 							console.log('发送指令：'+reqData.action+'传递参数：'+reqData.params)
-							clientApi(reqData)
+							cgzjApi(reqData)
 								.then(res => {
 									uni.showToast({
 										title: '删除成功!',

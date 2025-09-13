@@ -23,7 +23,7 @@
 								<view>{{item.dyxs}}</view>
 							</view>
 							<view class="cardRow1" v-if="item.spec">
-								<view>产品型号：</view>
+								<view>工厂型号：</view>
 								<view>{{item.spec}}</view>
 							</view>
 							<view class="cardRow1" v-if="item.name">
