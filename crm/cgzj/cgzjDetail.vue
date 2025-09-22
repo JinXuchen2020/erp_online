@@ -19,7 +19,7 @@
 				<!--产品信息-->
 				<view v-if="tabIndex == 0">
 					<view v-for="(item, index) in tabList[0].arr" :key="index" @click="cardClick(item,index)">
-						<cgzjproduct :cgzjInfo="khInfo" :item="item" :index="index" searchLabel1="下单数量" searchPh1="请输入下单数量"
+						<cgzjproduct :cgzjInfo="khInfo" :item="item" :index="index" @handleInputCount="handleInputCount" searchLabel1="下单数量" searchPh1="请输入下单数量"
 							searchLabel2="产品售价" searchPh2="请输入产品售价"></cgzjproduct>
 					</view>
 				</view>
@@ -110,6 +110,21 @@
 			</view>			
 			<u-select v-model="selectShow" :list="selectList" @confirm="selectConfirmFun"></u-select>
 		</u-popup>
+		
+		<!--输入数量弹窗-->
+		<u-popup v-model="inputCountShow" mode="center" width="666rpx" border-radius="14" :closeable="false">
+			<view class="searchBox">
+				<view class="searchTitle">输入数量</view>
+				<u-field v-model="currentProduct.countt" :label="'检验数量'" :placeholder="'请输入检验数量'" clear-size="40"></u-field>
+				<u-field v-model="currentProduct.count1" :label="'可出数量'" :placeholder="'请输入可出数量'" clear-size="40"></u-field>
+				<u-field v-model="currentProduct.count2" :label="'不良数量'" :placeholder="'请输入不良数量'" clear-size="40"></u-field>
+				<u-field v-model="currentProduct.Remark" :label="'不良原因'" :placeholder="'请输入不良原因'" clear-size="40"></u-field>
+				<view class="searchBtnRow">
+					<u-button type="warning" class="searchBtn" :ripple="true" ripple-bg-color="#909399" :plain="true" size="medium" @click="inputCountShow = false">取消</u-button>
+					<u-button type="primary" class="searchBtn" :ripple="true" ripple-bg-color="#909399" :plain="true" size="medium" @click="confirmInputCount">确认</u-button>
+				</view>
+			</view>
+		</u-popup>
 	</view>
 </template>
 
@@ -173,6 +188,8 @@
 				gnlist:null,
 				dqlist:null,
 				ztlist:null,
+				inputCountShow: false,
+				currentProduct: {}
 			}
 		},
 		onLoad(options) {
@@ -720,7 +737,7 @@
 			},
 			// 卡片点击方法
 			cardClick: function(item, index) {
-				this.selectIndex = 7
+				this.selectIndex = index
 				uni.$cpDetail = item;
 				uni.navigateTo({
 					url: './cpDetail'
@@ -918,6 +935,13 @@
 					})
 				}, 1000)				
 			},
+			handleInputCount(item) {
+				this.currentProduct = item;
+				this.inputCountShow = true;
+			},
+			confirmInputCount() {
+				this.inputCountShow = false;
+			}
 		}
 	}
 </script>

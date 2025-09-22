@@ -1,94 +1,78 @@
 <template>
+	<view v-else class="myCard">
+		<view class="cardTopName">产品编号：{{item.itemcode}} </view>
+		<view class="myCard3">
+			<view class="itemPhotoBox">
+				<image :src="item.url" class="itemPhotoBox" mode="widthFix"></image>
+			</view>
+			<view class="itemInfoBox">
+				<view class="cardRow1" v-if="item.spec">
+					<view class='t'>工厂型号：</view>
+					<view class='v'>{{item.spec}}</view>
+				</view>
+				<view class="cardRow1" v-if="item.itemname">
+					<view class='t'>产品名称：</view>
+					<view class='v'>{{item.itemname}}</view>
+				</view>
+				<view class="cardRow1" v-if="item.color">
+					<view class='t'>五金颜色：</view>
+					<view class='v'>{{item.color}}</view>
+				</view>
+				<view class="cardRow1">
+					<view class='t'>采购数量：</view>
+					<view class='v'>{{item.wjsl}}</view>
+				</view>
+				<view class="cardRow1">
+					<view class='t'>未检数量：</view>
+					<view class='v'>{{item.cgsl}}</view>
+				</view>
+				<view class="cardRow1" v-if="item.countt">
+					<view class='t'>检验数量：</view>
+					<view class='v'><text class="redColor">{{item.countt}}</text></view>
+				</view>
+				<!-- <view class="cardRow" v-if="item.price">
+					<view>采购单价：</view>
+					<view><text class="redColor">￥{{item.price}}</text>/{{item.unit}}</view>
+				</view>
+				<view class="cardRow" v-if="item.account">
+					<view>总金额：</view>
+					<view><text class="redColor">￥{{item.account}}</text>元</view>
+				</view>	 -->						
 				
-					<view v-else class="myCard">
-						<view class="cardTopName">产品编号：{{item.itemcode}} </view>
-						<view class="myCard3">
-							<view class="itemPhotoBox">
-								<image :src="item.url" class="itemPhotoBox" mode="widthFix"></image>
-							</view>
-							<view class="itemInfoBox">
-								<view class="cardRow1" v-if="item.spec">
-									<view class='t'>工厂型号：</view>
-									<view class='v'>{{item.spec}}</view>
-								</view>
-								<view class="cardRow1" v-if="item.itemname">
-									<view class='t'>产品名称：</view>
-									<view class='v'>{{item.itemname}}</view>
-								</view>
-								<view class="cardRow1" v-if="item.color">
-									<view class='t'>五金颜色：</view>
-									<view class='v'>{{item.color}}</view>
-								</view>
-								<view class="cardRow1">
-									<view class='t'>采购数量：</view>
-									<view class='v'>{{item.wjsl}}</view>
-								</view>
-								<view class="cardRow1">
-									<view class='t'>未检数量：</view>
-									<view class='v'>{{item.cgsl}}</view>
-								</view>
-								<view class="cardRow1" v-if="item.countt">
-									<view class='t'>检验数量：</view>
-									<view class='v'><text class="redColor">{{item.countt}}</text></view>
-								</view>
-								<!-- <view class="cardRow" v-if="item.price">
-									<view>采购单价：</view>
-									<view><text class="redColor">￥{{item.price}}</text>/{{item.unit}}</view>
-								</view>
-								<view class="cardRow" v-if="item.account">
-									<view>总金额：</view>
-									<view><text class="redColor">￥{{item.account}}</text>元</view>
-								</view>	 -->						
-								
-								<view class="cardRow1" v-if="item.count1">
-									<view class='t'>可出数量：</view>
-									<view class='v'><text class="redColor">{{item.count1}}</text></view>
-								</view>
-								<view class="cardRow1" v-if="item.count2">
-									<view class='t'>不良数量：</view>
-									<view class='v'><text class="redColor">{{item.count2}}</text></view>
-								</view>
-								<view class="cardRow1">
-									<view class='t'>不良原因：</view>
-									<view class='v'>{{item.Remark || ''}}</view>
-								</view>
-							</view>
-							
-						</view>
-						
-						<view class="rowBtn">
-							<u-button type="primary" :disabled='cgzjInfo.sh === true' class="cpBtn" size="mini" @click="searchShow = true">输入数量
-							</u-button>
-							
-							<u-button type="error" :disabled='cgzjInfo.sh === true'  class="cpBtn" size="mini"
-								@click="deleteCpFun(item, index)">
-								删除</u-button>
-						</view>
-						<view class="rowBtn">							
-							<u-button type="primary" :disabled='cgzjInfo.sh === true' class="cpBtn" size="mini" @click="gotoYanHuoFun">{{item.F_BillID ?'修改图片' : '上传图片'}}
-							</u-button>
-							
-							<u-button v-if='item.F_BillID' type="primary" :plain="true" class="cpBtn"
-								size="mini" @click="previewYhReportFun">
-								查看报告
-							</u-button>
-						</view>
-						<!--搜索弹窗-->
-								<u-popup v-model="searchShow" mode="center" width="666rpx" border-radius="14" :closeable="false">
-									<view class="searchBox">
-										<view class="searchTitle">输入数量</view>
-										<u-field v-model="item.countt" :label="'检验数量'" :placeholder="'请输入检验数量'" clear-size="40"></u-field>
-										<u-field v-model="item.count1" :label="'可出数量'" :placeholder="'请输入可出数量'" clear-size="40"></u-field>
-										<u-field v-model="item.count2" :label="'不良数量'" :placeholder="'请输入不良数量'" clear-size="40"></u-field>
-										<u-field v-model="item.Remark" :label="'不良原因'" :placeholder="'请输入不良原因'" clear-size="40"></u-field>
-										<view class="searchBtnRow">
-											<u-button type="warning" class="searchBtn" :ripple="true" ripple-bg-color="#909399" :plain="true" size="medium" @click="searchShow = false">取消</u-button>
-											<u-button type="primary" class="searchBtn" :ripple="true" ripple-bg-color="#909399" :plain="true" size="medium" @click="updateItemFun">确认</u-button>
-										</view>
-									</view>
-								</u-popup>
-					</view>
-
+				<view class="cardRow1" v-if="item.count1">
+					<view class='t'>可出数量：</view>
+					<view class='v'><text class="redColor">{{item.count1}}</text></view>
+				</view>
+				<view class="cardRow1" v-if="item.count2">
+					<view class='t'>不良数量：</view>
+					<view class='v'><text class="redColor">{{item.count2}}</text></view>
+				</view>
+				<view class="cardRow1">
+					<view class='t'>不良原因：</view>
+					<view class='v'>{{item.Remark || ''}}</view>
+				</view>
+			</view>
+			
+		</view>
+		
+		<view class="rowBtn">
+			<u-button type="primary" :disabled='cgzjInfo.sh === true' class="cpBtn" size="mini" @click="handleInputCount">输入数量
+			</u-button>
+			
+			<u-button type="error" :disabled='cgzjInfo.sh === true'  class="cpBtn" size="mini"
+				@click="deleteCpFun(item, index)">
+				删除</u-button>
+		</view>
+		<view class="rowBtn">							
+			<u-button type="primary" :disabled='cgzjInfo.sh === true' class="cpBtn" size="mini" @click="gotoYanHuoFun">{{item.F_BillID ?'修改图片' : '上传图片'}}
+			</u-button>
+			
+			<u-button v-if='item.F_BillID' type="primary" :plain="true" class="cpBtn"
+				size="mini" @click="previewYhReportFun">
+				查看报告
+			</u-button>
+		</view>
+	</view>
 </template>
 
 <script>
@@ -130,26 +114,17 @@
 				uncheckBill: false,
 			}
 		},
-		methods: {
-			
-			// 搜索处理函数
-			updateItemFun: function() {
-				this.searchShow = false;
-				
-				// this.item.countt=this.searchValue1;
-				// this.item.price=this.searchValue2;
-				// this.item.account=+this.searchValue1*this.searchValue2
-				setTimeout(()=>{uni.$emit("updateItemFun1")},23)
-				
-			},
-			
+		methods: {			
 			gotoYanHuoFun: function() {
 				uni.$cgzjProduct = this.item;
 				uni.$cgzjInfo = this.cgzjInfo;
 				uni.navigateTo({
 					url: '/crm/cgzj/cgzjProductImage?cpIndex=' + this.index
 				})
-			},			
+			},
+			handleInputCount() {
+				this.$emit("handleInputCount", this.item);
+			},
 			previewYhReportFun: function() {
 				that = this
 				let reqObj = {
@@ -184,16 +159,7 @@
 							})				
 						}				
 					})
-			},	
-			// setCpFun(){
-			// 	//this.$refs.popup.open()
-			// },
-			// gotoDetailFun: function() {
-			// 	uni.$gjInfo = this.item;
-			// 	uni.navigateTo({
-			// 		url: '/pages/crm/genJin/detail?index=' + this.index
-			// 	})
-			// },
+			},
 			// 删除产品
 			deleteCpFun: function(item, index) {
 				var that=this;

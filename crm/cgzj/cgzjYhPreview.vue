@@ -6,11 +6,11 @@
 				<view class="table">
 					<view class="table-row">
 						<view class="table-cell table-header">客户名称</view>
-						<view class="table-cell">{{cgzjdetail.clientnameE}}</view>
+						<view class="table-cell">{{cgzjdetail.dykhE}}</view>
 					</view>
 					<view class="table-row">
 						<view class="table-cell table-header">生产部门</view>
-						<view class="table-cell">{{cgzjdetail.dykhE}}</view>
+						<view class="table-cell">{{cgzjdetail.clientnameE}}</view>
 					</view>
 					<view class="table-row">
 						<view class="table-cell table-header">质检单号</view>
