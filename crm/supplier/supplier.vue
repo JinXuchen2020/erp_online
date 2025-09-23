@@ -283,17 +283,6 @@
 		background-color: #F8F8F8;
 	}
 
-	.card {
-		width: 698rpx;
-		padding: 26rpx 26rpx 10rpx;
-		margin: 32rpx 26rpx;
-		box-sizing: border-box;
-		border-radius: 8rpx;
-		box-shadow: #d8d8d8 0px 0px 16rpx;
-		position: relative;
-		background-color: #FFFFFF;
-	}
-
 	.genjinBtn {
 		position: absolute;
 		right: 26rpx;
