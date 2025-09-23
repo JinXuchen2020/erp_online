@@ -10,159 +10,170 @@
 				<u-icon class="ml26" name="arrow-right" size="40" color="#888888"></u-icon>
 			</view>
 		</view>
-		<dataNull v-if="list.length == 0" src="/static/img/chahua/dataNullXz.png" title="暂无相关产品" title1="请添加或者更换查询条件">
-		</dataNull>
-		<scroll-view v-else scroll-y="true" :style="{height: scrollHeight}" @scrolltolower="getChanPinFun"
-			refresher-enabled :refresher-threshold="200" :refresher-triggered="triggered" refresher-background="gray"
-			@refresherrefresh="onRefresh" @refresherrestore="onRestore">
-			<view v-for="(item, index) in list" :key="index" @click="cardClick(item)">
-				<view v-if="item.cpFmtList && item.cpFmtList.length > 0" class="myCard2">
-					<view class="leftImg">
-						<u-image height="160" width="160" border-radius="26" :src="item.cpFmtList[0].url"></u-image>
+		<view class="scrollF" :style="{ height: (wHeight - 50) + 'px' }">
+			<view class="leftScrollV">
+				<scroll-view scroll-y="true" :style="{height: scrollHeight}">
+					<view v-for="(item, index) in classify" :key="index" class="leftCardView">
+						<view class="leftCard" :class="{ leftActive: leftA == index }" @click="selectLeftFl(index)">{{item.flName}}</view>
 					</view>
-					<view class="rightView">
-						<view class="cardTopName1">{{item.pName}}</view>
-						<view v-if="item.salesNum || item.stock" class="xlKcClass">
-							<text v-if="item.salesNum">销量: {{item.salesNum}}</text>
-							<text v-if="item.stock">库存: {{item.stock}}</text>
-						</view>
-						<view class="cardRow1">
-							<text class="redColor">￥{{item.price}}</text>/{{item.unit}}
-						</view>
-						<view class="rowBtn">
-							<u-button type="primary" :plain="true" class="cpBtn" size="mini" @tap.stop="setCpFun(item)">
-								编辑产品
-							</u-button>
-							<u-button type="warning" :plain="true" class="cpBtn" size="mini"
-								@click="cpsxjFun(item, index)">{{item.isSxJ == true ? '下架' : '上架'}}</u-button>
-							<u-button type="error" :plain="true" class="cpBtn" size="mini"
-								@click="deleteCpFun(item, index)">
-								删除</u-button>
-						</view>
-					</view>
-				</view>
-				<view v-else class="myCard">
-					<view class="cardTopName">产品编号：{{item.F_ID}}</view>
-					<view class="myCard3">
-						<view class="itemPhotoBox">
-							<image :src="item.url" mode="widthFix" class="itemPhotoBox"></image>
-						</view>
-						<view class="infoBox">
-							<view class="cardRow1" v-if="item.spec">
-								<view>工厂型号：</view>
-								<view>{{item.spec}}</view>
-							</view>
-							<view class="cardRow1" v-if="item.name">
-								<view>产品名称：</view>
-								<view>{{item.name}}</view>
-							</view>							
-							<!-- <view class="cardRow" v-if="item.color">
-								<view>产品颜色：</view>
-								<view>{{item.color}}</view>
-							</view> -->
-							<!-- <view class="cardRow" v-if="item.total">
-								<view>零售面价：</view>
-								<view><text class="redColor">￥{{item.total}}</text>/{{item.unit}}</view>
-							</view>
-							<view class="cardRow" v-if="item.pfj">
-								<view>批发售价：</view>
-								<view><text class="redColor">￥{{item.pfj}}</text>/{{item.unit}}</view>
-							</view>							
-							<view class="cardRow" v-if="item.price">
-								<view>核定成本：</view>
-								<view><text class="redColor">￥{{item.price}}</text>/{{item.unit}}</view>
-							</view>
-							<view class="cardRow" v-if="item.cgcb">
-								<view>采购成本：</view>
-								<view><text class="redColor">￥{{item.cgcb}}</text>/{{item.unit}}</view>
-							</view>
-							<view class="cardRow1" v-if="item.bz">
-								<view>备注：</view>
-								<view>{{item.bz}}</view>
-							</view>
-							<view class="cardRow" v-if="item.ssrq">
-								<view>上市日期：</view>
-								<view>{{item.ssrq}}</view>
-							</view>
-							<view class="cardRow" v-if="item.zmsc">
-								<view>市场保护：</view>
-								<view>{{item.zmsc}}</view>
-							</view>
-							<view class="cardRow" v-if="item.zmsj">
-								<view>保护时间：</view>
-								<view>{{item.zmsj}}</view>
-							</view>
-							<view class="cardRow" v-if="item.F_Sczq">
-								<view>生产周期：</view>
-								<view>{{item.F_Sczq}}</view>
-							</view>
-							<view class="cardRow" v-if="item.flName">
-								<view>产品类别：</view>
-								<view>{{item.flName}}</view>
-							</view>
-							<view class="cardRow1" v-if="item.gfmc">
-								<view>供方名称：</view>
-								<view>{{item.gfmc}}</view>
-							</view>
-							<view class="cardRow1" v-if="item.F_Taxrate">
-								<view>业务税率：</view>
-								<view>{{item.F_Taxrate}}</view>
-							</view>
-							<view class="cardRow1" v-if="item.F_Total">
-								<view>价税合计：</view>
-								<view>{{item.F_Total}}</view>
-							</view>
-							<view class="cardRow1" v-if="item.F_FPTaxrate">
-								<view>发票税率：</view>
-								<view>{{item.F_FPTaxrate}}</view>
-							</view>
-							<view class="cardRow1" v-if="item.cwcb">
-								<view>税票成本：</view>
-								<view>{{item.cwcb}}</view>
-							</view>
-							<view class="cardRow1" v-if="item.Long">
-								<view>外箱尺寸：</view>
-								<view>{{item.Long}}*{{item.width}}*{{item.height}}={{item.wxtj}}</view>
-							</view>
-							<view class="cardRow" v-if="item.mxjz">
-								<view>每箱净重：</view>
-								<view>{{item.mxjz}}</view>
-							</view>							
-							<view class="cardRow" v-if="item.mz">
-								<view>每箱毛重：</view>
-								<view>{{item.mz}}</view>
-							</view>
-							<view class="cardRow" v-if="item.bzjs">
-								<view>包装基数：</view>
-								<view>{{item.bzjs}}</view>
-							</view> -->
-						</view>
-
-					</view>
-
-					<view class="rowBtn">
-						<u-button type="primary" :plain="true" class="cpBtn" size="mini" @tap.stop="setCpFun(item)">编辑产品
-						</u-button>
-						<u-button type="warning" :plain="true" class="cpBtn" size="mini" @click="cpsxjFun(item, index)">
-							{{item.isSxJ == true ? '下架' : '上架'}}
-						</u-button>
-						<u-button type="error" :plain="true" class="cpBtn" size="mini"
-							@click="deleteCpFun(item, index)">
-							删除</u-button>
-					</view>
-				</view>
+				</scroll-view>
 			</view>
-			<getMore :isMore="isMore" class="h200"></getMore>
-		</scroll-view>
+			<view class="rightSv">
+				<dataNull v-if="list.length == 0" src="/static/img/chahua/dataNullXz.png" title="暂无相关产品" title1="请添加或者更换查询条件">
+				</dataNull>
+				<scroll-view v-else scroll-y="true" class="scrollF" :style="{height: scrollHeight}" @scrolltolower="getChanPinFun"
+					refresher-enabled :refresher-threshold="200" :refresher-triggered="triggered" refresher-background="gray"
+					@refresherrefresh="onRefresh" @refresherrestore="onRestore">
+					<view v-for="(item, index) in list" :key="index" @click="cardClick(item)">
+						<view v-if="item.cpFmtList && item.cpFmtList.length > 0" class="myCard2">
+							<view class="leftImg">
+								<u-image height="100" width="100" border-radius="26" :src="item.cpFmtList[0].url"></u-image>
+							</view>
+							<view class="rightView">
+								<view class="cardTopName1">{{item.pName}}</view>
+								<view v-if="item.salesNum || item.stock" class="xlKcClass">
+									<text v-if="item.salesNum">销量: {{item.salesNum}}</text>
+									<text v-if="item.stock">库存: {{item.stock}}</text>
+								</view>
+								<view class="cardRow1">
+									<text class="redColor">￥{{item.price}}</text>/{{item.unit}}
+								</view>
+								<view class="rowBtn">
+									<u-button type="primary" :plain="true" class="cpBtn" size="mini" @tap.stop="setCpFun(item)">
+										编辑产品
+									</u-button>
+									<u-button type="warning" :plain="true" class="cpBtn" size="mini"
+										@click="cpsxjFun(item, index)">{{item.isSxJ == true ? '下架' : '上架'}}</u-button>
+									<u-button type="error" :plain="true" class="cpBtn" size="mini"
+										@click="deleteCpFun(item, index)">
+										删除</u-button>
+								</view>
+							</view>
+						</view>
+						<view v-else class="myCard">
+							<view class="cardTopName">产品编号：{{item.F_ID}}</view>
+							<view class="myCard3">
+								<view class="itemPhotoBox">
+									<image :src="item.url" mode="widthFix" class="itemPhotoBox"></image>
+								</view>
+								<view class="infoBox">
+									<view class="cardRow1" v-if="item.spec">
+										<view class='t'>工厂型号：</view>
+										<view class='v'>{{item.spec}}</view>
+									</view>
+									<view class="cardRow1" v-if="item.name">
+										<view class='t'>产品名称：</view>
+										<view class='v'>{{item.name}}</view>
+									</view>							
+									<!-- <view class="cardRow" v-if="item.color">
+										<view>产品颜色：</view>
+										<view>{{item.color}}</view>
+									</view> -->
+									<!-- <view class="cardRow" v-if="item.total">
+										<view>零售面价：</view>
+										<view><text class="redColor">￥{{item.total}}</text>/{{item.unit}}</view>
+									</view>
+									<view class="cardRow" v-if="item.pfj">
+										<view>批发售价：</view>
+										<view><text class="redColor">￥{{item.pfj}}</text>/{{item.unit}}</view>
+									</view>							
+									<view class="cardRow" v-if="item.price">
+										<view>核定成本：</view>
+										<view><text class="redColor">￥{{item.price}}</text>/{{item.unit}}</view>
+									</view>
+									<view class="cardRow" v-if="item.cgcb">
+										<view>采购成本：</view>
+										<view><text class="redColor">￥{{item.cgcb}}</text>/{{item.unit}}</view>
+									</view>
+									<view class="cardRow1" v-if="item.bz">
+										<view>备注：</view>
+										<view>{{item.bz}}</view>
+									</view>
+									<view class="cardRow" v-if="item.ssrq">
+										<view>上市日期：</view>
+										<view>{{item.ssrq}}</view>
+									</view>
+									<view class="cardRow" v-if="item.zmsc">
+										<view>市场保护：</view>
+										<view>{{item.zmsc}}</view>
+									</view>
+									<view class="cardRow" v-if="item.zmsj">
+										<view>保护时间：</view>
+										<view>{{item.zmsj}}</view>
+									</view>
+									<view class="cardRow" v-if="item.F_Sczq">
+										<view>生产周期：</view>
+										<view>{{item.F_Sczq}}</view>
+									</view>
+									<view class="cardRow" v-if="item.flName">
+										<view>产品类别：</view>
+										<view>{{item.flName}}</view>
+									</view>
+									<view class="cardRow1" v-if="item.gfmc">
+										<view>供方名称：</view>
+										<view>{{item.gfmc}}</view>
+									</view>
+									<view class="cardRow1" v-if="item.F_Taxrate">
+										<view>业务税率：</view>
+										<view>{{item.F_Taxrate}}</view>
+									</view>
+									<view class="cardRow1" v-if="item.F_Total">
+										<view>价税合计：</view>
+										<view>{{item.F_Total}}</view>
+									</view>
+									<view class="cardRow1" v-if="item.F_FPTaxrate">
+										<view>发票税率：</view>
+										<view>{{item.F_FPTaxrate}}</view>
+									</view>
+									<view class="cardRow1" v-if="item.cwcb">
+										<view>税票成本：</view>
+										<view>{{item.cwcb}}</view>
+									</view>
+									<view class="cardRow1" v-if="item.Long">
+										<view>外箱尺寸：</view>
+										<view>{{item.Long}}*{{item.width}}*{{item.height}}={{item.wxtj}}</view>
+									</view>
+									<view class="cardRow" v-if="item.mxjz">
+										<view>每箱净重：</view>
+										<view>{{item.mxjz}}</view>
+									</view>							
+									<view class="cardRow" v-if="item.mz">
+										<view>每箱毛重：</view>
+										<view>{{item.mz}}</view>
+									</view>
+									<view class="cardRow" v-if="item.bzjs">
+										<view>包装基数：</view>
+										<view>{{item.bzjs}}</view>
+									</view> -->
+								</view>
+				
+							</view>
+				
+							<view class="rowBtn">
+								<u-button type="primary" :plain="true" class="cpBtn" size="mini" @tap.stop="setCpFun(item)">编辑产品
+								</u-button>
+								<u-button type="warning" :plain="true" class="cpBtn" size="mini" @click="cpsxjFun(item, index)">
+									{{item.isSxJ == true ? '下架' : '上架'}}
+								</u-button>
+								<u-button type="error" :plain="true" class="cpBtn" size="mini"
+									@click="deleteCpFun(item, index)">
+									删除</u-button>
+							</view>
+						</view>
+					</view>
+					<getMore :isMore="isMore" class="h200"></getMore>
+				</scroll-view>
+			</view>
+		</view>		
 		<!--组件-->
 		<u-select v-model="selectShow" :list="selectList" @confirm="selectConfirmFun"></u-select>
 		<addBtn url="./addCp"></addBtn>
 		<!--底部合计-->
-		<view class="submitView">
+		<!-- <view class="submitView">
 			<view class="cardTopName disFlexJ">
 				<text>共计：{{gs}}个产品 </text>
 			</view>
-		</view>
+		</view> -->
 	</view>
 </template>
 
@@ -214,6 +225,7 @@
 					},
 				],
 				isSxJ: true,
+				leftA: 0,
 				
 			}
 		},
@@ -232,6 +244,14 @@
 			
 		},
 		methods: {
+			selectLeftFl: function(i) {
+				this.leftA = i;
+				this.cpClassify = this.classify[i].flName;
+				this.cpFlId = this.classify[i].F_ID;
+				this.pageIndex = 1;
+				this.isMore = true;
+				this.getChanPinFun();
+			},
 			// add页面新增数据
 			addItemInListFun: function() {
 				
@@ -297,8 +317,8 @@
 				}
 				
 				if(that.cpClassify){
-					reqObj.flName = that.cpClassify;
-					reqObj.flID =that.cpFlId
+					reqObj.F_TypeName = that.cpClassify;
+					reqObj.F_Type =that.cpFlId
 				}
 				let reqData = {
 					action: 'getCpList',
@@ -537,7 +557,8 @@
 	}
 
 	.myCard2 {
-		width: 698rpx;
+		width: 100%;
+		/* width: 698rpx; */
 		padding: 26rpx;
 		margin: 32rpx 26rpx;
 		box-sizing: border-box;
@@ -546,6 +567,7 @@
 		position: relative;
 		background-color: #FFFFFF;
 		display: flex;
+		flex-direction: row;
 	}
 
 	.cardTopName1 {
@@ -563,24 +585,25 @@
 
 	.cardRow1 {
 		display: flex;
-		align-items: center;
-		font-size: 16px;
+		/* align-items: center; */
+		font-size: 14px;
 		margin-bottom: 8rpx;
 	}
 
-	.cardRow1>view:first-child {
-		width: 176rpx;
+	.cardRow1 .t {
+		white-space: nowrap;
 		color: #ADADAD;
 	}
 
-	.cardRow1>view:last-child {
+	.cardRow1 .v {
 		color: #000000;
-		width: 266rpx;
+		flex: 1;
+		width: 0;
 	}
 
 	.leftImg {
-		width: 160rpx;
-		height: 160rpx;
+		width: 100rpx;
+		height: 100rpx;
 		margin-right: 26rpx;
 		border-radius: 26rpx;
 		overflow: hidden;
@@ -588,7 +611,8 @@
 	}
 
 	.rightView {
-		width: 460rpx;
+		/* width: 460rpx; */
+		flex: 1;
 	}
 
 	.xlKcClass {
@@ -602,8 +626,8 @@
 	}
 
 	.itemPhotoBox {
-		width: 200rpx;
-		height: 200rpx;
+		width: 100rpx;
+		height: 100rpx;
 		/* border:1px solid #000000; */
 	}
 
@@ -614,5 +638,53 @@
 
 	.infoBox {
 		padding-left: 20rpx;
+		flex: 1;
+	}
+	
+	.scrollF {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+	}
+	
+	.leftScrollV {
+		width: 160rpx;
+		height: 100%;
+		background-color: #FFFFFF;
+	}
+	
+	.rightSv {
+		flex-grow: 1;
+		/* padding: 0 16rpx; */
+		box-sizing: border-box;
+		height: 100%;
+		background-color: #FFFFFF;
+		display: flex;
+		width: 0;
+	}
+	
+	.leftCard {
+		width: 100%;
+		/* height: 196rpx; */
+		align-items: center;
+		/* line-height: 196rpx; */
+		font-size: 30rpx;
+		text-align: center;
+		/* overflow: hidden; */
+		margin: 10rpx 0rpx;
+		padding: 10rpx;
+		/* text-overflow: ellipsis; */
+		white-space: wrap;
+		background-color: #f8f8f8;
+	}
+	
+	.leftCardView:last-child {
+		margin-bottom: 100rpx;
+	}
+	
+	.leftActive {
+		background-color: #FFFFFF;
+		color: #007AFF;
+		font-weight: bold;
 	}
 </style>

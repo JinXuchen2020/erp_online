@@ -223,9 +223,8 @@
 		justify-content: space-between;
 	}
 	.card {
-		width: 698rpx;
-		padding: 26rpx 26rpx 10rpx;
-		margin: 32rpx 26rpx;
+		padding: 16rpx 16rpx 10rpx;
+		margin: 16rpx 13rpx;
 		box-sizing: border-box;
 		border-radius: 16rpx;
 		box-shadow: #d8d8d8 0px 0px 16rpx;
@@ -330,9 +329,9 @@
 		height: 86rpx;
 		justify-content: space-between;
 	
-		.name {
-	
-			width: 450rpx;
+		.name {	
+			flex: 1;
+			width: 0;
 		}
 	
 		.bill {

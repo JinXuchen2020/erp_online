@@ -1,28 +1,38 @@
 <template>
 	<view>
 		<searchView placeholderStr="请输入查询条件"  @searchViewClickFun="searchEventsFun($event)"></searchView>
-		<dataNull v-if="list.length == 0" src="/static/img/chahua/dataNullXz.png" title="暂无相关客户"
-			title1="请更换查询条件"></dataNull>
-		<scroll-view scroll-y="true" :style="{height: scrollHeight}" @scrolltolower="selectclientFun"
-			refresher-enabled :refresher-threshold="200" :refresher-triggered="triggered" refresher-background="gray"
-			@refresherrefresh="onRefresh" @refresherrestore="onRestore">
-			<view v-if="list.length > 0">
-				<view v-for="(item, index) in list" :key="index" @click="khCardClickFun(item)">
-					<clientCard :item="item" :isSelect="isSelect" :index="index" @cxGetDataFun="cxGetDataFun"></clientCard>
-				</view>
-				<getMore :isMore="isMore" nullMsg="已加载全部~"></getMore>
-				<view class="h200"></view>
+		<view class="scrollF">
+			<view class="leftScrollV">
+				<scroll-view scroll-y="true" :style="{height: scrollHeight}">
+					<view v-for="(item, index) in classify" :key="index" class="leftCardView">
+						<view class="leftCard" :class="{ leftActive: leftA == index }" @click="selectLeftFl(index)">{{item.F_Name}}</view>
+					</view>
+				</scroll-view>
 			</view>
-			
-		</scroll-view>
+			<view class="rightSv">				
+				<dataNull v-if="list.length == 0" src="/static/img/chahua/dataNullXz.png" title="暂无相关客户"
+					title1="请更换查询条件"></dataNull>
+				<scroll-view scroll-y="true" :style="{height: scrollHeight}" @scrolltolower="selectclientFun"
+					refresher-enabled :refresher-threshold="200" :refresher-triggered="triggered" refresher-background="gray"
+					@refresherrefresh="onRefresh" @refresherrestore="onRestore">
+					<view v-if="list.length > 0">
+						<view v-for="(item, index) in list" :key="index" @click="khCardClickFun(item)">
+							<clientCard :item="item" :isSelect="isSelect" :index="index" @cxGetDataFun="cxGetDataFun"></clientCard>
+						</view>
+						<getMore :isMore="isMore" nullMsg="已加载全部~"></getMore>
+						<view class="h200"></view>
+					</view>					
+				</scroll-view>
+			</view>
+		</view>
 		<addBtn url="./addclient?isAdd=1&&pageType=''"></addBtn>
 		<u-action-sheet :list="sheetList" v-model="moreShow"></u-action-sheet>
 		<!--底部合计-->
-		<view class="submitView">
+		<!-- <view class="submitView">
 			<view class="cardTopName disFlexJ">
 				<text>客户：{{gs}}个 </text>
 			</view>
-		</view>
+		</view> -->
 	</view>
 	
 </template>
@@ -80,7 +90,10 @@
 				searchValue: '',
 				isSelect: false,				
 				depId: undefined,
-				gs:0
+				gs:0,
+				cpClassify: '',
+				cpFlId: '',
+				leftA: 0,
 			}
 		},
 		onLoad(e) {
@@ -107,6 +120,7 @@
 				}
 			})
 			
+			that.getClassifyFun();
 			that.selectclientFun();
 			uni.$on('deleteClientFun', that.deleteClientFun)
 			uni.$on('updateListByIndex', that.onRefresh)
@@ -122,6 +136,14 @@
 			uni.$off('cxGetDataFun', that.cxGetDataFun)
 		},
 		methods: {
+			selectLeftFl: function(i) {
+				this.leftA = i;
+				this.cpClassify = this.classify[i].F_Name;
+				this.cpFlId = this.classify[i].F_ID;
+				this.pageIndex = 1;
+				this.isMore = true;
+				this.selectclientFun();
+			},
 			// 查询客户分类方法
 			getClassifyFun: function() {
 				uni.showLoading({
@@ -161,6 +183,11 @@
 					
 					pageIndex: that.pageIndex,					
 					searchValue: that.searchValue
+				}
+				
+				if(that.cpClassify){
+					reqObj.type = that.cpClassify;
+					reqObj.F_Type =that.cpFlId
 				}
 				let reqData = {
 					action: 'selectClient',
@@ -360,5 +387,52 @@
 		color: #ff5500;
 		border-radius: 10rpx;
 		margin: 6rpx 26rpx 20rpx 0;
+	}
+	
+	.scrollF {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+	}
+	
+	.leftScrollV {
+		width: 160rpx;
+		height: 100%;
+		background-color: #FFFFFF;
+	}
+	
+	.rightSv {
+		flex-grow: 1;
+		/* padding: 0 16rpx; */
+		box-sizing: border-box;
+		height: 100%;
+		background-color: #FFFFFF;
+		display: flex;
+		width: 0;
+	}
+	
+	.leftCard {
+		width: 100%;
+		/* height: 196rpx; */
+		align-items: center;
+		/* line-height: 196rpx; */
+		font-size: 30rpx;
+		text-align: center;
+		/* overflow: hidden; */
+		margin: 10rpx 0rpx;
+		padding: 10rpx;
+		/* text-overflow: ellipsis; */
+		white-space: wrap;
+		background-color: #f8f8f8;
+	}
+	
+	.leftCardView:last-child {
+		margin-bottom: 100rpx;
+	}
+	
+	.leftActive {
+		background-color: #FFFFFF;
+		color: #007AFF;
+		font-weight: bold;
 	}
 </style>

@@ -26,7 +26,7 @@
 	/*上拉刷新提示文字*/
 	.tishi {
 		flex-direction: row;
-		width: 750rpx;
+		width: 100%;
 		justify-content: center;
 		text-align: center;
 		flex-direction: column;
