@@ -23,16 +23,17 @@
 						<view class="h200"></view>
 					</view>					
 				</scroll-view>
+				<!--底部合计-->
+				<view class="submitView">
+					<view class="cardTopName disFlexJ">
+						<text>客户：{{gs}}个 </text>
+					</view>
+				</view>
 			</view>
 		</view>
 		<addBtn url="./addclient?isAdd=1&&pageType=''"></addBtn>
 		<u-action-sheet :list="sheetList" v-model="moreShow"></u-action-sheet>
-		<!--底部合计-->
-		<!-- <view class="submitView">
-			<view class="cardTopName disFlexJ">
-				<text>客户：{{gs}}个 </text>
-			</view>
-		</view> -->
+		
 	</view>
 	
 </template>
@@ -162,7 +163,12 @@
 					.then(res => {
 						let data = res.data.rows;
 						if (data && data.length > 0) {
-							that.classify = data;							
+							that.classify = data;
+							that.classify.unshift({
+								F_ID: -1,
+								F_Name: "全部"
+							})
+							
 						} 
 					})
 			},
@@ -185,9 +191,9 @@
 					searchValue: that.searchValue
 				}
 				
-				if(that.cpClassify){
+				if(that.cpClassify && that.cpFlId != -1){
 					reqObj.type = that.cpClassify;
-					reqObj.F_Type =that.cpFlId
+					reqObj.F_Type = that.cpFlId
 				}
 				let reqData = {
 					action: 'selectClient',
@@ -398,6 +404,7 @@
 		background-color: #FFFFFF;
 		display: flex;
 		width: 0;
+		position: relative;
 	}
 	
 	.leftCard {
@@ -423,5 +430,19 @@
 		background-color: #FFFFFF;
 		color: #007AFF;
 		font-weight: bold;
+	}
+	
+	.submitView {
+		width: 100%;
+		padding: 16rpx 0 26rpx;
+		background-color: #FFFFFF;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		border-top: 1rpx solid #f1f1f1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		z-index: 100;
 	}
 </style>

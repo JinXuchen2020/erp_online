@@ -10,7 +10,7 @@
 				<u-icon class="ml26" name="arrow-right" size="40" color="#888888"></u-icon>
 			</view>
 		</view>
-		<view class="scrollF" :style="{ height: (wHeight - 50) + 'px' }">
+		<view class="scrollF">
 			<view class="leftScrollV">
 				<scroll-view scroll-y="true" :style="{height: scrollHeight}">
 					<view v-for="(item, index) in classify" :key="index" class="leftCardView">
@@ -163,17 +163,18 @@
 					</view>
 					<getMore :isMore="isMore" class="h200"></getMore>
 				</scroll-view>
+				
+				<!--底部合计-->
+				<view class="submitView">
+					<view class="cardTopName disFlexJ">
+						<text>共计：{{gs}}个产品 </text>
+					</view>
+				</view>
 			</view>
 		</view>		
 		<!--组件-->
 		<u-select v-model="selectShow" :list="selectList" @confirm="selectConfirmFun"></u-select>
 		<addBtn url="./addCp"></addBtn>
-		<!--底部合计-->
-		<!-- <view class="submitView">
-			<view class="cardTopName disFlexJ">
-				<text>共计：{{gs}}个产品 </text>
-			</view>
-		</view> -->
 	</view>
 </template>
 
@@ -282,10 +283,14 @@
 						let data = res.data.rows;
 						if (data && data.length > 0) {
 							that.classify = data;
+							that.classify.unshift({
+								F_ID: -1,
+								flName: "全部"
+							})
 							that.classifysearch =data;
 							// that.cpClassify = data[0].flName;
 							// that.cpClassifysearch = data[0].flName;
-							that.cpFlId = data[0].F_ID;							
+							// that.cpFlId = data[0].F_ID;							
 							that.getChanPinFun();
 						} else {
 							uni.showModal({
@@ -316,7 +321,7 @@
 					searchValue: that.searchValue,
 				}
 				
-				if(that.cpClassify){
+				if(that.cpClassify && that.cpFlId != -1){
 					reqObj.F_TypeName = that.cpClassify;
 					reqObj.F_Type =that.cpFlId
 				}
@@ -661,6 +666,7 @@
 		background-color: #FFFFFF;
 		display: flex;
 		width: 0;
+		position: relative;
 	}
 	
 	.leftCard {
@@ -686,5 +692,18 @@
 		background-color: #FFFFFF;
 		color: #007AFF;
 		font-weight: bold;
+	}
+	.submitView {
+		width: 100%;
+		padding: 16rpx 0 26rpx;
+		background-color: #FFFFFF;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		border-top: 1rpx solid #f1f1f1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		z-index: 100;
 	}
 </style>
