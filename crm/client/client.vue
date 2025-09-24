@@ -117,7 +117,7 @@
 			that.pageType = e.type ? e.type : '';
 			uni.getSystemInfo({
 				success(res) {
-					that.scrollHeight = res.windowHeight - 40 + 'px';
+					that.scrollHeight = res.windowHeight - 50 + 'px';
 				}
 			})
 			

@@ -1,15 +1,14 @@
 <template>
 	<view>
 		<searchView placeholderStr="请输入查询条件" @searchViewClickFun="searchEventsFun($event)"></searchView>
-		<view @click="pickerSelectFun('产品类型')" class="flex-white-plr26 ptb20 bdb_f5">
+		<!-- <view @click="pickerSelectFun('产品类型')" class="flex-white-plr26 ptb20 bdb_f5">
 			<text class="mr26">产品类型
-				<!-- <text class="redXingh">*</text> -->
 			</text>
 			<view :class="cpClassify ? '' : 'cBlack'">
 				{{cpClassify ? cpClassify : '请选择'}}
 				<u-icon class="ml26" name="arrow-right" size="40" color="#888888"></u-icon>
 			</view>
-		</view>
+		</view> -->
 		<view class="scrollF">
 			<view class="leftScrollV">
 				<scroll-view scroll-y="true" :style="{height: scrollHeight}">
@@ -234,7 +233,7 @@
 			that = this;
 			uni.getSystemInfo({
 				success(res) {
-					that.scrollHeight = res.windowHeight - 40 + 'px';
+					that.scrollHeight = res.windowHeight - 50 + 'px';
 				}
 			})
 			that.getClassifyFun();
