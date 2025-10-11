@@ -4,7 +4,7 @@
 		<z-paging ref="paging" :auto-clean-list-when-reload="false" :auto-scroll-to-top-when-reload="false"
 			style="height: calc(100%);" @scrolltolower="scrollToBottomFun">
 			<!--订单基本信息-->
-			<cgzjCard :item="khInfo" :isSelect="true" :djje="djje" :itemList="tabList[0].arr" :index="cardIndex"
+			<cgzjCard :item="khInfo" :isSelect="true" :djje="djje" :itemList="tabList[0].arr" :index="cardIndex" :priceRight="priceRight"
 				:pagetype="'订单详情'" :product="tabList[0].arr" @saveorderFun="saveorderFun"></cgzjCard>
 			<!--tab-->
 			<view class="uTabsView">
@@ -19,7 +19,7 @@
 				<!--产品信息-->
 				<view v-if="tabIndex == 0">
 					<view v-for="(item, index) in tabList[0].arr" :key="index" @click="cardClick(item,index)">
-						<cgzjproduct :cgzjInfo="khInfo" :item="item" :index="index" @handleInputCount="handleInputCount" searchLabel1="下单数量" searchPh1="请输入下单数量"
+						<cgzjproduct :cgzjInfo="khInfo" :item="item" :index="index" @handleInputCount="handleInputCount" :priceRight="priceRight" searchLabel1="下单数量" searchPh1="请输入下单数量"
 							searchLabel2="产品售价" searchPh2="请输入产品售价"></cgzjproduct>
 					</view>
 				</view>
@@ -60,7 +60,7 @@
 					</view>
 				</view>
 				
-				<u-field v-model="khInfo.PO" :label="'客户PO'" :placeholder="'请输入客户PO'" clear-size="40"></u-field>
+				<!-- <u-field v-model="khInfo.PO" :label="'客户PO'" :placeholder="'请输入客户PO'" clear-size="40"></u-field> -->
 				<uni-group title="检验依据">
 					<view class="flex-white-plr26 ptb10 bdb_f5">
 						<view>
@@ -99,8 +99,7 @@
 					</view>
 				</uni-group>
 				
-				<u-field v-model="khInfo.bz" :label="'检验备注'" :placeholder="'请输入检验备注'" clear-size="40"></u-field>
-				<u-field v-model="khInfo.shbz" :label="'审核批注'" type="textarea" placeholder="请输入审核批注" clear-size="40"></u-field>
+				<!-- <u-field v-model="khInfo.bz" :label="'检验备注'" :placeholder="'请输入检验备注'" clear-size="40"></u-field> -->
 				<view class="searchBtnRow">
 					<u-button type="warning" class="searchBtn" :ripple="true" ripple-bg-color="#909399"
 						:plain="true" size="medium" @click="searchShow = false">取消</u-button>
@@ -112,7 +111,7 @@
 		</u-popup>
 		
 		<!--输入数量弹窗-->
-		<u-popup v-model="inputCountShow" mode="center" width="666rpx" border-radius="14" :closeable="false">
+		<u-popup :z-index="1000" v-model="inputCountShow" mode="center" width="666rpx" border-radius="14" :closeable="false">
 			<view class="searchBox">
 				<view class="searchTitle">输入数量</view>
 				<u-field v-model="currentProduct.countt" :label="'检验数量'" :placeholder="'请输入检验数量'" clear-size="40"></u-field>
@@ -125,6 +124,7 @@
 				</view>
 			</view>
 		</u-popup>
+		
 	</view>
 </template>
 
@@ -189,7 +189,9 @@
 				dqlist:null,
 				ztlist:null,
 				inputCountShow: false,
-				currentProduct: {}
+				currentProduct: {},
+				priceRight: false,
+				
 			}
 		},
 		onLoad(options) {
@@ -240,6 +242,7 @@
 				that.djje = uni.$cgzjInfo.account;
 			}
 
+			uni.$off()
 			uni.$on('delcgzjdetailById', that.delcgzjdetailById)
 			uni.$on('updateItemFun1', that.updateItemFun)
 			uni.$on("selectClient1", this.selectClient)
@@ -262,6 +265,7 @@
 			that.getPostcodeFun();
 			that.getFzrFun();
 			that.getClientFun();
+			that.getRightFun();
 		},
 		onBackPress(e) {
 			uni.$off('delcgzjdetailById', that.delcgzjdetailById)
@@ -270,7 +274,7 @@
 			uni.$off("selectPayment1", this.selectPayment)
 			uni.$off("showSelect", this.showSelect)
 			
-			uni.$on("previewPrintfile", this.previewPrintfile)
+			uni.$off("previewPrintfile", this.previewPrintfile)
 
 			uni.$off("selectPrintfile1", this.selectPrintfile)
 			uni.$off('inputcountFun', that.inputcountFun)
@@ -289,6 +293,22 @@
 
 		},
 		methods: {
+			getRightFun: function() {
+				let reqObj = {
+					model: 'frmPurQc',
+					usercode: uni.$userInfo.F_ID,
+					name: '价格'
+				}
+				let reqData = {
+					action: 'testRight',
+					params: JSON.stringify(reqObj)
+				}
+				console.log('发送指令：' + reqData.action + '传递参数：' + reqData.params)
+				cgzjApi(reqData)
+					.then(res => {
+						that.priceRight = res.data.right;
+					})
+			},
 			bindsDateChange: function(e) {
 				var that = this
 				let data = e.detail.value;
@@ -592,16 +612,26 @@
 				})
 			},
 			itemBind(e) {
-				if (this.tabList[0].arr.some(c=>c.itemcode == e.itemcode)) {
-					uni.showModal({
-						title: '提示',
-						content: '该产品已选择, 请添加其他产品！',
-						showCancel: false
-					})
+				if(e instanceof Array) {
+					for (var i = 0; i < e.length; i++) {
+						if (!this.tabList[0].arr.some(c=>c.itemcode == e[i].itemcode)) {
+							e[i].Aid = this.tabList[0].arr.length + 1;
+							this.tabList[0].arr.push(e[i]);
+						}
+					}
 				}
-				else {
-					e.Aid = this.tabList[0].arr.length + 1;
-					this.tabList[0].arr.push(e);
+				else {					
+					if (this.tabList[0].arr.some(c=>c.itemcode == e.itemcode)) {
+						uni.showModal({
+							title: '提示',
+							content: '该产品已选择, 请添加其他产品！',
+							showCancel: false
+						})
+					}
+					else {
+						e.Aid = this.tabList[0].arr.length + 1;
+						this.tabList[0].arr.push(e);
+					}
 				}
 				// this.djje = e.total
 				// this.khInfo.account = e.total
@@ -620,7 +650,7 @@
 				this.khInfo.packing = e.item.packing
 				this.khInfo.fkfs = e.item.simple
 				this.khInfo.postcode = e.item.postcode
-				this.khInfo.bz = e.item.bz				
+				// this.khInfo.bz = e.item.bz				
 				this.khInfo.satrap = e.item.fzr	
 				this.khInfo.currency = e.item.currency
 				this.getClientFun()
@@ -833,7 +863,7 @@
 				}
 				that.khInfo = uni.$cgzjInfo;
 				that.tabList[0].arr.splice(e.cpIndex, 1, uni.$cgzjProduct);
-				// that.saveorderFun();
+				
 			},
 			// 保存订单函数
 			saveorderFun: function(e) {
@@ -861,29 +891,34 @@
 						if (this.khInfo.F_BillID == '') {
 							if (newBill == true) {
 								saveright = true;
+								
 							} else {
 								uni.showModal({
 									title: '提示',
 									content: '你没有新增单据权限',
 									showCancel: false
 								})
+								
 			
 							}
 						} else {
 							if (editBill == true) {
 								saveright = true;
+								
 							} else {
 								uni.showModal({
 									title: '提示',
 									content: '你没有修改单据权限',
 									showCancel: false
 								})
+								
 			
 							}
 						}
 						
-						console.log(this.tabList[0].arr);
+						
 						if (saveright == true) {
+							
 							let temp = new Date().getTimezoneOffset();
 							let reqObj = {
 								...this.khInfo,
@@ -924,6 +959,7 @@
 									}
 								})
 						}
+						
 					})
 				//检测权限完成
 			
@@ -935,11 +971,49 @@
 					})
 				}, 1000)				
 			},
-			handleInputCount(item) {
-				this.currentProduct = item;
+			handleInputCount(e) {
+				this.currentProduct = JSON.parse(JSON.stringify(e.item));
+				this.selectIndex = e.index;
 				this.inputCountShow = true;
 			},
 			confirmInputCount() {
+				if(this.currentProduct.countt > this.currentProduct.wjsl) {
+					uni.showModal({
+						title: '提示',
+						content: '检验数量大于采购数量, 请重新输入！',
+						showCancel: false
+					})
+					return;
+				}
+				
+				if(this.currentProduct.count2 > this.currentProduct.countt) {
+					uni.showModal({
+						title: '提示',
+						content: '不良数量大于检验数量, 请重新输入！',
+						showCancel: false
+					})
+					return;
+				}
+				
+				if(this.currentProduct.count1 > this.currentProduct.wjsl) {
+					uni.showModal({
+						title: '提示',
+						content: '可出数量大于采购数量, 请重新输入！',
+						showCancel: false
+					})
+					return;
+				}
+				
+				if((parseInt(this.currentProduct.count1) + parseInt(this.currentProduct.count2)) > this.currentProduct.wjsl) {
+					uni.showModal({
+						title: '提示',
+						content: '不良数量可出数量之和大于采购数量, 请重新输入！',
+						showCancel: false
+					})
+					return;
+				}
+				
+				this.tabList[0].arr.splice(this.selectIndex, 1, this.currentProduct);
 				this.inputCountShow = false;
 			}
 		}

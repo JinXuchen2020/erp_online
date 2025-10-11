@@ -22,7 +22,7 @@
 			@refresherrefresh="onRefresh" @refresherrestore="onRestore">
 			<view v-if="list.length > 0">
 				<view v-for="(item, index) in list" :key="item.F_BillID" >
-					<cgzjCard :item="item" :index="index" :isSelect="isSelect"  :pagetype="'订单列表'" :isCheck="item.sh"  @cxGetDataFun="cxGetDataFun"></cgzjCard>
+					<cgzjCard :item="item" :index="index" :isSelect="isSelect"  :pagetype="'订单列表'" :isCheck="item.sh" :priceRight="priceRight"  @cxGetDataFun="cxGetDataFun"></cgzjCard>
 				</view>
 				<getMore :isMore="isMore" nullMsg="已加载全部~"></getMore>
 				<view class="h200"></view>
@@ -80,6 +80,7 @@
 				wsdd:false,
 				jrdf:false,
 				yqwf:false,
+				priceRight: false,
 			}
 		},
 		onLoad(e) {
@@ -115,6 +116,8 @@
 			})			
 			
 			that.cxGetDataFun();
+			that.getRightFun();
+			uni.$off();
 			uni.$on('addCgzjFun', that.addCgzjFun)
 			uni.$on('deleteCgzjFun', that.deleteCgzjFun)
 			uni.$on('updateListByIndex', that.updateListByIndex)
@@ -133,6 +136,22 @@
 			uni.$off('updateformFun1', that.updateformFun)
 		},
 		methods: {
+			getRightFun: function() {
+				let reqObj = {
+					model: 'frmPurQc',
+					usercode: uni.$userInfo.F_ID,
+					name: '价格'
+				}
+				let reqData = {
+					action: 'testRight',
+					params: JSON.stringify(reqObj)
+				}
+				console.log('发送指令：' + reqData.action + '传递参数：' + reqData.params)
+				cgzjApi(reqData)
+					.then(res => {
+						that.priceRight = res.data.right;
+					})
+			},
 			updateformFun: function() {
 				var that=this;
 				 let hjje=0;

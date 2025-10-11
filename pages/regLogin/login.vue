@@ -129,6 +129,8 @@
 							uni.setStorageSync('zhiwei', res.data.zhiwei)					
 							uni.setStorageSync('userInfo', res.data.userInfo[0]);
 							uni.setStorageSync('userRoles', res.data.userRoles[0]);
+							console.log(res.data.xsjg);
+							
 							uni.showToast({
 								title: '登录成功!',
 								icon: 'none',

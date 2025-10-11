@@ -22,7 +22,7 @@
 			@refresherrefresh="onRefresh" @refresherrestore="onRestore">
 			<view v-if="list.length > 0">
 				<view v-for="(item, index) in list" :key="index" >
-					<delivergdsCard :item="item" :index="index" :isSelect="isSelect"  :pagetype="'发货列表'"  @cxGetDataFun="cxGetDataFun"></delivergdsCard>
+					<delivergdsCard :item="item" :index="index" :isSelect="isSelect"  :pagetype="'发货列表'" :priceRight="priceRight"  @cxGetDataFun="cxGetDataFun"></delivergdsCard>
 				</view>
 				<getMore :isMore="isMore" nullMsg="已加载全部~"></getMore>
 				<view class="h200"></view>
@@ -32,7 +32,7 @@
 		<addBtn url="./delivergdsDetail?index=-1"></addBtn>
 		
 		<!--底部合计-->
-		<view class="submitView">
+		<view class="submitView" v-if="priceRight">
 			<view class="cardTopName disFlexJ">
 				<text>合计：{{gs}}个单 ￥: {{djje}}元</text>
 			</view>
@@ -78,6 +78,7 @@
 				gs:0,
 				djje:0,
 				wsdd:false,
+				priceRight: false,
 			}
 		},
 		onShow() {
@@ -108,6 +109,7 @@
 			})
 			
 			that.selectDelivergdsFun();
+			that.getRightFun();
 			uni.$on('addDelivergdsFun', that.addDelivergdsFun)
 			uni.$on('deleteDelivergdsFun', that.deleteDelivergdsFun)
 			uni.$on('updateListByIndex', that.updateListByIndex)
@@ -124,6 +126,22 @@
 			uni.$off('updateformFun1', that.updateformFun)
 		},
 		methods: {
+			getRightFun: function() {
+				let reqObj = {
+					model: 'frmSellFh',
+					usercode: uni.$userInfo.F_ID,
+					name: '价格'
+				}
+				let reqData = {
+					action: 'testRight',
+					params: JSON.stringify(reqObj)
+				}
+				console.log('发送指令：' + reqData.action + '传递参数：' + reqData.params)
+				delivergdsApi(reqData)
+					.then(res => {
+						that.priceRight = res.data.right;
+					})
+			},
 			updateformFun: function() {
 				var that=this;
 				 let hjje=0;

@@ -125,6 +125,10 @@
 				type: Number,
 				default: 0
 			},
+			priceRight:  {
+				type: Boolean,
+				default: false
+			},
 			pagetype: {
 				type: String,
 				default: ''

@@ -4,7 +4,7 @@
 		<z-paging ref="paging" :auto-clean-list-when-reload="false" :auto-scroll-to-top-when-reload="false"
 			style="height: calc(100% - 55px);" @scrolltolower="scrollToBottomFun">
 			<!--退货基本信息-->
-			<salesreturnCard :item="khInfo" :isSelect="true" :djje="djje" :itemList="tabList[0].arr" :index="cardIndex"
+			<salesreturnCard :item="khInfo" :isSelect="true" :djje="djje" :itemList="tabList[0].arr" :index="cardIndex" :priceRight="priceRight"
 				:pagetype="'退货详情'" :product="tabList[0].arr"></salesreturnCard>
 			<!--tab-->
 			<view class="uTabsView">
@@ -19,7 +19,7 @@
 				<!--产品信息-->
 				<view v-if="tabIndex == 0">
 					<view v-for="(item, index) in tabList[0].arr" :key="index" @click="cardClick(item,index)">
-						<salesreturnproduct :item="item" :index="selectIndex" searchLabel1="下单数量" searchPh1="请输入下单数量"
+						<salesreturnproduct :item="item" :index="selectIndex" :priceRight="priceRight" searchLabel1="下单数量" searchPh1="请输入下单数量"
 							searchLabel2="产品售价" searchPh2="请输入产品售价"></salesreturnproduct>
 					</view>
 				</view>
@@ -74,6 +74,7 @@
 				cardIndex: -1,
 				isLoadSelectKhById: false,
 				djje: 0,
+				priceRight: false,
 			}
 		},
 		onLoad(options) {
@@ -122,7 +123,8 @@
 			//if (that.isLoadSelectKhById) {
 			//	that.selectKhByIdFun();
 			//}
-			that.getSalesreturndetailFun()
+			that.getSalesreturndetailFun();
+			that.getRightFun();
 		},
 		onBackPress(e) {
 			uni.$off('delsalesreturndetailById', that.delsalesreturndetailById)
@@ -144,6 +146,22 @@
 
 		},
 		methods: {
+			getRightFun: function() {
+				let reqObj = {
+					model: 'frmSellTh',
+					usercode: uni.$userInfo.F_ID,
+					name: '价格'
+				}
+				let reqData = {
+					action: 'testRight',
+					params: JSON.stringify(reqObj)
+				}
+				console.log('发送指令：' + reqData.action + '传递参数：' + reqData.params)
+				salesreturnApi(reqData)
+					.then(res => {
+						that.priceRight = res.data.right;
+					})
+			},
 			// 通过下标更新list数据
 			refreshSalesreturnFun: function(e) {
 				that = this;

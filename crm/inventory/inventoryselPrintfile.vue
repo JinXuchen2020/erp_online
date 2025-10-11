@@ -108,7 +108,9 @@
 				let reqObj = {
 					pageIndex: that.pageIndex,
 					tabNoEqualArr: that.tabNoEqualArr,
-					searchValue: that.searchValue
+					searchValue: that.searchValue,
+					modelname:'frmCkpd',
+					
 				}
 				let reqData = {
 					action: 'selectPrintfile',

@@ -23,11 +23,11 @@
 									<view>检验数量：</view>
 									<view><text class="redColor">{{item.countt}}</text>{{item.unit}}</view>
 								</view>
-								<view class="cardRow" v-if="item.price">
+								<view class="cardRow" v-if="item.price  && priceRight">
 									<view>采购单价：</view>
 									<view><text class="redColor">￥{{item.price}}</text>/{{item.unit}}</view>
 								</view>
-								<view class="cardRow" v-if="item.account">
+								<view class="cardRow" v-if="item.account  && priceRight">
 									<view>总金额：</view>
 									<view><text class="redColor">￥{{item.account}}</text>元</view>
 								</view>							
@@ -95,6 +95,10 @@
 			index: {
 				type: Number,
 				default: 0
+			},
+			priceRight:  {
+				type: Boolean,
+				default: false
 			},
 			searchLabel1: '',
 			searchLabel2: '',

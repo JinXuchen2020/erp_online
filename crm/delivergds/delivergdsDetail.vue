@@ -4,7 +4,7 @@
 		<z-paging ref="paging" :auto-clean-list-when-reload="false" :auto-scroll-to-top-when-reload="false"
 			style="height: calc(100% - 55px);" @scrolltolower="scrollToBottomFun">
 			<!--发货基本信息-->
-			<delivergdsCard :item="khInfo" :isSelect="true" :djje="djje" :itemList="tabList[0].arr" :index="cardIndex"
+			<delivergdsCard :item="khInfo" :isSelect="true" :djje="djje" :itemList="tabList[0].arr" :index="cardIndex" :priceRight="priceRight"
 				:pagetype="'发货详情'" :product="tabList[0].arr"></delivergdsCard>
 			<!--tab-->
 			<view class="uTabsView">
@@ -19,7 +19,7 @@
 				<!--产品信息-->
 				<view v-if="tabIndex == 0">
 					<view v-for="(item, index) in tabList[0].arr" :key="index" @click="cardClick(item,index)">
-						<delivergdsproduct :item="item" :index="selectIndex" searchLabel1="下单数量" searchPh1="请输入下单数量"
+						<delivergdsproduct :item="item" :index="selectIndex" :priceRight="priceRight" searchLabel1="下单数量" searchPh1="请输入下单数量"
 							searchLabel2="产品售价" searchPh2="请输入产品售价"></delivergdsproduct>
 					</view>
 				</view>
@@ -151,7 +151,8 @@
 				simpleid: [],
 				tradeid: [],
 				fzrid: [],
-				postcodeid: []
+				postcodeid: [],
+				priceRight: false,
 			}
 		},
 		onLoad(options) {
@@ -208,6 +209,7 @@
 			that.getTradeFun();
 			that.getPostcodeFun();
 			that.getFzrFun();
+			that.getRightFun();
 		},
 		onBackPress(e) {
 			uni.$off('deldelivergdsdetailById', that.deldelivergdsdetailById)
@@ -229,6 +231,22 @@
 
 		},
 		methods: {
+			getRightFun: function() {
+				let reqObj = {
+					model: 'frmSellFh',
+					usercode: uni.$userInfo.F_ID,
+					name: '价格'
+				}
+				let reqData = {
+					action: 'testRight',
+					params: JSON.stringify(reqObj)
+				}
+				console.log('发送指令：' + reqData.action + '传递参数：' + reqData.params)
+				delivergdsApi(reqData)
+					.then(res => {
+						that.priceRight = res.data.right;
+					})
+			},
 			bindsDateChange: function(e) {
 				var that = this
 				let data = e.detail.value;

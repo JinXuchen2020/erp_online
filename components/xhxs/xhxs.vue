@@ -55,7 +55,7 @@
 					<text class="colorGray">业务员：</text>
 					<text>{{item.satrap}}</text>
 				</view>
-				<view v-if="item.account">
+				<view v-if="item.account && priceRight">
 					<text class="colorGray">单据金额：</text>
 					<text>{{item.account}}</text>
 				</view>
@@ -67,7 +67,7 @@
 					<text class="colorGray">汇率：</text>
 					<text>{{item.hl}}</text>
 				</view>
-				<view v-if="item.rmb">
+				<view v-if="item.rmb && priceRight">
 					<text class="colorGray">折合人民币：</text>
 					<text>{{item.rmb}}</text>
 				</view>
@@ -107,7 +107,7 @@
 					<text class="colorGray">VAT%：</text>
 					<text>{{item.VAT}}</text>
 				</view>
-                <view v-if="item.jshj">
+                <view v-if="item.jshj && priceRight">
 					<text class="colorGray">价税合计：</text>
 					<text>{{item.jshj}}</text>
 				</view>
@@ -168,6 +168,10 @@
 			djje: {
 				type: Number,
 				default: 0
+			},
+			priceRight:  {
+				type: Boolean,
+				default: false
 			},
 			pagetype: {
 				type: String,

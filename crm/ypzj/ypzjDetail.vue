@@ -4,7 +4,7 @@
 		<z-paging ref="paging" :auto-clean-list-when-reload="false" :auto-scroll-to-top-when-reload="false"
 			style="height: calc(100% - 55px);" @scrolltolower="scrollToBottomFun">
 			<!--订单基本信息-->
-			<ypzjCard :item="khInfo" :isSelect="true" :djje="djje" :itemList="tabList[0].arr" :index="cardIndex"
+			<ypzjCard :item="khInfo" :isSelect="true" :djje="djje" :itemList="tabList[0].arr" :index="cardIndex" :priceRight="priceRight"
 				:pagetype="'订单详情'" :product="tabList[0].arr"></ypzjCard>
 			<!--tab-->
 			<view class="uTabsView">
@@ -19,7 +19,7 @@
 				<!--产品信息-->
 				<view v-if="tabIndex == 0">
 					<view v-for="(item, index) in tabList[0].arr" :key="index" @click="cardClick(item,index)">
-						<ypzjproduct :item="item" :index="selectIndex" searchLabel1="下单数量" searchPh1="请输入下单数量"
+						<ypzjproduct :item="item" :index="selectIndex" searchLabel1="下单数量" searchPh1="请输入下单数量" :priceRight="priceRight"
 							searchLabel2="产品售价" searchPh2="请输入产品售价"></ypzjproduct>
 					</view>
 				</view>
@@ -194,7 +194,8 @@
 				ckmcid:[],
 				fzrid:[],
 				postcodeid:[],
-				clientid:[]
+				clientid:[],
+				priceRight: false,
 			}
 		},
 		onLoad(options) {
@@ -257,6 +258,7 @@
 			that.getPostcodeFun();
 			that.getFzrFun();
 			that.getClientFun();
+			that.getRightFun();
 		},
 		onBackPress(e) {
 			uni.$off('delypzjdetailById', that.delypzjdetailById)
@@ -282,6 +284,22 @@
 
 		},
 		methods: {
+			getRightFun: function() {
+				let reqObj = {
+					model: 'frmPurQcYp',
+					usercode: uni.$userInfo.F_ID,
+					name: '价格'
+				}
+				let reqData = {
+					action: 'testRight',
+					params: JSON.stringify(reqObj)
+				}
+				console.log('发送指令：' + reqData.action + '传递参数：' + reqData.params)
+				cgzjApi(reqData)
+					.then(res => {
+						that.priceRight = res.data.right;
+					})
+			},
 			bindsDateChange: function(e) {
 				var that = this
 				let data = e.detail.value;

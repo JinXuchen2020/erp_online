@@ -23,12 +23,12 @@
 								<view>{{item.dyxs}}</view>
 							</view>
 							<view class="cardRow1" v-if="item.spec">
-								<view>工厂型号：</view>
-								<view>{{item.spec}}</view>
+								<view class='t'>工厂型号：</view>
+								<view class='v'>{{item.spec}}</view>
 							</view>
-							<view class="cardRow1" v-if="item.name">
-								<view>产品名称：</view>
-								<view>{{item.name}}</view>
+							<view class="cardRow1" v-if="item.itemname">
+								<view class='t'>产品名称：</view>
+								<view class='v'>{{item.itemname}}</view>
 							</view>
 							<view class="cardRow" v-if="item.color">
 								<view>产品颜色：</view>
@@ -59,8 +59,8 @@
 								<view><text class="redColor">{{item.dykh}}</text></view>
 							</view>
 							<view class="cardRow1" v-if="item.bz">
-								<view>备注：</view>
-								<view>{{item.bz}}</view>
+								<view class='t'>备注：</view>
+								<view class='v'>{{item.bz}}</view>
 							</view>
 							<view class="cardRow" v-if="item.flName">
 								<view>产品类别：</view>
@@ -71,7 +71,9 @@
 					</view>
 
 					<view class="rowBtn">
-						<u-button type="primary" :plain="true" class="cpBtn" size="mini" @click="selectItem(index)">选入产品
+						<u-button v-if="!selectedItems.some(c=>c.itemcode == item.itemcode)" type="primary" :plain="true" class="cpBtn" size="mini" @click="selectItem(index)">选择产品
+						</u-button>
+						<u-button v-else type="warning" :plain="true" class="cpBtn" size="mini" @click="selectItem(index)">取消选择
 						</u-button>
 						<view class="counttcss" v-if="item.cgsl">
 							检验数量：
@@ -80,9 +82,6 @@
 						<!-- <u-button type="error" :plain="true" class="cpBtn" size="mini" @click="delcountt(index)">
 							删除</u-button> -->
 					</view>
-					<!--搜索弹窗-->
-
-
 				</view>
 			</view>
 			<getMore :isMore="isMore" class="h200"></getMore>
@@ -106,17 +105,14 @@
 			</view>
 		</uni-popup>
 		<!--底部合计-->
-		<!-- <view class="submitView">
+		<view class="submitView">
 			<view class="cardTopName disFlexJ">
 				<view class="box">
-					合计数量：{{qty}}
+					选择产品数：{{selectedItems.length}}
 				</view>
-				<view class="box">
-					合计金额：{{total}}
-				</view>
-				<button type="primary" @click="sumbit">提交</button>
+				<button type="primary" class="cpBtn" @click="sumbit">提交</button>
 			</view>
-		</view> -->
+		</view>
 	</view>
 </template>
 
@@ -159,6 +155,7 @@ import guid from '../../uview-ui/libs/function/guid';
 				isSxJ: true,
 				dykh: '',
 				clientcode: '',
+				selectedItems: [],
 			}
 		},
 		onLoad(e) {
@@ -181,13 +178,9 @@ import guid from '../../uview-ui/libs/function/guid';
 		},
 		methods: {
 			sumbit() {
-				var selectlist = this.itemList
+				var selectlist = this.selectedItems
 
-
-				uni.$emit("itemBind", {
-					"itemList": selectlist,
-					"total": this.total
-				})
+				uni.$emit("itemBind", selectlist)
 				uni.navigateBack()
 			},
 			setsum() {
@@ -224,32 +217,41 @@ import guid from '../../uview-ui/libs/function/guid';
 			},
 			selectItem(index) {
 				console.log(index);
-				var item = {}
-				item.Aid = 0
-				item.itemcode = this.list[index].itemcode
-				item.itemname = this.list[index].itemname
-				item.spec = this.list[index].spec
-				item.color = this.list[index].color
-				item.unit = this.list[index].unit
-				item.countt = this.list[index].cgsl
-				item.count1 = this.list[index].kcsl
-				item.count2 = this.list[index].blsl
-				item.Remark = this.list[index].Remark
-				item.price = this.list[index].price
-				item.account = +this.list[index].cgsl * +this.list[index].price
-				item.bz = this.list[index].bz
-				item.url = this.list[index].url
-				item.dyxs = this.list[index].dyxs
-				item.xsddid = this.list[index].F_BillID
-				item.PO = this.list[index].PO
-				item.orderdate=this.list[index].enddate
-				item.xsid=this.list[index].Aid
-				item.wjsl=this.list[index].count2
-				item.cgsl=this.list[index].countt
-				item.f_guid = guid()
+				let itemCode = this.list[index].itemcode;
+				let selectedIndex = this.selectedItems.findIndex(c=>c.itemcode == itemCode);
+				if (selectedIndex < 0) {
+					var item = {}
+					item.Aid = 0
+					item.itemcode = this.list[index].itemcode
+					item.itemname = this.list[index].itemname
+					item.spec = this.list[index].spec
+					item.color = this.list[index].color
+					item.unit = this.list[index].unit
+					item.countt = this.list[index].cgsl
+					item.count1 = this.list[index].kcsl
+					item.count2 = this.list[index].blsl
+					item.Remark = this.list[index].Remark
+					item.price = this.list[index].price
+					item.account = +this.list[index].cgsl * +this.list[index].price
+					item.bz = this.list[index].bz
+					item.url = this.list[index].url
+					item.dyxs = this.list[index].dyxs
+					item.xsddid = this.list[index].F_BillID
+					item.PO = this.list[index].PO
+					item.orderdate=this.list[index].enddate
+					item.xsid=this.list[index].Aid
+					item.wjsl=this.list[index].count2
+					item.cgsl=this.list[index].countt
+					item.f_guid = guid()
+					
+					this.selectedItems.push(item);
+				}
+				else {
+					this.selectedItems.splice(selectedIndex, 1);
+				}
 				
-				uni.$emit("itemBind", item)
-				uni.navigateBack()
+				// uni.$emit("itemBind", item)
+				// uni.navigateBack()
 			},
 			// 搜索处理函数
 			inputcountFun: function() {
@@ -467,19 +469,29 @@ import guid from '../../uview-ui/libs/function/guid';
 
 	.cardRow1 {
 		display: flex;
-		align-items: center;
+		/* align-items: center; */
 		font-size: 16px;
 		margin-bottom: 8rpx;
+		flex-direction: row;
 	}
 
-	.cardRow1>view:first-child {
+	// .cardRow1>view:first-child {
+	// 	width: 176rpx;
+	// 	color: #ADADAD;
+	// }
+
+	// .cardRow1>view:last-child {
+	// 	color: #000000;
+	// 	width: 266rpx;
+	// }
+	.cardRow1 .t {
 		width: 176rpx;
 		color: #ADADAD;
 	}
-
-	.cardRow1>view:last-child {
+	
+	.cardRow1 .v {
 		color: #000000;
-		width: 266rpx;
+		width: calc(100% - 176rpx);
 	}
 
 	.leftImg {

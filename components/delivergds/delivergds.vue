@@ -55,7 +55,7 @@
 					<text class="colorGray">业务员：</text>
 					<text>{{item.satrap}}</text>
 				</view>
-				<view v-if="item.account">
+				<view v-if="item.account && priceRight">
 					<text class="colorGray">单据金额：</text>
 					<text>{{item.account}}</text>
 				</view>
@@ -67,7 +67,7 @@
 					<text class="colorGray">汇率：</text>
 					<text>{{item.hl}}</text>
 				</view>
-				<view v-if="item.rmb">
+				<view v-if="item.rmb && priceRight">
 					<text class="colorGray">折合人民币：</text>
 					<text>{{item.rmb}}</text>
 				</view>
@@ -107,25 +107,25 @@
 					<text class="colorGray">VAT%：</text>
 					<text>{{item.VAT}}</text>
 				</view>
-				<view v-if="item.jshj">
+				<view v-if="item.jshj && priceRight">
 					<text class="colorGray">价税合计：</text>
 					<text>{{item.jshj}}</text>
 				</view>
 
 			</view>
 			<view class="rowBtn">
-				<u-button v-if='(pagetype === "发货详情")&&(checkbill !== true)' type="primary" :plain="true" class="cpBtn"
+				<u-button v-if='(pagetype === "发货详情")&&(checkBill !== true)' type="primary" :plain="true" class="cpBtn"
 					size="mini" @click="testrightFun">选客户
 				</u-button>
-				<u-button v-if='(pagetype === "发货详情")&&(checkbill !== true)' type="primary" :plain="true" class="cpBtn"
+				<u-button v-if='(pagetype === "发货详情")&&(checkBill !== true)' type="primary" :plain="true" class="cpBtn"
 					size="mini" @click="selproductFun">选产品
 				</u-button>
-				<u-button v-if='(pagetype === "发货详情")&&(checkbill !== true)' type="primary" :plain="true" class="cpBtn"
+				<u-button v-if='(pagetype === "发货详情")&&(checkBill !== true)' type="primary" :plain="true" class="cpBtn"
 					size="mini" @click="saveorderFun">保存
 				</u-button>
 				<u-button type="warning" :plain="true" class="cpBtn" size="mini" @click="cpsxjFun(item, index)">
 					<!-- {{item.sh == true ? '反审' : '审核'}} -->
-					<view v-if="checkbill">
+					<view v-if="checkBill">
 						反审
 					</view>
 					<view v-else>
@@ -178,6 +178,10 @@
 			pagetype: {
 				type: String,
 				default: ''
+			},
+			priceRight:  {
+				type: Boolean,
+				default: false
 			},
 			searchLabel1: '',
 			searchLabel2: '',

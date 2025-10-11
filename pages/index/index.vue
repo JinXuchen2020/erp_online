@@ -40,9 +40,9 @@
 		<wwJianBaoBoard v-if="false" :startDateTime="startDateTime" :endDateTime="endDateTime"
 			:userInfo="userInfo" :depId="depId" :fuZeRenId="fuZeRenId"></wwJianBaoBoard>
 		<!--财务简报-->
-		<financeJianBaoBoard v-if="baoBiaoShow" :startDateTime="startDateTime" :endDateTime="endDateTime"
+		<!-- <financeJianBaoBoard v-if="baoBiaoShow" :startDateTime="startDateTime" :endDateTime="endDateTime"
 			:userInfo="userInfo" :depId="depId" :fuZeRenId="fuZeRenId"></financeJianBaoBoard>
-		
+		 -->
 		
 		<view class="textCenter">暂无更多~</view>
 		<view class="h200"></view>

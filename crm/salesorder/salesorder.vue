@@ -22,7 +22,7 @@
 			@refresherrefresh="onRefresh" @refresherrestore="onRestore">
 			<view v-if="list.length > 0">
 				<view v-for="(item, index) in list" :key="item.F_BillID" >
-					<salesorderCard :item="item" :index="index" :isSelect="isSelect"  :pagetype="'订单列表'" :isCheck="item.sh"  @cxGetDataFun="cxGetDataFun"></salesorderCard>
+					<salesorderCard :item="item" :index="index" :isSelect="isSelect"  :pagetype="'订单列表'" :isCheck="item.sh" :priceRight="priceRight" @cxGetDataFun="cxGetDataFun"></salesorderCard>
 				</view>
 				<getMore :isMore="isMore" nullMsg="已加载全部~"></getMore>
 				<view class="h200"></view>
@@ -32,7 +32,7 @@
 		<addBtn url="./salesorderDetail?index=-1"></addBtn>
 		
 		<!--底部合计-->
-		<view class="submitView">
+		<view class="submitView" v-if="priceRight">
 			<view class="cardTopName disFlexJ">
 				<text>合计：{{gs}}个单 ￥: {{djje}}元</text>
 			</view>
@@ -80,6 +80,7 @@
 				wsdd:false,
 				jrdf:false,
 				yqwf:false,
+				priceRight: false,
 			}
 		},
 		onLoad(e) {
@@ -115,6 +116,7 @@
 			})			
 			
 			that.cxGetDataFun();
+			that.getRightFun();
 			uni.$on('addSalesorderFun', that.addSalesorderFun)
 			uni.$on('deleteSalesorderFun', that.deleteSalesorderFun)
 			uni.$on('updateListByIndex', that.updateListByIndex)
@@ -132,7 +134,23 @@
 			uni.$off('cxGetDataFun', that.cxGetDataFun)
 			uni.$off('updateformFun1', that.updateformFun)
 		},
-		methods: {
+		methods: {			
+			getRightFun: function() {
+				let reqObj = {
+					model: 'frmSellOrder',
+					usercode: uni.$userInfo.F_ID,
+					name: '价格'
+				}
+				let reqData = {
+					action: 'testRight',
+					params: JSON.stringify(reqObj)
+				}
+				console.log('发送指令：' + reqData.action + '传递参数：' + reqData.params)
+				salesorderApi(reqData)
+					.then(res => {
+						that.priceRight = res.data.right;
+					})
+			},
 			updateformFun: function() {
 				var that=this;
 				 let hjje=0;

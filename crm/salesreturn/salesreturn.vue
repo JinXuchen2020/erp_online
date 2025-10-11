@@ -22,7 +22,7 @@
 			@refresherrefresh="onRefresh" @refresherrestore="onRestore">
 			<view v-if="list.length > 0">
 				<view v-for="(item, index) in list" :key="index" >
-					<salesreturnCard :item="item" :index="index" :isSelect="isSelect"  :pagetype="'退货列表'"  @cxGetDataFun="cxGetDataFun"></salesreturnCard>
+					<salesreturnCard :item="item" :index="index" :isSelect="isSelect"  :pagetype="'退货列表'" :priceRight="priceRight"  @cxGetDataFun="cxGetDataFun"></salesreturnCard>
 				</view>
 				<getMore :isMore="isMore" nullMsg="已加载全部~"></getMore>
 				<view class="h200"></view>
@@ -32,7 +32,7 @@
 		<addBtn url="./salesreturnDetail?index=-1"></addBtn>
 		
 		<!--底部合计-->
-		<view class="submitView">
+		<view class="submitView" v-if="priceRight">
 			<view class="cardTopName disFlexJ">
 				<text>合计：{{gs}}个单 ￥: {{djje}}元</text>
 			</view>
@@ -77,11 +77,11 @@
 				usercode: '',
 				gs:0,
 				djje:0,
+				priceRight: false,
 				
 			}
 		},
 		onShow() {
-			this.selectSalesreturnFun();
 		},
 		onLoad(e) {
 			that = this;						
@@ -105,6 +105,7 @@
 			})
 			
 			that.selectSalesreturnFun();
+			that.getRightFun();
 			uni.$on('addSalesreturnFun', that.addSalesreturnFun)
 			uni.$on('deleteSalesreturnFun', that.deleteSalesreturnFun)
 			uni.$on('updateListByIndex', that.updateListByIndex)
@@ -121,6 +122,22 @@
 			uni.$off('updateformFun1', that.updateformFun)
 		},
 		methods: {
+			getRightFun: function() {
+				let reqObj = {
+					model: 'frmSellTh',
+					usercode: uni.$userInfo.F_ID,
+					name: '价格'
+				}
+				let reqData = {
+					action: 'testRight',
+					params: JSON.stringify(reqObj)
+				}
+				console.log('发送指令：' + reqData.action + '传递参数：' + reqData.params)
+				salesreturnApi(reqData)
+					.then(res => {
+						that.priceRight = res.data.right;
+					})
+			},
 			updateformFun: function() {
 				var that=this;
 				 let hjje=0;

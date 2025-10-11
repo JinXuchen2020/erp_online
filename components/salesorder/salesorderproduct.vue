@@ -23,11 +23,11 @@
 									<view>订货数量：</view>
 									<view><text class="redColor">{{item.countt}}</text>{{item.unit}}</view>
 								</view>
-								<view class="cardRow" v-if="item.price">
+								<view class="cardRow" v-if="item.price && priceRight">
 									<view>销售单价：</view>
 									<view><text class="redColor">￥{{item.price}}</text>/{{item.unit}}</view>
 								</view>
-								<view class="cardRow" v-if="item.account">
+								<view class="cardRow" v-if="item.account && priceRight">
 									<view>总金额：</view>
 									<view><text class="redColor">￥{{item.account}}</text>元</view>
 								</view>
@@ -35,7 +35,7 @@
 									<view>汇率：</view>
 									<view><text class="redColor">{{item.hl}}</text></view>
 								</view>
-								<view class="cardRow" v-if="item.rmb">
+								<view class="cardRow" v-if="item.rmb && priceRight">
 									<view>折合人民币：</view>
 									<view><text class="redColor">{{item.rmb}}</text></view>
 								</view>
@@ -99,7 +99,10 @@
 			searchLabel2: '',
 			searchPh1:'',
 			searchPh2:'',
-			
+			priceRight : {
+				type: Boolean,
+				default: false
+			}			
 		},
 		data() {
 			return {

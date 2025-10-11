@@ -76,7 +76,7 @@
 							{
 								name: '样品销售',
 								img: siteURL+"/crm/retail.png",
-								url: '../../crm/spotsales/spotsales',
+								url: '../../crm/ypxs/ypxs',
 								menu_id: 'frmSellOrderYp'
 							},
 							{
@@ -175,7 +175,7 @@
 								name: '库存查看',
 								img: siteURL+"/crm/warehouse.png",
 								url: '../../crm/merchandise/merchandise',
-								menu_id: 'warehouse'
+								menu_id: 'frmKcckList'
 							},
 						]
 					},
@@ -268,8 +268,8 @@
 								menu_id: 'frmStockPayList'
 							},
 							{ name: '费用支付', img: siteURL+"/crm/Journal.png", url: '../../crm/fybx/fybx', menu_id: 'frmSellBx' },
-							{ name: '应收款账簿', img: siteURL+"/crm/receivables.png", url: '../../crm/receivables/receivables', menu_id: 'receivables' },
-							{ name: '应付款账簿', img: siteURL+"/crm/payable.png", url: '../../crm/payable/payable', menu_id: 'payable' },
+							{ name: '应收款账簿', img: siteURL+"/crm/receivables.png", url: '../../crm/receivables/receivables', menu_id: 'frmAcceptAccount' },
+							{ name: '应付款账簿', img: siteURL+"/crm/payable.png", url: '../../crm/payable/payable', menu_id: 'frmPayAccount' },
 						]
 					},
 					{

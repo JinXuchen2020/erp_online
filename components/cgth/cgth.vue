@@ -43,7 +43,7 @@
 					<text class="colorGray">客户PO：</text>
 					<text>{{item.PO}}</text>
 				</view>
-				<view v-if="item.account">
+				<view v-if="item.account && priceRight">
 					<text class="colorGray">单据金额：</text>
 					<text>{{item.account}}</text>
 				</view>
@@ -55,7 +55,7 @@
 					<text class="colorGray">结算汇率：</text>
 					<text>{{item.hl}}</text>
 				</view>
-				<view v-if="item.rmb">
+				<view v-if="item.rmb && priceRight">
 					<text class="colorGray">折合人民币：</text>
 					<text>{{item.rmb}}</text>
 				</view>
@@ -123,6 +123,10 @@
 			pagetype: {
 				type: String,
 				default: ''
+			},
+			priceRight:  {
+				type: Boolean,
+				default: false
 			},
 			searchLabel1: '',
 			searchLabel2: '',

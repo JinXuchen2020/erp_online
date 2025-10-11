@@ -26,7 +26,7 @@
 					</view>
 					<view class="table-row">
 						<view class="table-cell table-header">产品型号</view>
-						<view class="table-cell">{{cpdetail.spec}}</view>
+						<view class="table-cell">{{cpdetail.itemcode}}</view>
 					</view>
 					<view class="table-row">
 						<view class="table-cell table-header">订单数量</view>

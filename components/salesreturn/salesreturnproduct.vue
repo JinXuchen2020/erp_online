@@ -15,11 +15,11 @@
 									<view>订货数量：</view>
 									<view><text class="redColor">{{item.countt}}</text>{{item.unit}}</view>
 								</view>
-								<view class="cardRow">
+								<view class="cardRow" v-if="priceRight">
 									<view>产品售价：</view>
 									<view><text class="redColor">￥{{item.price}}</text>/{{item.unit}}</view>
 								</view>
-								<view class="cardRow">
+								<view class="cardRow" v-if="priceRight">
 									<view>产品金额：</view>
 									<view><text class="redColor">￥{{item.account}}</text>元</view>
 								</view>
@@ -70,6 +70,10 @@
 			index: {
 				type: Number,
 				default: 0
+			},
+			priceRight:  {
+				type: Boolean,
+				default: false
 			},
 			searchLabel1: '',
 			searchLabel2: '',

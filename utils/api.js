@@ -204,6 +204,26 @@ function salesorderApi(data) {
 					})
 	})
 }
+// 样品销售Api
+function ypxsApi(data) {
+	return new Promise( (resolve, reject) => {		
+		console.log('api获得发送指令')
+		console.log(data)
+		uni.request({
+						url:siteURL+"/ypxsApi.aspx?",
+						method:"POST",
+						header:{
+							'content-type':'application/x-www-form-urlencoded'
+						},
+						
+						data:data,
+						success(res) {
+							console.log(res);
+							successFun(res, resolve);
+						}
+					})
+	})
+}
 // 现货销售Api
 function xhxsApi(data) {
 	return new Promise( (resolve, reject) => {		
@@ -944,6 +964,7 @@ module.exports = {
 	PIApi,
 	xhxsApi,
 	salesorderApi,	
+	ypxsApi,
 	delivergdsApi,
 	salesreturnApi,
 	spotsalesApi,

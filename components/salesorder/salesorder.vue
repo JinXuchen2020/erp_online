@@ -23,7 +23,7 @@
 					<text class="colorGray">交货日期：</text>
 					<text>{{enddate}}</text>
 				</view>
-				<view v-if="item.address">
+				<!-- <view v-if="item.address">
 					<text class="colorGray">客户地址：</text>
 					<text>{{item.address}}</text>
 				</view>
@@ -38,8 +38,8 @@
 				<view v-if="item.contactman">
 					<text class="colorGray">联系人：</text>
 					<text>{{item.contactman}}</text>
-				</view>
-				<view v-if="item.city">
+				</view> -->
+				<!-- <view v-if="item.city">
 					<text class="colorGray">出口国家：</text>
 					<text>{{item.city}}</text>
 				</view>
@@ -50,12 +50,12 @@
 				<view v-if="item.fkfs">
 					<text class="colorGray">付款方式：</text>
 					<text>{{item.fkfs}}</text>
-				</view>
+				</view> -->
 				<view v-if="item.satrap">
 					<text class="colorGray">业务员：</text>
 					<text>{{item.satrap}}</text>
 				</view>
-				<view v-if="item.account">
+				<view v-if="item.account && priceRight">
 					<text class="colorGray">单据金额：</text>
 					<text>{{item.account}}</text>
 				</view>
@@ -67,11 +67,15 @@
 					<text class="colorGray">汇率：</text>
 					<text>{{item.hl}}</text>
 				</view>
-				<view v-if="item.rmb">
+				<view v-if="item.rmb && priceRight">
 					<text class="colorGray">折合人民币：</text>
 					<text>{{item.rmb}}</text>
 				</view>
-				<view v-if="item.postcode">
+				<view v-if="item.jshj && priceRight">
+					<text class="colorGray">价税合计：</text>
+					<text>{{item.jshj}}</text>
+				</view>
+				<!-- <view v-if="item.postcode">
 					<text class="colorGray">运输方式：</text>
 					<text>{{item.postcode}}</text>
 				</view>
@@ -82,7 +86,7 @@
 				<view v-if="item.packing">
 					<text class="colorGray">包装唛头：</text>
 					<text>{{item.packing}}</text>
-				</view>
+				</view> -->
 				<view v-if="item.bz">
 					<text class="colorGray">其他说明：</text>
 					<text>{{item.bz}}</text>
@@ -107,10 +111,7 @@
 					<text class="colorGray">VAT%：</text>
 					<text>{{item.VAT}}</text>
 				</view>
-                <view v-if="item.jshj">
-					<text class="colorGray">价税合计：</text>
-					<text>{{item.jshj}}</text>
-				</view>
+                
 			</view>
 			<view class="rowBtn">
 				<u-button v-if='(pagetype === "订单详情")&&(isCheck !== true)' type="primary" :plain="true" class="cpBtn"
@@ -172,7 +173,11 @@
 			pagetype: {
 				type: String,
 				default: ''
-			},
+			},			
+			priceRight:  {
+				type: Boolean,
+				default: false
+			},	
 			searchLabel1: '',
 			searchLabel2: '',
 			searchPh1: '',
@@ -201,8 +206,7 @@
 				uncheckBill: false,
 				printer: '',
 				isCheck:this.item.sh,
-				rmb: this.item.rmb
-				
+				rmb: this.item.rmb,		
 				
 			}
 		},

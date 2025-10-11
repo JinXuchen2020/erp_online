@@ -1,6 +1,6 @@
 <template>
 	<view class="boxContent">
-		<view class="title">财务简报</view>
+		<view class="title">验货简报</view>
 		<view v-if="!isLoading" class="xskhtj">
 			<view v-for="(item, index) in salesJbList" :key="index" class="xskhCard">
 				<text>{{item.value}}</text>

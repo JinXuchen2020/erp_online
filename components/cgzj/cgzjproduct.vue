@@ -90,6 +90,10 @@
 				type: Object,
 				default: () => {}
 			},
+			priceRight:  {
+				type: Boolean,
+				default: false
+			},
 			index: {
 				type: Number,
 				default: 0
@@ -123,7 +127,10 @@
 				})
 			},
 			handleInputCount() {
-				this.$emit("handleInputCount", this.item);
+				this.$emit("handleInputCount", {
+					item: this.item,
+					index: this.index
+				});
 			},
 			previewYhReportFun: function() {
 				that = this

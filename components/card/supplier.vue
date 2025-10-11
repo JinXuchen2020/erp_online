@@ -33,15 +33,15 @@
 					<text class="colorGray">联系电话：</text>
 					<text>{{item.tel}}</text>
 				</view>
-				<view v-if="item.follow">
+				<!-- <view v-if="item.follow">
 					<text class="colorGray">录入人员：</text>
 					<text>{{item.follow}}</text>
 				</view>
 				<view v-if="item.product">
 					<text class="colorGray">主要产品：</text>
 					<text>{{item.product}}</text>
-				</view>
-				<view v-if="item.bz">
+				</view> -->
+				<!-- <view v-if="item.bz">
 					<text class="colorGray">备注：</text>
 					<text>{{item.bz}}</text>
 				</view>
@@ -60,7 +60,7 @@
 				<view v-if="item.yhzh1">
 					<text class="colorGray">银行账号二：</text>
 					<text>{{item.yhzh1}}</text>
-				</view>
+				</view> -->
 				<view v-if="item.F_Kind">
 					<text class="colorGray">供方类型：</text>
 					<text>{{item.F_Kind}}</text>

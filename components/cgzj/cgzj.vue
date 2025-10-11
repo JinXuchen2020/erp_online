@@ -75,7 +75,7 @@
 					size="mini" @click="selproductFun">{{item.F_BillID ? '添加产品' : '选产品'}}
 				</u-button>
 				<u-button v-if='(pagetype === "订单详情")&&(isCheck !== true)' type="primary" :plain="true" class="cpBtn"
-					size="mini" @click="saveorderFun">{{item.F_BillID ? '保存编辑' : '保存'}}
+					size="mini" @click="saveShow = true">{{item.F_BillID ? '保存编辑' : '保存'}}
 				</u-button>
 				<u-button v-if='(pagetype !== "订单详情")' :disabled='isCheck === true' type="primary" class="cpBtn" size="mini" @click="gotoDetailFun">
 					{{'报告详情'}}
@@ -93,6 +93,26 @@
 				</u-button>
 			</view>	
 		</view>
+		<!--输入数量弹窗-->
+		<u-popup v-model="checkShow" mode="center" width="666rpx" border-radius="14" :closeable="false">
+			<view class="searchBox">
+				<u-field v-model="shbz" :label="'审核批注'" type="textarea" placeholder="请输入审核批注" clear-size="40"></u-field>
+				<view class="searchBtnRow">
+					<u-button type="warning" class="searchBtn" :ripple="true" ripple-bg-color="#909399" :plain="true" size="medium" @click="checkShow = false">取消</u-button>
+					<u-button type="primary" class="searchBtn" :ripple="true" ripple-bg-color="#909399" :plain="true" size="medium" @click="checkCgzjFn">确认</u-button>
+				</view>
+			</view>
+		</u-popup>
+		<!--输入数量弹窗-->
+		<u-popup v-model="saveShow" mode="center" width="666rpx" border-radius="14" :closeable="false">
+			<view class="searchBox">
+				<u-field v-model="bz" :label="'检验批注'" type="textarea" placeholder="请输入检验批注" clear-size="40"></u-field>
+				<view class="searchBtnRow">
+					<u-button type="warning" class="searchBtn" :ripple="true" ripple-bg-color="#909399" :plain="true" size="medium" @click="saveShow = false">取消</u-button>
+					<u-button type="primary" class="searchBtn" :ripple="true" ripple-bg-color="#909399" :plain="true" size="medium" @click="saveorderFun">确认</u-button>
+				</view>
+			</view>
+		</u-popup>
 	</view>
 </template>
 
@@ -128,6 +148,10 @@
 				type: Number,
 				default: 0
 			},
+			priceRight:  {
+				type: Boolean,
+				default: false
+			},
 			pagetype: {
 				type: String,
 				default: ''
@@ -135,7 +159,8 @@
 			searchLabel1: '',
 			searchLabel2: '',
 			searchPh1: '',
-			searchPh2: '',	
+			searchPh2: '',
+			
 
 		},
 		data() {
@@ -163,6 +188,11 @@
 				printer: '',
 				isCheck:this.item.sh,
 				rmb: this.item.rmb,
+				shbz:'',
+				bz:'',
+				checkShow: false,
+				saveShow:false,
+				
 			}
 		},
 		watch:{
@@ -320,7 +350,9 @@
 			},
 			// 保存订单函数
 			saveorderFun: function(e) {
+				this.item.bz=this.bz;
 				this.$emit('saveorderFun', true);
+				
 			},
 			gotoDetailFun: function() {
 				if (this.isSelect) {
@@ -454,53 +486,13 @@
 										content: '审核后将不能再进行编辑修改！',
 										success(rrr) {
 											if (rrr.confirm) {
-												//审核单据
-												uni.showLoading({
-													title: str,
-													mask: true,
-													duration: 2000
-												})
-												let reqObj = {
-													F_BillID: item.F_BillID,
-												
-													isSxJ: item.sh
-												
-												}
-												let reqData = {
-													action: 'checkCgzjById',
-													params: JSON.stringify(reqObj)
-												}
-												console.log('发送指令：' + reqData.action + '传递参数：' + reqData.params)
-												cgzjApi(reqData)
-													.then(res => {
-														let showTitle = res.data.tag
-														that.item.sh = res.data.bResult
-														that.isCheck=res.data.bResult
-														console.log('单据审核开始触发','index:'+this.index)
-														console.log('单据审核开始触发',res.data.rows[0])
-														console.log('isCheck',res.data.bResult)
-														uni.$emit('updateListCheckByIndex', {
-															index: this.index,
-															obj: res.data.rows[0]
-														})
-														uni.$emit('refreshCgzjFun', {
-															index: this.index,
-															obj: res.data.rows[0]
-															})
-														uni.showToast({
-															title: showTitle,
-															icon: 'none',
-															duration: 2000
-														})
-														//that.list.splice(index, 1);
-													})
-												//审核单据完成
+												that.checkShow = true;									
 											}
 										}
 									})	
 								}
 								else {
-									//审核单据
+									//反审单据
 									uni.showLoading({
 										title: str,
 										mask: true,
@@ -509,8 +501,9 @@
 									let reqObj = {
 										F_BillID: item.F_BillID,
 									
-										isSxJ: item.sh
-									
+										isSxJ: item.sh,
+										shbz: "",
+										usercode: uni.$userInfo.F_Name
 									}
 									let reqData = {
 										action: 'checkCgzjById',
@@ -549,6 +542,54 @@
 					})
 				//测试权限完成
 
+			},
+			checkCgzjFn() {
+				//审核单据
+				uni.showLoading({
+					title: '审核中...',
+					mask: true,
+					duration: 2000
+				})
+				let reqObj = {
+					F_BillID: that.item.F_BillID,
+				
+					isSxJ: that.item.sh,
+					shbz: that.shbz,
+					usercode: uni.$userInfo.F_Name
+				
+				}
+				let reqData = {
+					action: 'checkCgzjById',
+					params: JSON.stringify(reqObj)
+				}
+				console.log('发送指令：' + reqData.action + '传递参数：' + reqData.params)
+				cgzjApi(reqData)
+					.then(res => {
+						let showTitle = res.data.tag
+						that.item.sh = res.data.bResult
+						that.isCheck=res.data.bResult
+						console.log('单据审核开始触发','index:'+this.index)
+						console.log('单据审核开始触发',res.data.rows[0])
+						console.log('isCheck',res.data.bResult)
+						that.checkShow = false;
+						that.shbz = '';
+						uni.$emit('cxGetDataFun');
+						// uni.$emit('updateListCheckByIndex', {
+						// 	index: this.index,
+						// 	obj: res.data.rows[0]
+						// })
+						// uni.$emit('refreshCgzjFun', {
+						// 	index: this.index,
+						// 	obj: res.data.rows[0]
+						// 	})
+						uni.showToast({
+							title: showTitle,
+							icon: 'none',
+							duration: 2000
+						})
+						//that.list.splice(index, 1);
+					})
+				//审核单据完成
 			},
 			// 打印审核
 			printform: function(item, index) {
@@ -656,9 +697,7 @@
 													icon: 'none',
 													duration: 1000
 												})
-												uni.$emit('deleteCgzjFun', {
-													index,
-												})
+												uni.$emit('cxGetDataFun');
 
 												if (that.pagetype == "订单详情") {
 													setTimeout(() => {

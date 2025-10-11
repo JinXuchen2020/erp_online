@@ -24,7 +24,7 @@
 					<text class="colorGray">付款方式：</text>
 					<text>{{item.fkfs}}</text>
 				</view>
-				<view v-if="item.account">
+				<view v-if="item.account && priceRight">
 					<text class="colorGray">单据金额：</text>
 					<text>{{item.account}}</text>
 				</view>
@@ -138,6 +138,10 @@
 			djje: {
 				type: Number,
 				default: 0
+			},
+			priceRight:  {
+				type: Boolean,
+				default: false
 			},
 			pagetype: {
 				type: String,
