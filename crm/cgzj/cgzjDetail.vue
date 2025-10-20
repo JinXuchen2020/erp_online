@@ -125,6 +125,17 @@
 			</view>
 		</u-popup>
 		
+		<!--输入数量弹窗-->
+		<u-popup v-model="checkShow" mode="center" :z-index='1000' width="666rpx" border-radius="14" :closeable="false">
+			<view class="searchBox">
+				<u-field v-model="shbz" :label="'审核批注'" type="textarea" placeholder="请输入审核批注" clear-size="40"></u-field>
+				<view class="searchBtnRow">
+					<u-button type="warning" class="searchBtn" :ripple="true" ripple-bg-color="#909399" :plain="true" size="medium" @click="checkShow = false">取消</u-button>
+					<u-button type="primary" class="searchBtn" :ripple="true" ripple-bg-color="#909399" :plain="true" size="medium" @click="checkCgzjFn">确认</u-button>
+				</view>
+			</view>
+		</u-popup>
+		
 	</view>
 </template>
 
@@ -191,6 +202,8 @@
 				inputCountShow: false,
 				currentProduct: {},
 				priceRight: false,
+				shbz:'',
+				checkShow: false,
 				
 			}
 		},
@@ -208,8 +221,8 @@
 					F_BillID: '',
 					clientcode: '',
 					clientname: '',
-					actdate: dArr[0],
-					enddate: dArr[0],
+					actdate: new Date(),
+					enddate: new Date(),
 					fkfs: '',
 					postcode: '',
 					account: 0,
@@ -256,6 +269,7 @@
 			uni.$on('updateYhResult', that.updateYhResult)
 			
 			uni.$on("previewPrintfile", this.previewPrintfile)
+			uni.$on('showCheckPopup', that.showCheckPopup)
 			
 			
 			that.getCgzjdetailFun();
@@ -281,11 +295,9 @@
 			uni.$off("itemBind", that.itemBind)
 			uni.$off('refreshCgzjFun', that.refreshCgzjFun)
 			uni.$off('updateYhResult', that.updateYhResult)
+			uni.$off('showCheckPopup', that.showCheckPopup)
 			if (e.from == 'backbutton' && this.cardIndex != -1) {
-				uni.$emit('updateListByIndex', {
-					index: this.cardIndex,
-					obj: this.khInfo
-				})
+				uni.$emit('cxGetDataFun')
 			}
 		},
 		onShow() {
@@ -293,6 +305,67 @@
 
 		},
 		methods: {
+			showCheckPopup(item) {
+				that.checkShow = true;
+			},
+			checkCgzjFn() {
+				uni.showModal({
+					title: '提示',
+					content: '审核后将不能再进行编辑修改！',
+					success(rrr) {
+						if (rrr.confirm) {							
+							that.checkShow = false;
+							//审核单据
+							uni.showLoading({
+								title: '审核中...',
+								mask: true,
+								duration: 2000
+							})
+							let reqObj = {
+								F_BillID: that.khInfo.F_BillID,
+							
+								isSxJ: that.khInfo.sh,
+								shbz: that.shbz,
+								usercode: uni.$userInfo.F_Name
+							
+							}
+							let reqData = {
+								action: 'checkCgzjById',
+								params: JSON.stringify(reqObj)
+							}
+							
+							let oldItem = JSON.parse(JSON.stringify(that.khInfo));
+							console.log('发送指令：' + reqData.action + '传递参数：' + reqData.params)
+							cgzjApi(reqData)
+								.then(res => {
+									let showTitle = res.data.tag
+									oldItem.sh = res.data.bResult
+									that.khInfo = oldItem
+									uni.$cgzjInfo = that.khInfo;
+									console.log('单据审核开始触发','index:'+this.index)
+									console.log('单据审核开始触发',res.data.rows[0])
+									console.log('isCheck',res.data.bResult)
+									that.shbz = '';
+									// uni.$emit('updateListCheckByIndex', {
+									// 	index: this.index,
+									// 	obj: res.data.rows[0]
+									// })
+									// uni.$emit('refreshCgzjFun', {
+									// 	index: this.index,
+									// 	obj: res.data.rows[0]
+									// 	})
+									uni.showToast({
+										title: showTitle,
+										icon: 'none',
+										duration: 2000
+									})
+									//that.list.splice(index, 1);
+								})									
+						}
+					}
+				})				
+				//审核单据完成
+			},
 			getRightFun: function() {
 				let reqObj = {
 					model: 'frmPurQc',
@@ -911,8 +984,6 @@
 									content: '你没有修改单据权限',
 									showCancel: false
 								})
-								
-			
 							}
 						}
 						

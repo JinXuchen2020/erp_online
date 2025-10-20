@@ -30,6 +30,16 @@
 			
 		</scroll-view>
 		<addBtn url="./cgzjDetail?index=-1"></addBtn>
+		<!--输入数量弹窗-->
+		<u-popup v-model="checkShow" mode="center" :z-index='1000' width="666rpx" border-radius="14" :closeable="false">
+			<view class="searchBox">
+				<u-field v-model="shbz" :label="'审核批注'" type="textarea" placeholder="请输入审核批注" clear-size="40"></u-field>
+				<view class="searchBtnRow">
+					<u-button type="warning" class="searchBtn" :ripple="true" ripple-bg-color="#909399" :plain="true" size="medium" @click="checkShow = false">取消</u-button>
+					<u-button type="primary" class="searchBtn" :ripple="true" ripple-bg-color="#909399" :plain="true" size="medium" @click="checkCgzjFn">确认</u-button>
+				</view>
+			</view>
+		</u-popup>
 		
 		<!--底部合计-->
 		<!-- <view class="submitView">
@@ -80,7 +90,10 @@
 				wsdd:false,
 				jrdf:false,
 				yqwf:false,
-				priceRight: false,
+				priceRight: false,				
+				shbz:'',
+				checkShow: false,
+				selectItem: {}
 			}
 		},
 		onLoad(e) {
@@ -113,10 +126,8 @@
 				success(res) {
 					that.scrollHeight = res.windowHeight - 40 + 'px';
 				}
-			})			
+			})
 			
-			that.cxGetDataFun();
-			that.getRightFun();
 			uni.$off();
 			uni.$on('addCgzjFun', that.addCgzjFun)
 			uni.$on('deleteCgzjFun', that.deleteCgzjFun)
@@ -125,6 +136,13 @@
 			uni.$on('addItemInListFun', that.cxGetDataFun)
 			uni.$on('cxGetDataFun', that.cxGetDataFun)
 			uni.$on('updateformFun1', that.updateformFun)
+			uni.$on('showCheckPopup', that.showCheckPopup)
+		},
+		onShow() {
+			that.cxGetDataFun();
+			that.getRightFun();
+			uni.$off('showCheckPopup', that.showCheckPopup)
+			uni.$on('showCheckPopup', that.showCheckPopup)
 		},
 		onBackPress() {
 			uni.$off('addCgzjFun', that.addCgzjFun)
@@ -134,8 +152,69 @@
 			uni.$off('addItemInListFun', that.cxGetDataFun)
 			uni.$off('cxGetDataFun', that.cxGetDataFun)
 			uni.$off('updateformFun1', that.updateformFun)
+			uni.$off('showCheckPopup', that.showCheckPopup)
 		},
 		methods: {
+			showCheckPopup(item) {
+				that.selectItem = item;
+				that.checkShow = true;
+			},
+			checkCgzjFn() {
+				uni.showModal({
+					title: '提示',
+					content: '审核后将不能再进行编辑修改！',
+					success(rrr) {
+						if (rrr.confirm) {							
+							that.checkShow = false;
+							//审核单据
+							uni.showLoading({
+								title: '审核中...',
+								mask: true,
+								duration: 2000
+							})
+							let reqObj = {
+								F_BillID: that.selectItem.F_BillID,
+							
+								isSxJ: that.selectItem.sh,
+								shbz: that.shbz,
+								usercode: uni.$userInfo.F_Name
+							
+							}
+							let reqData = {
+								action: 'checkCgzjById',
+								params: JSON.stringify(reqObj)
+							}
+							console.log('发送指令：' + reqData.action + '传递参数：' + reqData.params)
+							cgzjApi(reqData)
+								.then(res => {
+									let showTitle = res.data.tag
+									that.selectItem.sh = res.data.bResult
+									console.log('单据审核开始触发','index:'+this.index)
+									console.log('单据审核开始触发',res.data.rows[0])
+									console.log('isCheck',res.data.bResult)
+									that.shbz = '';
+									// uni.$emit('updateListCheckByIndex', {
+									// 	index: this.index,
+									// 	obj: res.data.rows[0]
+									// })
+									// uni.$emit('refreshCgzjFun', {
+									// 	index: this.index,
+									// 	obj: res.data.rows[0]
+									// 	})
+									uni.showToast({
+										title: showTitle,
+										icon: 'none',
+										duration: 2000
+									})
+									
+									that.cxGetDataFun();
+									//that.list.splice(index, 1);
+								})									
+						}
+					}
+				})				
+				//审核单据完成
+			},
 			getRightFun: function() {
 				let reqObj = {
 					model: 'frmPurQc',
@@ -402,5 +481,30 @@
 	.dateText {
 		font-weight: bold;
 		padding-left: 10rpx;
+	}
+	
+	.searchBox {
+		padding: 16rpx 26rpx;
+	}
+	
+	.searchTitle {
+		width: 100%;
+		border-bottom: 1rpx solid #DDDDDD;
+		font-size: 16px;
+		font-weight: bold;
+		text-align: center;
+		padding-bottom: 16rpx;
+	}
+	
+	.searchBtnRow {
+		margin: 26rpx 0 16rpx 0;
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+	}
+	
+	.searchBtn {
+		width: 200rpx;
+		height: 66rpx;
 	}
 </style>

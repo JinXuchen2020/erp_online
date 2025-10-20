@@ -3,7 +3,7 @@
 		<searchView placeholderStr="请输入查询条件" @searchViewClickFun="searchEventsFun($event)"></searchView>
 		<dataNull v-if="list.length == 0" src="/static/img/chahua/dataNullXz.png" title="暂无相关产品" title1="请添加或者更换查询条件">
 		</dataNull>
-		<scroll-view v-else scroll-y="true" :style="{height: scrollHeight}" @scrolltolower="getChanPinFun"
+		<scroll-view v-else scroll-y="true" class="scroll-view" @scrolltolower="getChanPinFun"
 			refresher-enabled :refresher-threshold="200" :refresher-triggered="triggered" refresher-background="gray"
 			@refresherrefresh="onRefresh" @refresherrestore="onRestore">
 			<view v-for="(item, index) in list" :key="index"> <!-- @click="cardClick(item)"> -->
@@ -162,7 +162,7 @@ import guid from '../../uview-ui/libs/function/guid';
 			that = this;
 			uni.getSystemInfo({
 				success(res) {
-					that.scrollHeight = res.windowHeight - 40 + 'px';
+					that.scrollHeight = res.windowHeight - 50 + 'px';
 				}
 			})
 			that.itemList = uni.getStorageSync("itemList")
@@ -399,6 +399,8 @@ import guid from '../../uview-ui/libs/function/guid';
 <style lang="scss" scoped>
 	page {
 		background-color: #F8F8F8;
+		overflow: hidden;
+		height: 100vh;
 	}
 
 	.rowBtn {
@@ -557,5 +559,9 @@ import guid from '../../uview-ui/libs/function/guid';
 	.searchBtn {
 		width: 200rpx;
 		height: 66rpx;
+	}
+	
+	.scroll-view {
+		height: calc(100vh - 170rpx);
 	}
 </style>

@@ -668,51 +668,80 @@
 				})
 			},
 			wxRemoveFun: function(e) {
-				that.wxlist[e].delete = true;
-				let arr = that.wxlist[e];
-				that.deleteFun(arr)
+				if(that.wxlist[e].id) {					
+					that.wxlist[e].delete = true;
+					let arr = that.wxlist[e];
+					that.deleteFun(arr)
+				}
+				else {
+					that.wxlist.splice(e, 1);
+				}
 				that.isUpdating = true;
 			},
 			fjRemoveFun: function(e) {
-				that.fjlist[e].delete = true;
-				let arr = that.fjlist[e];
-				// let arr = that.fjlist.splice(e, 1);
-				that.deleteFun(arr)
+				if(that.fjlist[e].id) {
+					that.fjlist[e].delete = true;
+					let arr = that.fjlist[e];
+					that.deleteFun(arr)
+				}
+				else {
+					that.fjlist.splice(e, 1);
+				}
 				that.isUpdating = true;
 			},
 			ztRemoveFun: function(e) {
-				that.ztlist[e].delete = true;
-				let arr = that.ztlist[e];
-				// let arr = that.ztlist.splice(e, 1);
-				that.deleteFun(arr)
+				if(that.ztlist[e].id) {
+					that.ztlist[e].delete = true;
+					let arr = that.ztlist[e];
+					that.deleteFun(arr)
+				}
+				else {
+					that.ztlist.splice(e, 1);
+				}
 				that.isUpdating = true;
 			},
 			gnRemoveFun: function(e) {
-				that.gnlist[e].delete = true;
-				let arr = that.gnlist[e];
-				// let arr = that.gnlist.splice(e, 1);
-				that.deleteFun(arr)
+				if(that.gnlist[e].id) {
+					that.gnlist[e].delete = true;
+					let arr = that.gnlist[e];
+					that.deleteFun(arr)
+				}
+				else {
+					that.gnlist.splice(e, 1);
+				}
 				that.isUpdating = true;
 			},
 			xjRemoveFun: function(e) {
-				that.xjlist[e].delete = true;
-				let arr = that.xjlist[e];
-				// let arr = that.xjlist.splice(e, 1);
-				that.deleteFun(arr)
+				if(that.xjlist[e].id) {
+					that.xjlist[e].delete = true;
+					let arr = that.xjlist[e];
+					that.deleteFun(arr)
+				}
+				else {
+					that.xjlist.splice(e, 1);
+				}
 				that.isUpdating = true;
 			},
 			dqRemoveFun: function(e) {
-				that.dqlist[e].delete = true;
-				let arr = that.dqlist[e];
-				// let arr = that.dqlist.splice(e, 1);
-				that.deleteFun(arr)
+				if(that.dqlist[e].id) {
+					that.dqlist[e].delete = true;
+					let arr = that.dqlist[e];
+					that.deleteFun(arr)
+				}
+				else {
+					that.dqlist.splice(e, 1);
+				}
 				that.isUpdating = true;
 			},
 			bqRemoveFun: function(e) {
-				that.bqlist[e].delete = true;
-				let arr = that.bqlist[e];
-				// let arr = that.bqlist.splice(e, 1);
-				that.deleteFun(arr)
+				if(that.bqlist[e].id) {
+					that.bqlist[e].delete = true;
+					let arr = that.bqlist[e];
+					that.deleteFun(arr)
+				}
+				else {
+					that.bqlist.splice(e, 1);
+				}
 				that.isUpdating = true;
 			},
 			// 删除文件云函数
